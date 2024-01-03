@@ -18,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <div className='bg-zinc-400 overflow-auto h-[calc(100vh-80px)]'>
+        <div className='select-none'>
+          <Header />
+        </div>
+        <div className='bg-zinc-400 overflow-auto h-[calc(100vh-80px)] select-none'>
           {children}
         </div>
       </body>
