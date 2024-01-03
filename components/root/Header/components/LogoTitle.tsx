@@ -10,7 +10,7 @@ const LogoTitle = (props: Props) => {
                 <Image src={"/Header/Logo/siteLogo.png"} alt='website-logo' width={80} height={80} draggable={false} className='pointer-events-none' />
             </div>
             <div className='p-2 w-fit'>
-                <div className='font-semibold text-2xl text-site-mainText'>
+                <div className='font-semibold text-2xl text-site-mainText group-hover:tracking-wide duration-1000 transition-all'>
                     Optico
                 </div>
                 <div className='text-sm w-[60%] scale-90 -ml-1 -my-1 group-hover:tracking-tight transition-all duration-1000'>
