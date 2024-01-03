@@ -1,7 +1,6 @@
-import Image from 'next/image'
 import React from 'react'
 import LogoTitle from './components/LogoTitle'
-import MainMenu from './components/MainMenu'
+import ProfileMenu from './components/ProfileMenu'
 
 type Props = {}
 
@@ -13,7 +12,7 @@ const Header = (props: Props) => {
                     <LogoTitle />
                 </div>
                 <div className='select-none'>
-                    <MainMenu/>
+                    <ProfileMenu/>
                 </div>
             </div>
         </div>

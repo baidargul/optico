@@ -12,7 +12,7 @@ import Image from 'next/image'
 
 type Props = {}
 
-const MainMenu = (props: Props) => {
+const ProfileMenu = (props: Props) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className='text-site-mainText transition-all duration-500 focus:outline-none focus:bg-site-mainText/20 rounded p-1'>
@@ -40,4 +40,4 @@ const MainMenu = (props: Props) => {
     )
 }
 
-export default MainMenu
+export default ProfileMenu
