@@ -29,7 +29,7 @@ const MainMenu = (props: Props) => {
                 </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent collisionPadding={20}>
-                <DropdownMenuLabel className='select-none text-site-mainText text-sm'>Super Admin</DropdownMenuLabel>
+                <DropdownMenuLabel className='select-none text-site-mainText text-xs text-center font-sans'>SUPER ADMIN</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
