@@ -21,7 +21,7 @@ export default function RootLayout({
         <div className='select-none'>
           <Header />
         </div>
-        <div className='bg-zinc-400 overflow-auto h-[calc(100vh-80px)] select-none'>
+        <div className='bg-zinc-100 overflow-auto h-[calc(100vh-80px)] select-none'>
           {children}
         </div>
       </body>
