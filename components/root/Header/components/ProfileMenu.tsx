@@ -31,10 +31,10 @@ const ProfileMenu = (props: Props) => {
             <DropdownMenuContent collisionPadding={20}>
                 <DropdownMenuLabel className='select-none text-site-mainText text-xs text-center font-sans'>SUPER ADMIN</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Billing</DropdownMenuItem>
-                <DropdownMenuItem>Team</DropdownMenuItem>
-                <DropdownMenuItem>Subscription</DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>Profile</DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>Billing</DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>Team</DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>Subscription</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )
