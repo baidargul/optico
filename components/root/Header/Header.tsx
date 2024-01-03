@@ -14,7 +14,7 @@ const Header = (props: Props) => {
                     <div className='font-semibold text-2xl text-site-mainText'>
                         Optico
                     </div>
-                    <div className='text-sm w-[60%] scale-90 -ml-1'>
+                    <div className='text-sm w-[60%] scale-90 -ml-1 -my-1'>
                         Retail Solution for eye wear business.
                     </div>
                 </div>
