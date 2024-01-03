@@ -16,12 +16,17 @@ const ProfileMenu = (props: Props) => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className='text-site-mainText transition-all duration-500 focus:outline-none focus:bg-site-mainText/20 rounded p-1'>
-                <div className='flex gap-1 items-center text-site-mainText p-1 group'>
+                <div className='flex gap-2 items-center text-site-mainText p-1 group'>
                     <div>
                         <Image src={"/Header/Logo/siteLogo.png"} width={35} height={35} alt='profile-picture' className='' />
                     </div>
-                    <div>
-                        Baidar Gul
+                    <div className='flex flex-col items-start'>
+                        <div>
+                            Baidar Gul
+                        </div>
+                        <div className='text-xs '>
+                            baidargul@outlook.com
+                        </div>
                     </div>
                     <div>
                         <ArrowDown className='w-5 h-5 text-site-mainText/60 transition-all duration-1000 opacity-0 group-hover:opacity-100' />
