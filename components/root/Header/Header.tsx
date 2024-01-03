@@ -8,7 +8,7 @@ const Header = (props: Props) => {
         <div className='bg-gradient-to-b from-zinc-100 to-zinc-300 p-4'>
             <div className='flex items-center'>
                 <div>
-                    <Image src={"/Header/Logo/siteLogo.png"} alt='website-logo' width={80} height={80} draggable={false} className='pointer-events-none' />
+                    <Image src={"/Header/Logo/siteLogo.png"} alt='website-logo' width={80} height={80} draggable={false} className='pointer-events-none rounded-full border-4 border-zinc-500/20' />
                 </div>
                 <div className='p-2'>
                     <div className='font-semibold text-2xl text-site-mainText'>
