@@ -8,6 +8,14 @@ datasource db {
 }
 
 model nature {
-  id   String @id @default(uuid())
-  name String @unique
+  id       String     @id @default(uuid())
+  name     String     @unique
+  category category[]
+}
+
+model category {
+  id       String @id @default(uuid())
+  natureId String
+  name     String @unique
+  nature   nature @relation(fields: [natureId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
