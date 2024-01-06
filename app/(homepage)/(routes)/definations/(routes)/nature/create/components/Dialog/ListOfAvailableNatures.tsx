@@ -14,7 +14,7 @@ const ListOfAvailableNatures = async (props: Props) => {
     }
 
     return (
-        <div>
+        <div className="">
             <div className="text-sm font-semibold text-site-mainText py-1 border-b border-dashed border-site-mainText/30 mb-2">
                 Natures:
             </div>
