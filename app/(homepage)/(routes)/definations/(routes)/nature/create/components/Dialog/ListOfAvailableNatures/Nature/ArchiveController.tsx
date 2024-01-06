@@ -13,7 +13,14 @@ const ArchiveController = (props: Props) => {
         const data = {
             id: props.nature.id
         }
-        await axios.patch('/api/definations/nature/do/archive', data)
+        await axios.patch('/api/definitions/nature/do/archive/', data).then(async (res) => {
+            const { data } = await res.data
+            if (data.status === 200) {
+                console.log(data.message)
+            } else{
+                console.log(data.message)
+            }
+        })
     }
 
     const unArchive = async () => {
