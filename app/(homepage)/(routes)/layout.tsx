@@ -22,8 +22,10 @@ export default function RootLayout({
         <div className='select-none'>
           <Header />
         </div>
-        <div className='bg-zinc-100 overflow-auto h-[calc(100vh-80px)] select-none'>
-          {children}
+        <div className='p-2 bg-gradient-to-t from-zinc-300 to-zinc-400'>
+          <div className='bg-zinc-100 overflow-auto h-[calc(100vh-80px)] select-none rounded'>
+            {children}
+          </div>
         </div>
         <div>
           <Toaster />

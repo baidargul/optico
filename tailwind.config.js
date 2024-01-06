@@ -26,7 +26,11 @@ module.exports = {
         site: {
           mainText: "#3F3F46",
           background: "#F4F4F5",
-          
+          colors: {
+            primary: "#4E864A",
+            secondary: "#428889",
+                        
+          }
         },
         primary: {
           DEFAULT: "hsl(var(--primary))",

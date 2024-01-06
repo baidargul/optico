@@ -1,6 +1,7 @@
 import React from 'react'
 import LogoTitle from './components/LogoTitle'
 import ProfileMenu from './components/ProfileMenu'
+import { Button } from '@/components/ui/button'
 
 type Props = {}
 
@@ -12,8 +13,9 @@ const Header = (props: Props) => {
                     <LogoTitle />
                 </div>
                 <div className='select-none'>
-                    <ProfileMenu/>
+                    <ProfileMenu />
                 </div>
+                
             </div>
         </div>
     )
