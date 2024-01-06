@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma"
+import { nature } from "@prisma/client"
 import React from 'react'
+import Nature from "./ListOfAvailableNatures/Nature"
 
 type Props = {}
 
@@ -14,7 +16,18 @@ const ListOfAvailableNatures = async (props: Props) => {
     }
 
     return (
-        <div>ListOfAvailableNatures</div>
+        <div>
+            {
+                availableNatures && availableNatures.map((nature: nature) => {
+
+                    return (
+                        <div key={nature.id}>
+                            <Nature nature={nature} />
+                        </div>
+                    )
+                })
+            }
+        </div>
     )
 }
 

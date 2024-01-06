@@ -10,6 +10,7 @@ datasource db {
 model nature {
   id       String     @id @default(uuid())
   name     String     @unique
+  archived Boolean    @default(false)
   category category[]
 }
 
@@ -17,5 +18,6 @@ model category {
   id       String @id @default(uuid())
   natureId String
   name     String @unique
+  archived Boolean    @default(false)
   nature   nature @relation(fields: [natureId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
