@@ -34,7 +34,9 @@ const Nature = (props: Props) => {
 
     return (
         nature && <div className='relative py-1 border-b hover:bg-zinc-100/50'>
-            <ArchiveController nature={nature} setNature={setNature} />
+            <div>
+                <ArchiveController nature={nature} setNature={setNature} />
+            </div>
             <div className=''>
                 {nature.name}
             </div>

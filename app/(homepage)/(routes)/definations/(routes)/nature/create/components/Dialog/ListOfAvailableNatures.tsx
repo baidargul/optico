@@ -15,16 +15,21 @@ const ListOfAvailableNatures = async (props: Props) => {
 
     return (
         <div>
-            {
-                availableNatures && availableNatures.map((nature: nature) => {
+            <div className="text-sm font-semibold text-site-mainText py-1 border-b border-dashed border-site-mainText/30 mb-2">
+                Natures:
+            </div>
+            <div>
+                {
+                    availableNatures && availableNatures.map((nature: nature) => {
 
-                    return (
-                        <div key={nature.id}>
-                            <Nature nature={nature} />
-                        </div>
-                    )
-                })
-            }
+                        return (
+                            <div key={nature.id}>
+                                <Nature nature={nature} />
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }
