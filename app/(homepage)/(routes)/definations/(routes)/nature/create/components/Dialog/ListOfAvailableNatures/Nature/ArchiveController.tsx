@@ -1,39 +1,63 @@
+'use client'
 import { nature } from '@prisma/client'
 import axios from 'axios'
-import { Eye, EyeOff } from 'lucide-react'
-import React from 'react'
+import { Eye, EyeOff, Loader } from 'lucide-react'
+import React, { useState } from 'react'
 
 type Props = {
     nature: nature
+    setNature: any
 }
 
 const ArchiveController = (props: Props) => {
+    const [isWorking, setIsWorking] = useState(false)
 
     const makeArchive = async () => {
         const data = {
             id: props.nature.id
         }
+        setIsWorking(true)
         await axios.patch('/api/definitions/nature/do/archive/', data).then(async (res) => {
-            const { data } = await res.data
+            const data = await res.data
             if (data.status === 200) {
-                console.log(data.message)
-            } else{
+                props.setNature(data.data)
+            } else {
                 console.log(data.message)
             }
         })
+        setIsWorking(false)
     }
 
     const unArchive = async () => {
+        const data = {
+            id: props.nature.id
+        }
 
+        setIsWorking(true)
+        await axios.patch('/api/definitions/nature/do/unarchive/', data).then(async (res) => {
+            const data = await res.data
+            if (data.status === 200) {
+                props.setNature(data.data)
+            } else {
+                console.log(data.message)
+            }
+        })
+        setIsWorking(false)
+    }
+
+    if (isWorking) {
+        return (
+            <Loader className='absolute right-0 top-1 text-xs bg-gradient-to-b from-zinc-200 to-zinc-300 p-1 rounded-md text-zinc-700 animate-spin duration-1000 border border-zinc-300/20 cursor-not-allowed' />
+        )
     }
 
     if (props.nature.archived === true) {
         return (
-            <EyeOff onClick={makeArchive} className='text-xs bg-gradient-to-b from-orange-50 to-orange-100 p-1 rounded-md text-red-300 border border-red-300/20' />
+            <EyeOff onClick={unArchive} className='absolute right-0 top-1 text-xs bg-gradient-to-b from-orange-50 to-orange-100 p-1 rounded-md text-red-300 border border-red-300/20 cursor-pointer' />
         )
     } else {
         return (
-            <Eye onClick={unArchive} className='text-xs bg-gradient-to-b from-teal-50 to-teal-100 p-1 rounded-md text-cyan-300 border border-teal-300/20' />
+            <Eye onClick={makeArchive} className='absolute right-0 top-1 text-xs bg-slate-100 p-1 rounded-md text-slate-300 border border-slate-300/20 cursor-pointer' />
         )
     }
 }

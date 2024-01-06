@@ -30,12 +30,12 @@ export async function PATCH(req: NextRequest) {
                 id: id
             },
             data: {
-                archived: true
+                archived: false
             }
         })
 
         response.status = 200
-        response.message = "Achived"
+        response.message = "Unarchived"
         response.data = nature
         return new Response(JSON.stringify(response))
     } catch (error: any) {
