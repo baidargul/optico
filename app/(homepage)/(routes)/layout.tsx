@@ -23,7 +23,7 @@ export default function RootLayout({
           <Header />
         </div>
         <div className='p-2 bg-gradient-to-t from-zinc-300 to-zinc-400'>
-          <div className='bg-zinc-100 overflow-auto h-[calc(100vh-80px)] select-none rounded'>
+          <div className='bg-zinc-100 p-2 overflow-auto h-[calc(100vh-80px)] select-none rounded'>
             {children}
           </div>
         </div>
