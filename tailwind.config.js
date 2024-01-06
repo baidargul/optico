@@ -25,11 +25,12 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
         site: {
           mainText: "#3F3F46",
+          noFoundText: "#A3A3AC",
           background: "#F4F4F5",
           colors: {
             primary: "#4E864A",
             secondary: "#428889",
-                        
+
           }
         },
         primary: {
