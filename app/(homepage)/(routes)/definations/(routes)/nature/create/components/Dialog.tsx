@@ -11,8 +11,8 @@ const Dialog = (props: Props) => {
                 <div className='bg-white p-2 w-[30%] rounded border border-slate-200/50 drop-shadow-sm'>
                     <ListOfAvailableNatures />  
                 </div>
-                <div>
-
+                <div className='bg-white p-2 w-[70%] rounded border border-slate-200/50 drop-shadow-sm'>
+                    Form
                 </div>
             </div>
         </div>
