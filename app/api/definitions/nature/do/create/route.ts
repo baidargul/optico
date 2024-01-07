@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
         const { name } = await req.json()
 
-        if(!name){
+        if (!name) {
             response.status = 400
             response.message = `Please specify name`
             response.data = null
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
         const isExists = await prisma?.nature.findUnique({
             where: {
-                name: name
+                name: String(name).toLocaleLowerCase()
             }
         })
 
@@ -34,11 +34,11 @@ export async function POST(req: NextRequest) {
 
         const nature = await prisma?.nature.create({
             data: {
-                name: name
+                name: String(name).toLocaleLowerCase()
             }
         })
 
-        if(!nature){
+        if (!nature) {
             response.status = 500
             response.message = `Unable to create nature.`
             response.data = null

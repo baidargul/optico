@@ -45,7 +45,7 @@ const Dialog = (props: Props) => {
                 <div className='bg-white p-2 w-[30%] rounded border border-slate-200/50 drop-shadow-sm'>
                     <ListOfAvailableNatures natures={availableNatures} />
                 </div>
-                <div className='bg-white p-2 w-[70%] rounded border border-slate-200/50 drop-shadow-sm'>
+                <div className='bg-white p-2 w-[70%] h-fit rounded border border-slate-200/50 drop-shadow-sm'>
                     <NaturesForm fetch={fetchNatures} />
                 </div>
             </div>
