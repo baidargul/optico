@@ -1,10 +1,13 @@
 import React from 'react'
+import Dialog from './components/Dialog'
 
 type Props = {}
 
 const page = (props: Props) => {
   return (
-    <div>page</div>
+    <div>
+      <Dialog/>
+    </div>
   )
 }
 
