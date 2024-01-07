@@ -2,6 +2,7 @@ import { nature } from '@prisma/client'
 import axios from 'axios'
 import { Loader, Trash } from 'lucide-react'
 import React, { useState } from 'react'
+import { toast } from 'sonner'
 
 type Props = {
     nature: nature
@@ -21,7 +22,7 @@ const DeleteController = (props: Props) => {
             if (data.status === 200) {
                 props.fetch()
             } else {
-                console.log(data.message)
+                toast.warning(data.message)
             }
         })
         setIsWorking(false)

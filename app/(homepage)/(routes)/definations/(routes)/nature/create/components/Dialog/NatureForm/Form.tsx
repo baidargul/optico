@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 
 type Props = {
@@ -25,7 +26,7 @@ const Form = (props: Props) => {
                     Ref.current.select()
                 }
             } else {
-                console.log(data.message)
+                toast.warning(data.message)
             }
         })
     }

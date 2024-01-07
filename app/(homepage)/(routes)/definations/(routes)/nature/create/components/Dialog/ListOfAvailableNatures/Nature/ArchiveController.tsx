@@ -4,6 +4,7 @@ import { nature } from '@prisma/client'
 import axios from 'axios'
 import { Eye, EyeOff, Loader } from 'lucide-react'
 import React, { useState } from 'react'
+import { toast } from 'sonner'
 
 type Props = {
     nature: nature
@@ -23,7 +24,7 @@ const ArchiveController = (props: Props) => {
             if (data.status === 200) {
                 props.setNature(data.data)
             } else {
-                console.log(data.message)
+                toast.warning(data.message)
             }
         })
         setIsWorking(false)
@@ -40,7 +41,7 @@ const ArchiveController = (props: Props) => {
             if (data.status === 200) {
                 props.setNature(data.data)
             } else {
-                console.log(data.message)
+                toast.warning(data.message)
             }
         })
         setIsWorking(false)

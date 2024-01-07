@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import ListOfAvailableNatures from './Dialog/ListOfAvailableNatures'
 import NaturesForm from './Dialog/NaturesForm'
 import axios from 'axios'
+import { toast } from 'sonner'
 
 type Props = {}
 
@@ -20,8 +21,8 @@ const Dialog = (props: Props) => {
                     setAvailableNatures([])
                 }
             });
-        } catch (error) {
-            console.error("Error fetching natures:", error);
+        } catch (error: any) {
+            toast.warning(error.message)
             setAvailableNatures([])
         }
     };
