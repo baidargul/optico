@@ -2,6 +2,7 @@
 import { nature } from '@prisma/client'
 import React, { useEffect, useState } from 'react'
 import ArchiveController from './Nature/ArchiveController'
+import { formalizeText } from '@/lib/my'
 type Props = {
     nature: nature
 }
@@ -15,7 +16,7 @@ const Nature = (props: Props) => {
                 <ArchiveController nature={nature} setNature={setNature} />
             </div>
             <div className=''>
-                {nature.name}
+                {formalizeText(nature.name)}
             </div>
         </div>
     )
