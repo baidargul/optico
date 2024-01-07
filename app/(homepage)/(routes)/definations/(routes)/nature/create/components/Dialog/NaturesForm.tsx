@@ -1,7 +1,9 @@
 import React from 'react'
 import Form from './NatureForm/Form'
 
-type Props = {}
+type Props = {
+  fetch:any
+}
 
 const NaturesForm = (props: Props) => {
   return (
@@ -10,7 +12,7 @@ const NaturesForm = (props: Props) => {
             Create new:
         </div>
         <div>
-            <Form/>
+            <Form fetch={props.fetch}/>
         </div>
     </div>
   )

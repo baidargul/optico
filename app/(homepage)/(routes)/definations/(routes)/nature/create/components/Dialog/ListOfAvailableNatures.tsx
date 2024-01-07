@@ -1,16 +1,21 @@
-import prisma from "@/lib/prisma"
+'use client'
 import { nature } from "@prisma/client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nature from "./ListOfAvailableNatures/Nature"
 
-type Props = {}
+type Props = {
+    natures: any
+}
 
-const ListOfAvailableNatures = async (props: Props) => {
+const ListOfAvailableNatures = (props: Props) => {
+    const [availableNatures, setAvailableNatures] = useState<any>(props.natures)
 
-    const availableNatures = await prisma.nature.findMany({})
+    useEffect(()=>{
+        setAvailableNatures(props.natures)
+    },[props.natures])
 
     if (!availableNatures || availableNatures.length < 1) {
-        return <div className="text-site-noFoundText font-sans">No natures found.</div>
+        return <div className="text-site-noFoundText font-sans">No natures found.</div>;
     }
 
     return (
@@ -20,18 +25,15 @@ const ListOfAvailableNatures = async (props: Props) => {
             </div>
             <div>
                 {
-                    availableNatures && availableNatures.map((nature: nature) => {
-
-                        return (
-                            <div key={nature.id}>
-                                <Nature nature={nature} />
-                            </div>
-                        )
-                    })
+                    availableNatures && availableNatures.map((nature: nature) => (
+                        <div key={nature.id}>
+                            <Nature nature={nature} />
+                        </div>
+                    ))
                 }
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ListOfAvailableNatures
+export default ListOfAvailableNatures;

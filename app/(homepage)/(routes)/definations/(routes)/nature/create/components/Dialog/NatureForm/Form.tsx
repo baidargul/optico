@@ -4,7 +4,10 @@ import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import React, { useState } from 'react'
 
-type Props = {}
+
+type Props = {
+    fetch: any
+}
 
 const Form = (props: Props) => {
     const [natureName, setNatureName] = useState("")
@@ -16,9 +19,9 @@ const Form = (props: Props) => {
         await axios.post(`/api/definitions/nature/do/create/`, data).then(async (res) => {
             const data = await res.data
             if (data.status === 200) {
-                console.log(`Create`)
+                await props.fetch()
             } else {
-                console.log(`Error`)
+                console.log(data.message)
             }
         })
     }
