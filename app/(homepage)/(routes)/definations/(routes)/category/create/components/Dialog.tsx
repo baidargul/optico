@@ -13,7 +13,7 @@ const Dialog = (props: Props) => {
 
     async function fetchCategories() {
         try {
-            await axios.get(`/api/definitions/nature/find/findall`).then(async (res) => {
+            await axios.get(`/api/definitions/category/find/findall`).then(async (res) => {
                 const data = await res.data;
                 if (data.status === 200) {
                     setAvailableCategories(data.data)

@@ -17,7 +17,7 @@ const DeleteController = (props: Props) => {
         const data = {
             id: props.category.id
         }
-        await axios.post(`/api/definitions/nature/do/delete`, data).then(async (res) => {
+        await axios.post(`/api/definitions/category/do/delete`, data).then(async (res) => {
             const data = await res.data
             if (data.status === 200) {
                 props.fetch()

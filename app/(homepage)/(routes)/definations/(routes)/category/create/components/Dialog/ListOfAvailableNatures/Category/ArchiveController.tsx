@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 
 type Props = {
     category: category
-    setNature: any
+    setCategory: any
 }
 
 const ArchiveController = (props: Props) => {
@@ -18,10 +18,10 @@ const ArchiveController = (props: Props) => {
             id: props.category.id
         }
         setIsWorking(true)
-        await axios.patch('/api/definitions/nature/do/archive/', data).then(async (res) => {
+        await axios.patch('/api/definitions/category/do/archive/', data).then(async (res) => {
             const data = await res.data
             if (data.status === 200) {
-                props.setNature(data.data)
+                props.setCategory(data.data)
             } else {
                 toast.warning(data.message)
             }
@@ -35,10 +35,10 @@ const ArchiveController = (props: Props) => {
         }
 
         setIsWorking(true)
-        await axios.patch('/api/definitions/nature/do/unarchive/', data).then(async (res) => {
+        await axios.patch('/api/definitions/category/do/unarchive/', data).then(async (res) => {
             const data = await res.data
             if (data.status === 200) {
-                props.setNature(data.data)
+                props.setCategory(data.data)
             } else {
                 toast.warning(data.message)
             }

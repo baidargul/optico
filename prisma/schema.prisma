@@ -15,9 +15,9 @@ model nature {
 }
 
 model category {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   natureId String
-  name     String @unique
-  archived Boolean    @default(false)
-  nature   nature @relation(fields: [natureId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name     String  @unique
+  archived Boolean @default(false)
+  nature   nature  @relation(fields: [natureId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

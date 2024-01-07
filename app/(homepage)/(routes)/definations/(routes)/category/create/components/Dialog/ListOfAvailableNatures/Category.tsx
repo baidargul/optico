@@ -19,7 +19,7 @@ const Category = (props: Props) => {
             </div>
             <div className='grid grid-cols-2 gap-1 items-center'>
                 <div>
-                    <ArchiveController category={category} setNature={setCategory} />
+                    <ArchiveController category={category} setCategory={setCategory} />
                 </div>
                 <div>
                     <DeleteController category={category} fetch={props.fetch} />
