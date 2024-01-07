@@ -1,10 +1,29 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 
 type Props = {}
 
 const Form = (props: Props) => {
+    const [natureName, setNatureName] = useState("")
+
+    const submit = async () => {
+        const data = {
+            name: natureName
+        }
+        await axios.post(`/api/definitions/nature/do/create/`, data).then(async(res)=>{
+            const data = await res.data
+            if(data.status===200){
+                
+            } else
+            {
+
+            }
+        })
+    }
+
     return (
         <div className='flex flex-col gap-2'>
             <div>
@@ -12,12 +31,10 @@ const Form = (props: Props) => {
                     Name:
                 </div>
                 <div>
-                    <Input />
+                    <Input value={natureName} onChange={(e: any) => { setNatureName(e.target.value) }} />
                 </div>
             </div>
             <div>
-                {/* <button className='bg-zinc-300 text-site-mainText active:bg-yellow-100  focus:outline-none p-1 rounded-md px-2 focus:ring-1 focus:ring-yellow-400 drop-shadow-sm'>Create</button> */}
-                <Button variant={'secondary'}>Create</Button>
                 <Button>Create</Button>
             </div>
         </div>
