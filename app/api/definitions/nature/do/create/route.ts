@@ -12,6 +12,13 @@ export async function POST(req: NextRequest) {
 
         const { name } = await req.json()
 
+        if(!name){
+            response.status = 400
+            response.message = `Please specify name`
+            response.data = null
+            return new Response(JSON.stringify(response))
+        }
+
         const isExists = await prisma?.nature.findUnique({
             where: {
                 name: name

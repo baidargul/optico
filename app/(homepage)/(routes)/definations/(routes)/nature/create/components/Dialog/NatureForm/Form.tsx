@@ -16,10 +16,10 @@ const Form = (props: Props) => {
         await axios.post(`/api/definitions/nature/do/create/`, data).then(async(res)=>{
             const data = await res.data
             if(data.status===200){
-                
+
             } else
             {
-
+                
             }
         })
     }
@@ -35,7 +35,7 @@ const Form = (props: Props) => {
                 </div>
             </div>
             <div>
-                <Button>Create</Button>
+                <Button onClick={submit}>Create</Button>
             </div>
         </div>
     )
