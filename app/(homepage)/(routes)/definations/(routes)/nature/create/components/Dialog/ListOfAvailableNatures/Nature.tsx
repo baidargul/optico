@@ -6,6 +6,7 @@ import { formalizeText } from '@/lib/my'
 import DeleteController from './Nature/DeleteController'
 type Props = {
     nature: nature
+    fetch: any
 }
 
 const Nature = (props: Props) => {
@@ -21,7 +22,7 @@ const Nature = (props: Props) => {
                     <ArchiveController nature={nature} setNature={setNature} />
                 </div>
                 <div>
-                    <DeleteController nature={nature} />
+                    <DeleteController nature={nature} fetch={props.fetch} />
                 </div>
             </div>
         </div>

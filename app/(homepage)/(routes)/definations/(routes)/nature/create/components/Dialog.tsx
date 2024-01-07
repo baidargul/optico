@@ -43,7 +43,7 @@ const Dialog = (props: Props) => {
             </div>
             <div className='flex gap-2 justify-between'>
                 <div className='bg-white p-2 w-[30%] rounded border border-slate-200/50 drop-shadow-sm'>
-                    <ListOfAvailableNatures natures={availableNatures} />
+                    <ListOfAvailableNatures natures={availableNatures} fetch={fetchNatures} />
                 </div>
                 <div className='bg-white p-2 w-[70%] h-fit rounded border border-slate-200/50 drop-shadow-sm'>
                     <NaturesForm fetch={fetchNatures} />

@@ -5,14 +5,15 @@ import Nature from "./ListOfAvailableNatures/Nature"
 
 type Props = {
     natures: any
+    fetch: any
 }
 
 const ListOfAvailableNatures = (props: Props) => {
     const [availableNatures, setAvailableNatures] = useState<any>(props.natures)
 
-    useEffect(()=>{
+    useEffect(() => {
         setAvailableNatures(props.natures)
-    },[props.natures])
+    }, [props.natures])
 
     if (!availableNatures || availableNatures.length < 1) {
         return <div className="text-site-noFoundText font-sans">No natures found.</div>;
@@ -27,7 +28,7 @@ const ListOfAvailableNatures = (props: Props) => {
                 {
                     availableNatures && availableNatures.map((nature: nature) => (
                         <div key={nature.id}>
-                            <Nature nature={nature} />
+                            <Nature nature={nature} fetch={props.fetch}/>
                         </div>
                     ))
                 }
