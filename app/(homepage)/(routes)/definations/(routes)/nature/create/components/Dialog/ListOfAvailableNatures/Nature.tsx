@@ -11,12 +11,17 @@ const Nature = (props: Props) => {
     const [nature, setNature] = useState(props.nature)
 
     return (
-        nature && <div className='relative py-1 border-b hover:bg-zinc-100/50'>
-            <div>
-                <ArchiveController nature={nature} setNature={setNature} />
-            </div>
+        nature && <div className='py-1 border-b hover:bg-zinc-100/50 flex justify-between'>
             <div className=''>
                 {formalizeText(nature.name)}
+            </div>
+            <div className='grid grid-cols-2 gap-1'>
+                <div>
+                    <ArchiveController nature={nature} setNature={setNature} />
+                </div>
+                <div>
+                    Del
+                </div>
             </div>
         </div>
     )
