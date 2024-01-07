@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 
 const Form = (props: Props) => {
     const [natureName, setNatureName] = useState("")
+    const Ref: any = useRef(null)
 
     const submit = async () => {
         const data = {
@@ -20,6 +21,9 @@ const Form = (props: Props) => {
             const data = await res.data
             if (data.status === 200) {
                 await props.fetch()
+                if (Ref) {
+                    Ref.current.select()
+                }
             } else {
                 console.log(data.message)
             }
@@ -33,7 +37,7 @@ const Form = (props: Props) => {
                     Name:
                 </div>
                 <div>
-                    <Input value={natureName} onChange={(e: any) => { setNatureName(e.target.value) }} />
+                    <Input ref={Ref} value={natureName} onChange={(e: any) => { setNatureName(e.target.value) }} />
                 </div>
             </div>
             <div>
