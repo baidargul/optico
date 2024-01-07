@@ -13,13 +13,12 @@ const Form = (props: Props) => {
         const data = {
             name: natureName
         }
-        await axios.post(`/api/definitions/nature/do/create/`, data).then(async(res)=>{
+        await axios.post(`/api/definitions/nature/do/create/`, data).then(async (res) => {
             const data = await res.data
-            if(data.status===200){
-
-            } else
-            {
-                
+            if (data.status === 200) {
+                console.log(`Create`)
+            } else {
+                console.log(`Error`)
             }
         })
     }
