@@ -15,10 +15,10 @@ const Category = (props: Props) => {
 
     return (
         category && <div className='py-1 border-b hover:bg-zinc-100/50 flex justify-between items-center'>
-            <div className=''>
+            <div className='w-32 truncate'>
                 {formalizeText(category.name)}
             </div>
-            <div className='text-xs bg-zinc-100 p-1 rounded-sm border border-zinc-200'>
+            <div className='text-xs bg-zinc-100 p-1 rounded-sm border border-zinc-200 w-20 text-center truncate'>
                 {formalizeText(category.nature.name)}
             </div>
             <div className='grid grid-cols-2 gap-1 items-center'>
