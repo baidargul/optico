@@ -33,14 +33,16 @@ const Natures = (props: Props) => {
 
 
     useEffect(() => {
-
         function setData(response: any) {
             setProcessedNatures(response)
-            props.setNature(response)
         }
-
         doProcessNatures(natures, setData)
     }, [natures])
+
+    function SelectNature(response:any){
+        setSelectedNature(response)
+        props.setNature(response)
+    }
 
     if (!processedNatures) {
         return (
@@ -52,7 +54,7 @@ const Natures = (props: Props) => {
 
     return (
         processedNatures && processedNatures.length > 0 && <div>
-            <ComboBoxProvider content={processedNatures} returnLabel setValue={setSelectedNature} align='start' >
+            <ComboBoxProvider content={processedNatures} returnLabel setValue={SelectNature} align='start' >
                 <div className='w-full border rounded h-8 flex items-center pl-2'>
                     {selectedNature}
                 </div>
