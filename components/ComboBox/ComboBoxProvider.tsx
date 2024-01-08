@@ -17,7 +17,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { getCurrentUserFormalStatus } from "@/lib/my"
 
 
 
@@ -28,6 +27,7 @@ type ComboBoxProviderProps = {
     emptyString?: string
     setValue?: any
     returnLabel?: boolean
+    align?: "start" | "end" | "center"
 }
 export function ComboBoxProvider(props: ComboBoxProviderProps) {
     const sampleInput = [
@@ -54,7 +54,7 @@ export function ComboBoxProvider(props: ComboBoxProviderProps) {
     ]
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("")
-    const [frameworks, setFrameworks] = React.useState(props.content || sampleInput)
+    const [frameworks, setFrameworks] = React.useState(props.content)
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -63,16 +63,16 @@ export function ComboBoxProvider(props: ComboBoxProviderProps) {
                     props.children
                 }
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
+            <PopoverContent className="w-[200px] p-0" align={props.align? props.align: "center"}>
                 <Command>
                     <CommandInput placeholder={props.placeholder ? props.placeholder : "Search..."} />
                     <CommandEmpty>{props.emptyString ? props.emptyString : "Nothing found."}</CommandEmpty>
                     <CommandGroup>
-                        {frameworks.map((framework: any) => (
+                        {frameworks && frameworks.map((framework: any) => (
                             <CommandItem
                                 key={framework.name}
                                 value={framework.name}
-                                onSelect={(currentValue) => {
+                                onSelect={(currentValue: any) => {
                                     setValue(currentValue === value ? "" : currentValue)
                                     props.setValue ? props.returnLabel ? props.setValue(framework.label) : props.setValue(currentValue) : ""
                                     setOpen(false)
@@ -81,7 +81,7 @@ export function ComboBoxProvider(props: ComboBoxProviderProps) {
                                 <Check
                                     className={cn(
                                         "mr-2 h-4 w-4",
-                                        (props.returnLabel && String(value).toLocaleLowerCase() === String(getCurrentUserFormalStatus(framework.label)).toLocaleLowerCase()) || (!props.returnLabel && String(value).toLocaleLowerCase() === String(framework.name).toLocaleLowerCase()) ? "opacity-100" : "opacity-0"
+                                        (props.returnLabel && String(value).toLocaleLowerCase() === String((framework.label)).toLocaleLowerCase()) || (!props.returnLabel && String(value).toLocaleLowerCase() === String(framework.name).toLocaleLowerCase()) ? "opacity-100" : "opacity-0"
                                     )}
                                 />
                                 {framework.label}

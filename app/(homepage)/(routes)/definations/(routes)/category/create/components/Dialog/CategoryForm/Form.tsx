@@ -1,9 +1,11 @@
 'use client'
+import { ComboBoxProvider } from '@/components/ComboBox/ComboBoxProvider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import { toast } from 'sonner'
+import Natures from './Form/Natures'
 
 
 type Props = {
@@ -39,6 +41,14 @@ const Form = (props: Props) => {
                 </div>
                 <div>
                     <Input ref={Ref} value={categoryName} onChange={(e: any) => { setCategoryName(e.target.value) }} />
+                </div>
+            </div>
+            <div>
+                <div>
+                    Nature:
+                </div>
+                <div>
+                    <Natures/>
                 </div>
             </div>
             <div>
