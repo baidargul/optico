@@ -5,7 +5,9 @@ import { nature } from '@prisma/client'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-type Props = {}
+type Props = {
+    setNature: any
+}
 
 const Natures = (props: Props) => {
     const [processedNatures, setProcessedNatures] = useState([] as any)
@@ -31,8 +33,22 @@ const Natures = (props: Props) => {
 
 
     useEffect(() => {
-        doProcessNatures(natures, setProcessedNatures)
+
+        function setData(response: any) {
+            setProcessedNatures(response)
+            props.setNature(response)
+        }
+
+        doProcessNatures(natures, setData)
     }, [natures])
+
+    if (!processedNatures) {
+        return (
+            <div className='w-full border rounded h-8 flex items-center pl-2'>
+                No natures available
+            </div>
+        )
+    }
 
     return (
         processedNatures && processedNatures.length > 0 && <div>

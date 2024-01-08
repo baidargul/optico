@@ -14,6 +14,7 @@ type Props = {
 
 const Form = (props: Props) => {
     const [categoryName, setCategoryName] = useState("")
+    const [selectedNature, setSelectedNature] = useState("")
     const Ref: any = useRef(null)
 
     const submit = async () => {
@@ -48,7 +49,7 @@ const Form = (props: Props) => {
                     Nature:
                 </div>
                 <div>
-                    <Natures/>
+                    <Natures setNature={setSelectedNature} />
                 </div>
             </div>
             <div>
