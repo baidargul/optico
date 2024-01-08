@@ -18,7 +18,7 @@ const Category = (props: Props) => {
             <div className='w-32 truncate'>
                 {formalizeText(category.name)}
             </div>
-            <div className='text-xs bg-zinc-100 p-1 rounded-sm border border-zinc-200 w-20 text-center truncate'>
+            <div className={`text-xs bg-zinc-100 p-1 rounded-sm border border-zinc-200 w-20 text-center truncate ${category.nature.dynamic && "first-letter:font-bold"}`}>
                 {formalizeText(category.nature.name)}
             </div>
             <div className='grid grid-cols-2 gap-1 items-center'>

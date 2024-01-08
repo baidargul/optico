@@ -12,6 +12,7 @@ model nature {
   name     String     @unique
   archived Boolean    @default(false)
   category category[]
+  dynamic  Boolean    @default(false)
 }
 
 model category {
