@@ -44,7 +44,7 @@ const Natures = (props: Props) => {
 
     if (!processedNatures) {
         return (
-            <div className='w-full border rounded h-8 flex items-center pl-2'>
+            <div className='w-full border rounded h-8 flex items-center pl-2 text-site-noFoundText font-semibold text-sm'>
                 No natures available
             </div>
         )
