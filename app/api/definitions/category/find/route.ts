@@ -14,6 +14,9 @@ export async function POST(req: NextRequest) {
         const { id } = await req.json()
 
         const category = await prisma.category.findUnique({
+            include: {
+                nature: true
+            },
             where: {
                 id: id
             }
