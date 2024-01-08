@@ -13,12 +13,18 @@ export async function GET(req: NextRequest) {
 
         const categories = await prisma.category.findMany({
             include: {
-                nature: true
+                nature: true,
             },
-            orderBy: {
-                name: "asc"
-            }
-        })
+            orderBy: [
+                {
+                    nature: {
+                        name: "asc"
+                    }
+                },
+                { name: "asc" },
+            ],
+        });
+
 
         response.status = 200
         response.message = `Got categories`
