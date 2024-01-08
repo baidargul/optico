@@ -14,7 +14,7 @@ const Nature = (props: Props) => {
     console.log(nature)
 
     return (
-        nature && <div className={`py-1 border-b hover:bg-zinc-100/50 flex justify-between items-center `}>
+        nature && <div className={`py-1 border-b hover:bg-zinc-100/50 flex justify-between items-center`}>
             <div className={`${nature.dynamic === true ? "first-letter:font-bold" : null}`}>
                 {formalizeText(nature.name)}
             </div>

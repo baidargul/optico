@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     try {
 
-        const { name } = await req.json()
+        const { name, dynamic } = await req.json()
 
         if (!name) {
             response.status = 400
@@ -34,7 +34,8 @@ export async function POST(req: NextRequest) {
 
         const nature = await prisma?.nature.create({
             data: {
-                name: String(name).toLocaleLowerCase()
+                name: String(name).toLocaleLowerCase(),
+                dynamic: dynamic ? dynamic : false
             }
         })
 
