@@ -27,6 +27,9 @@ export async function PATCH(req: NextRequest) {
         }
 
         const category = await prisma.category.update({
+            include: {
+                nature: true
+            },
             where: {
                 id: id
             },

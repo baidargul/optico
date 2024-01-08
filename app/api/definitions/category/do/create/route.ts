@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
 
         const dbNature = isExists
 
-        isExists = await prisma.category.findUnique({
+        isExists = await prisma.category.findFirst({
             where: {
                 name: String(name).toLocaleLowerCase(),
                 natureId: dbNature.id
