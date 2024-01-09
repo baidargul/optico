@@ -1,6 +1,5 @@
 import { formalizeText } from "@/lib/my";
 import prisma from "@/lib/prisma"
-import { nature } from "@prisma/client";
 import { NextRequest } from 'next/server';
 
 export async function POST(req: NextRequest) {
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
             return new Response(JSON.stringify(response))
         }
 
-        let isExists = await prisma.nature.findUnique({
+        let isExists:any = await prisma.nature.findUnique({
             where: {
                 name: String(nature).toLocaleLowerCase()
             }
