@@ -1,5 +1,7 @@
+import { formalizeText } from "@/lib/my"
 import prisma from "@/lib/prisma"
 import React from 'react'
+import Title from "./components/Title"
 
 type Props = {
     params: any
@@ -17,13 +19,19 @@ const page = async (props: Props) => {
         }
     })
 
-    return (
-        <div>
-            <div>
-                {
-                    category?.name
-                }
+    if (!category) {
+        return (
+            <div className="flex justify-center items-center h-full">
+                <div className="font-semibold text-sm">
+                    Unknown or invalid category.
+                </div>
             </div>
+        )
+    }
+
+    return (
+        <div className="p-1">
+            <Title category={category}/>
         </div>
     )
 }
