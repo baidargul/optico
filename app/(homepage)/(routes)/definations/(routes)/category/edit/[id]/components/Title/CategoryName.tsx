@@ -2,8 +2,10 @@
 import { Input } from '@/components/ui/input'
 import { formalizeText } from '@/lib/my'
 import { category, nature } from '@prisma/client'
+import axios from 'axios'
 import { EditIcon } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 
 type Props = {
@@ -15,6 +17,33 @@ const CategoryName = (props: Props) => {
     const [value, setValue] = useState("")
     const Ref: any = useRef(null)
     const [isEditable, setIsEditable] = useState(false)
+
+    const SubmitChange = async () => {
+        if (value.toLocaleLowerCase() === String(category.name).toLocaleLowerCase()) {
+            return
+        }
+
+        if (value.length < 1) {
+            toast.message(`Name cannot be empty`)
+        }
+
+        const data = {
+            id: category.id,
+            name: value.toLocaleLowerCase()
+        }
+
+        await axios.patch(`/api/definitions/category/do/rename/`, data).then(async (res: any) => {
+            const response = await res.data
+            if (response.status === 200) {
+                setCategory(response.data)
+                toast.success(response.message)
+                setIsEditable(false)
+                setValue(formalizeText(response.data.name))
+            } else {
+                toast.warning(response.message)
+            }
+        })
+    }
 
     useEffect(() => {
         setCategory(props.category)
@@ -35,10 +64,13 @@ const CategoryName = (props: Props) => {
         setIsEditable(false)
     }
 
-    const handleKeyDownEvent = (e: any) => {
+    const handleKeyDownEvent = async (e: any) => {
         if (e.key === "Escape") {
             setValue(formalizeText(category.name))
             setIsEditable(false)
+        } else if(e.key==="Enter")
+        {
+            await SubmitChange()
         }
     }
 
