@@ -1,4 +1,5 @@
 import React from 'react'
+import Property from './Properties/Property'
 
 type Props = {
     category: any
@@ -6,10 +7,10 @@ type Props = {
 
 const Properties = (props: Props) => {
     return (
-        <div className='w-full bg-gradient-to-r from-amber-50 to-orange-50 h-20 rounded border border-amber-200'>
-            <div>
-                
-            </div>
+        <div className='grid grid-cols-3 gap-2'>
+            <Property id='1'/>
+            <Property id='1'/>
+            <Property id='1'/>
         </div>
     )
 }
