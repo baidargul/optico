@@ -21,7 +21,7 @@ type Props = {
     scale?: 75 | 90 | 100
 }
 
-export function SelectProvider(props: Props) {
+export function Select(props: Props) {
     const scaleProperty = props.scale ? `scale-${props.scale}` : "scale-100"
 
     let margin= ""
