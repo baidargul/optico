@@ -1,6 +1,7 @@
 'use client'
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
 import { SelectProvider } from '@/components/Select/SelectProvider'
+import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
 import React, { useState } from 'react'
@@ -49,11 +50,36 @@ const Property = (props: Props) => {
                 </HiddenInput>
             </div>
             <Separator className='my-2 opacity-40' />
-            <div>
-                <SelectProvider placeholder='Type' label='Property type' values={values} onChange={(value: any) => setPropertyType(value)} defaultValue={propertyType} />
+            <div className='flex gap-4 items-center'>
+                <div className=''>
+                    <SelectProvider placeholder='Type' label='Property type' values={values} onChange={(value: any) => setPropertyType(value)} defaultValue={propertyType} />
+                </div>
+                <div className='text-site-colors-secondary/70 text-xs'>
+                    {
+                        propertyDescription(propertyType)
+                    }
+                </div>
             </div>
+            <Separator className='my-2 opacity-40' />
         </div>
     )
 }
 
 export default Property
+
+function propertyDescription(type: string) {
+    switch (type) {
+        case "single selection":
+            return "Select one option from a list of options"
+        case "multiple selection":
+            return "Select multiple options from a list of options"
+        case "text":
+            return "Get inputs inform of regular text."
+        case "number":
+            return "Get inputs inform of numbers."
+        case "boolean":
+            return "Get inputs inform of true or false."
+        default:
+            return "Get inputs inform of regular text."
+    }
+}
