@@ -13,7 +13,11 @@ const Property = (props: Props) => {
     const [propertyName, setPropertyName] = useState("New Property")
     const [propertyType, setPropertyType] = useState("single")
 
-    const values = ["single", "multiple", "text", "number", "boolean"]
+    const values = ["single selection", "multiple selection", "text", "number", "boolean"].sort(
+        (a, b) => a.localeCompare(b)
+    )
+
+
 
     const handleDeletePropertyClick = async () => {
 
