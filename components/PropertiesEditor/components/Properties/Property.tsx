@@ -28,6 +28,11 @@ const Property = (props: Props) => {
 
     }
 
+    const handlePropertyTypeChange = async (type: string) => {
+        setPropertyType(type)
+
+    }
+
     return (
         <div className='relative w-full p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80'>
             <div className='absolute right-0 flex'>
@@ -52,7 +57,7 @@ const Property = (props: Props) => {
             <Separator className='my-2 opacity-40' />
             <div className='flex gap-4 items-center'>
                 <div className=''>
-                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={(value: any) => setPropertyType(value)} defaultValue={propertyType} />
+                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={async(value: any) => await handlePropertyTypeChange(value)} defaultValue={propertyType} />
                 </div>
                 <div className='text-site-colors-secondary/70 text-xs'>
                     {
@@ -61,6 +66,7 @@ const Property = (props: Props) => {
                 </div>
             </div>
             <Separator className='my-2 opacity-40' />
+
         </div>
     )
 }
