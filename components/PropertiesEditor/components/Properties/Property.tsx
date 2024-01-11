@@ -1,6 +1,6 @@
 'use client'
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
-import { Select } from '@/components/Select/SelectProvider'
+import { SelectControl } from '@/components/Select/SelectProvider'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
@@ -52,7 +52,7 @@ const Property = (props: Props) => {
             <Separator className='my-2 opacity-40' />
             <div className='flex gap-4 items-center'>
                 <div className=''>
-                    <Select placeholder='Type' label='Property type' values={values} onChange={(value: any) => setPropertyType(value)} defaultValue={propertyType} />
+                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={(value: any) => setPropertyType(value)} defaultValue={propertyType} />
                 </div>
                 <div className='text-site-colors-secondary/70 text-xs'>
                     {
