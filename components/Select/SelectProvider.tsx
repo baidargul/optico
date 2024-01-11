@@ -45,7 +45,7 @@ export function SelectProvider(props: Props) {
     return (
         <div className={`${scaleProperty} ${margin}`}>
         <Select onValueChange={props.onChange} defaultValue={props.defaultValue}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-[180px] text-xs">
                 <SelectValue placeholder={props.placeholder ? props.placeholder : "Select"} />
             </SelectTrigger>
             <SelectContent>
