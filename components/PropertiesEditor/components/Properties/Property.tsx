@@ -2,7 +2,7 @@
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
 import { SelectProvider } from '@/components/Select/SelectProvider'
 import { Separator } from '@/components/ui/separator'
-import { Circle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
 import React, { useState } from 'react'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 const Property = (props: Props) => {
     const [propertyName, setPropertyName] = useState("New Property")
-    const [propertyType, setPropertyType] = useState("single")
+    const [propertyType, setPropertyType] = useState("text")
 
     const values = ["single selection", "multiple selection", "text", "number", "boolean"].sort(
         (a, b) => a.localeCompare(b)
@@ -23,10 +23,22 @@ const Property = (props: Props) => {
 
     }
 
+    const handleIndexChange = async (index: number) => {
+
+    }
+
     return (
         <div className='relative w-full p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80'>
-            <div onClick={handleDeletePropertyClick} className='absolute right-0 hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
-                x
+            <div className='absolute right-0 flex'>
+                <div>
+                    <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                </div>
+                <div>
+                    <ArrowRight onClick={async () => await handleIndexChange(1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                </div>
+                <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
+                    x
+                </div>
             </div>
             <div>
                 <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName} scale={75}>
