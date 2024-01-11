@@ -30,8 +30,9 @@ const Property = (props: Props) => {
 
     const handlePropertyTypeChange = async (type: string) => {
         setPropertyType(type)
-
     }
+
+
 
     return (
         <div className='relative w-full p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80'>
@@ -76,9 +77,9 @@ export default Property
 function propertyDescription(type: string) {
     switch (type) {
         case "single selection":
-            return "Select one option from a list of options"
+            return "Select one option from a list of options."
         case "multiple selection":
-            return "Select multiple options from a list of options"
+            return "Select multiple options from a list of options."
         case "text":
             return "Get inputs inform of regular text."
         case "number":
