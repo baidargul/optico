@@ -20,7 +20,7 @@ const Property = (props: Props) => {
                 x
             </div>
             <div>
-                <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName}>
+                <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName} scale={100}>
                     <div className='font-semibold text-site-mainText font-sans'>
                         {propertyName}
                     </div>

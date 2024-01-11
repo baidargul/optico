@@ -2,16 +2,18 @@
 import { formalizeText } from '@/lib/my'
 import { Input } from "@/components/ui/input"
 import React, { useEffect, useRef, useState } from 'react'
-import { EditIcon } from 'lucide-react'
+import { EditIcon, Scale } from 'lucide-react'
 
 type Props = {
     value: string
     setValue: any
     onSubmit: Promise<any> | any
     children: React.ReactNode
+    scale?: 100 | 90 | 75
 }
 
 const HiddenInput = (props: Props) => {
+    const scaleProperty = props.scale ? `scale-${props.scale}` : "scale-100"
     const [input, setInput] = useState(props.value)
     const [value, setValue] = useState("")
     const Ref: any = useRef(null)
@@ -58,8 +60,25 @@ const HiddenInput = (props: Props) => {
     }
 
     if (isEditable) {
+        let margin= ""
+        if (props.scale) {
+            switch (props.scale) {
+                case 75:
+                    margin = "-ml-5"
+                    break;
+                case 90:
+                    margin = "-ml-3"
+                    break;
+                case 100:
+                    margin = "mr-auto"
+                    break;
+                default:
+                    margin = ""
+                    break;
+            }
+        }
         return (
-            <div className='w-[50%]'>
+            <div className={`w-[50%] ${scaleProperty} ${margin}`}>
                 <Input onClick={handleTextBoxClickEvent} ref={Ref} value={value} onChange={(e: any) => { setValue(e.target.value) }} onBlur={handleBlurEvent} onKeyDown={handleKeyDownEvent} />
             </div>
         )
