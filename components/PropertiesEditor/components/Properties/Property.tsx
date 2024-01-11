@@ -1,5 +1,6 @@
 'use client'
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
+import { Separator } from '@/components/ui/separator'
 import React, { useState } from 'react'
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
 }
 
 const Property = (props: Props) => {
-    const [propertyName, setPropertyName] = useState("New name")
+    const [propertyName, setPropertyName] = useState("New Property")
 
     const handleDeletePropertyClick = async () => {
 
@@ -20,11 +21,12 @@ const Property = (props: Props) => {
             </div>
             <div>
                 <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName}>
-                    <div>
+                    <div className='font-semibold text-site-mainText font-sans'>
                         {propertyName}
                     </div>
                 </HiddenInput>
             </div>
+            <Separator className='my-2 opacity-40'/>
         </div>
     )
 }
