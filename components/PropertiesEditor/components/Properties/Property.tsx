@@ -1,6 +1,8 @@
 'use client'
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
+import { SelectProvider } from '@/components/Select/SelectProvider'
 import { Separator } from '@/components/ui/separator'
+import { Circle } from 'lucide-react'
 import React, { useState } from 'react'
 
 type Props = {
@@ -9,6 +11,9 @@ type Props = {
 
 const Property = (props: Props) => {
     const [propertyName, setPropertyName] = useState("New Property")
+    const [propertyType, setPropertyType] = useState("single")
+
+    const values = ["single", "multiple", "text", "number", "boolean"]
 
     const handleDeletePropertyClick = async () => {
 
@@ -20,13 +25,17 @@ const Property = (props: Props) => {
                 x
             </div>
             <div>
-                <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName} scale={100}>
-                    <div className='font-semibold text-site-mainText font-sans'>
+                <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName} scale={75}>
+                    <div className='font-semibold text-site-mainText font-sans flex items-center gap-1'>
+                        <Circle className='w-2 h-2' />
                         {propertyName}
                     </div>
                 </HiddenInput>
             </div>
-            <Separator className='my-2 opacity-40'/>
+            <Separator className='my-2 opacity-40' />
+            <div>
+                <SelectProvider placeholder='Type' label='Property type' values={values} onChange={(value: any) => setPropertyType(value)} defaultValue={propertyType} />
+            </div>
         </div>
     )
 }
