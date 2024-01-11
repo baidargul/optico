@@ -66,7 +66,7 @@ const HiddenInput = (props: Props) => {
     }
 
     return (
-        <div className='group'>
+        <div className='group w-fit'>
             <div onClick={handleClickEvent} className=' flex gap-1 items-center group-hover:cursor-text'>
                 <div className="hover:tracking-wide transition-all duration-1000">
                     {
