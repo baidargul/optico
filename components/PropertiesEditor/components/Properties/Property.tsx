@@ -1,6 +1,7 @@
 'use client'
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
 import { SelectControl } from '@/components/Select/SelectProvider'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
@@ -58,7 +59,7 @@ const Property = (props: Props) => {
             <Separator className='my-2 opacity-40' />
             <div className='flex gap-4 items-center'>
                 <div className=''>
-                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={async(value: any) => await handlePropertyTypeChange(value)} defaultValue={propertyType} />
+                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={async (value: any) => await handlePropertyTypeChange(value)} defaultValue={propertyType} />
                 </div>
                 <div className='text-site-colors-secondary/70 text-xs'>
                     {
@@ -67,7 +68,11 @@ const Property = (props: Props) => {
                 </div>
             </div>
             <Separator className='my-2 opacity-40' />
-
+            <div>
+                {
+                    getControls(propertyType)
+                }
+            </div>
         </div>
     )
 }
@@ -89,4 +94,58 @@ function propertyDescription(type: string) {
         default:
             return "Get inputs inform of regular text."
     }
+}
+
+function getControls(type: string) {
+
+    switch (type) {
+        case "single selection":
+            break;
+        case "multiple selection":
+            break;
+        case "text":
+            return <TextControl />
+        case "number":
+            return <NumberControl />
+        case "boolean":
+            break;
+        default:
+            return null
+    }
+
+}
+
+function TextControl() {
+    const [value, setValue] = useState("")
+    return (
+        <div className='text-sm'>
+            <div>
+                <div className='font-semibold'>
+                    Default value:
+                </div>
+                <div className='flex gap-2'>
+                    <div>
+                        <Input placeholder='' value={value} onChange={(e: any) => { setValue(e.target.value) }} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+function NumberControl() {
+    const [value, setValue] = useState("")
+    return (
+        <div className='text-sm'>
+            <div>
+                <div className='font-semibold'>
+                    Default value:
+                </div>
+                <div className='flex gap-2'>
+                    <div>
+                        <Input type='number' placeholder='' value={value} onChange={(e: any) => { setValue(e.target.value) }} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
