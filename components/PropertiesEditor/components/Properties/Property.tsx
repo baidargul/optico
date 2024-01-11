@@ -108,7 +108,7 @@ function getControls(type: string) {
         case "number":
             return <NumberControl />
         case "boolean":
-            break;
+            return <BooleanControl />
         default:
             return null
     }
@@ -120,10 +120,10 @@ function TextControl() {
     return (
         <div className='text-sm'>
             <div>
-                <div className='font-semibold'>
+                <div className='font-semibold text-site-mainText/80 text-xs'>
                     Default value:
                 </div>
-                <div className='flex gap-2'>
+                <div className=''>
                     <div>
                         <Input placeholder='' value={value} onChange={(e: any) => { setValue(e.target.value) }} />
                     </div>
@@ -133,16 +133,33 @@ function TextControl() {
     )
 }
 function NumberControl() {
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState()
     return (
         <div className='text-sm'>
             <div>
-                <div className='font-semibold'>
+                <div className='font-semibold text-site-mainText/80 text-xs'>
                     Default value:
                 </div>
-                <div className='flex gap-2'>
+                <div className=''>
                     <div>
                         <Input type='number' placeholder='' value={value} onChange={(e: any) => { setValue(e.target.value) }} />
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+function BooleanControl() {
+    const [value, setValue] = useState(false)
+    return (
+        <div className='text-sm'>
+            <div>
+                <div className='font-semibold text-site-mainText/80 text-xs'>
+                    Default value:
+                </div>
+                <div className=''>
+                    <div onClick={()=>setValue(!value)} className={`h-8 w-full border rounded-md pl-2 flex items-center transition-all ${value===true? "bg-site-colors-primary/40 border-site-colors-primary" : ""}`}>
+                        {value? "Yes":"No"}
                     </div>
                 </div>
             </div>
