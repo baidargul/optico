@@ -19,6 +19,7 @@ const Property = (props: Props) => {
     const [property, setProperty] = useState(props.property)
     const [propertyName, setPropertyName] = useState("New Property")
     const [propertyType, setPropertyType] = useState("text")
+    const[isUpdating, setIsUpdating] = useState(false)
 
     useEffect(() => {
         setProperty(props.property)
@@ -39,6 +40,7 @@ const Property = (props: Props) => {
                 id: property.id,
             }
 
+            setIsUpdating(true)
             await axios.post(`/api/definitions/category/do/property/delete`, data).then(async (res: any) => {
                 const response: any = await res.data
                 if (response.status === 200) {
@@ -47,16 +49,15 @@ const Property = (props: Props) => {
                     toast.warning(response.message)
                 }
             })
-
-
         } catch (error:any) {
             toast.error(error.message)
         }
+        setIsUpdating(false)
     }
 
     const handleIndexChange = async (index: number) => {
         try {
-
+            setIsUpdating(true)
             const data = {
                 id: property.id,
                 index: index
@@ -75,6 +76,7 @@ const Property = (props: Props) => {
         } catch (error: any) {
             toast.error(error.message)
         }
+        setIsUpdating(false)
     }
 
     const handlePropertyTypeChange = async (type: string) => {
@@ -84,7 +86,7 @@ const Property = (props: Props) => {
 
 
     return (
-        <div className='relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80'>
+        <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse"}`}>
             <div className='absolute right-0 flex'>
                 <div>
                     <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
