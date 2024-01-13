@@ -11,20 +11,21 @@ const PropertyEditor = async (props: Props) => {
 
     const category = await prisma.category.findUnique({
         include: {
-            nature: true
+            nature: true,
+            properties: true
         },
         where: {
             id: id
         }
     })
-    
-    if(!category){
+
+    if (!category) {
         return null
     }
 
     return (
         <div>
-            <Properties category={category}/>
+            <Properties category={category} />
         </div>
     )
 }

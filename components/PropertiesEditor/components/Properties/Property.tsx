@@ -5,16 +5,23 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Option from './components/Option'
 
 type Props = {
-    id: string // Category Property Id
+    property: any
 }
 
 const Property = (props: Props) => {
+    const [property, setProperty] = useState(props.property)
     const [propertyName, setPropertyName] = useState("New Property")
     const [propertyType, setPropertyType] = useState("text")
+
+    useEffect(()=>{
+        setProperty(props.property)
+        setPropertyName(props.property.name)
+        setPropertyType(props.property.type)
+    },[props.property])
 
     const values = ["single selection", "multiple selection", "text", "number", "boolean"].sort(
         (a, b) => a.localeCompare(b)
