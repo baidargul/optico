@@ -33,7 +33,25 @@ const Property = (props: Props) => {
 
 
     const handleDeletePropertyClick = async () => {
+        try {
+            
+            const data = {
+                id: property.id,
+            }
 
+            await axios.post(`/api/definitions/category/do/property/delete`, data).then(async (res: any) => {
+                const response: any = await res.data
+                if (response.status === 200) {
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+
+        } catch (error:any) {
+            toast.error(error.message)
+        }
     }
 
     const handleIndexChange = async (index: number) => {
