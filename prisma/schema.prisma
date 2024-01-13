@@ -11,14 +11,38 @@ model nature {
   id       String     @id @default(uuid())
   name     String     @unique
   archived Boolean    @default(false)
-  category category[]
   dynamic  Boolean    @default(false)
+  category category[]
 }
 
 model category {
-  id       String  @id @default(uuid())
-  natureId String
-  name     String
-  archived Boolean @default(false)
-  nature   nature  @relation(fields: [natureId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id         String       @id @default(uuid())
+  natureId   String
+  name       String
+  archived   Boolean      @default(false)
+  nature     nature       @relation(fields: [natureId], references: [id], onDelete: Cascade)
+  properties properties[]
+}
+
+model properties {
+  id              String            @id @default(uuid())
+  categoryId      String
+  index           Decimal?          @db.Decimal
+  type            String            @default("text")
+  defaultId       String?
+  createdAt       DateTime?         @db.Timestamptz(6)
+  updatedAt       DateTime?         @db.Timestamptz(6)
+  name            String
+  category        category          @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  propertyOptions propertyOptions[]
+}
+
+model propertyOptions {
+  id         String     @id @default(uuid())
+  propertyId String
+  index      Decimal?   @db.Decimal
+  value      String?
+  createdAt  DateTime?  @db.Timestamptz(6)
+  updatedAt  DateTime?  @db.Timestamptz(6)
+  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
