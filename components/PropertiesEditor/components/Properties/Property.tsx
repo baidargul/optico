@@ -7,9 +7,12 @@ import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Option from './components/Option'
+import { toast } from 'sonner'
+import axios from 'axios'
 
 type Props = {
     property: any
+    refetchCategory: any
 }
 
 const Property = (props: Props) => {
@@ -17,11 +20,11 @@ const Property = (props: Props) => {
     const [propertyName, setPropertyName] = useState("New Property")
     const [propertyType, setPropertyType] = useState("text")
 
-    useEffect(()=>{
+    useEffect(() => {
         setProperty(props.property)
         setPropertyName(props.property.name)
         setPropertyType(props.property.type)
-    },[props.property])
+    }, [props.property])
 
     const values = ["single selection", "multiple selection", "text", "number", "boolean"].sort(
         (a, b) => a.localeCompare(b)
@@ -34,7 +37,26 @@ const Property = (props: Props) => {
     }
 
     const handleIndexChange = async (index: number) => {
+        try {
 
+            const data = {
+                id: property.id,
+                index: index
+            }
+
+            await axios.patch(`/api/definitions/category/do/property/index/`, data).then(async (res: any) => {
+                const response: any = await res.data
+                if (response.status === 200) {
+                    setProperty(response.data)
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
     }
 
     const handlePropertyTypeChange = async (type: string) => {

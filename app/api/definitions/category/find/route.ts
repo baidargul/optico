@@ -15,11 +15,19 @@ export async function POST(req: NextRequest) {
 
         const category = await prisma.category.findUnique({
             include: {
-                nature: true
+                nature: true,
+                properties: {
+                    include: {
+                        propertyOptions: true
+                    },
+                    orderBy: {
+                        index: 'asc'
+                    }
+                }
             },
             where: {
                 id: id
-            }
+            },
         })
 
         if (!category) {

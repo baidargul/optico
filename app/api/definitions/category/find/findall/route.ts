@@ -14,12 +14,17 @@ export async function GET(req: NextRequest) {
         const categories = await prisma.category.findMany({
             include: {
                 nature: true,
+                properties: {
+                    include: {
+                        propertyOptions: true
+                    }
+                }
             },
             orderBy: [
                 {
                     nature: {
                         name: "asc"
-                    }
+                    },
                 },
                 { name: "asc" },
             ],

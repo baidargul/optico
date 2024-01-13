@@ -12,7 +12,14 @@ const PropertyEditor = async (props: Props) => {
     const category = await prisma.category.findUnique({
         include: {
             nature: true,
-            properties: true
+            properties: {
+                include: {
+                    propertyOptions: true
+                },
+                orderBy:{
+                    index: 'asc'
+                }
+            }
         },
         where: {
             id: id
