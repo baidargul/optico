@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
 import React, { useState } from 'react'
+import Option from './components/Option'
 
 type Props = {
     id: string // Category Property Id
@@ -36,7 +37,7 @@ const Property = (props: Props) => {
 
 
     return (
-        <div className='relative w-full p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80'>
+        <div className='relative w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80'>
             <div className='absolute right-0 flex'>
                 <div>
                     <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
@@ -100,7 +101,7 @@ function getControls(type: string) {
 
     switch (type) {
         case "single selection":
-            break;
+            return <SingleSelectionControl />
         case "multiple selection":
             break;
         case "text":
@@ -158,9 +159,41 @@ function BooleanControl() {
                     Default value:
                 </div>
                 <div className=''>
-                    <div onClick={()=>setValue(!value)} className={`h-8 w-full border rounded-md pl-2 flex items-center transition-all ${value===true? "bg-site-colors-primary/40 border-site-colors-primary" : ""}`}>
-                        {value? "Yes":"No"}
+                    <div onClick={() => setValue(!value)} className={`h-8 w-full border rounded-md pl-2 flex items-center transition-all ${value === true ? "bg-site-colors-primary/40 border-site-colors-primary" : ""}`}>
+                        {value ? "Yes" : "No"}
                     </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function SingleSelectionControl() {
+    const [newValue, setNewValue] = useState("")
+    return (
+        <div className='text-sm'>
+            <div>
+                <div className='font-semibold text-site-mainText/80 text-xs w-full'>
+                    New value:
+                </div>
+                <div className='flex justify-between gap-2'>
+                    <div className='w-full'>
+                        <Input type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
+                    </div>
+                    <div>
+                        <Button className='h-8 text-site-mainText border' variant={'ghost'}>Insert</Button>
+                    </div>
+                </div>
+            </div>
+            <div className='mt-1'>
+                <div className='font-semibold text-site-mainText/80 text-xs w-full'>
+                    Values:
+                </div>
+                <div className='w-full flex flex-col gap-1'>
+                    <Option />
+                    <Option />
+                    <Option />
+                    <Option />
                 </div>
             </div>
         </div>
