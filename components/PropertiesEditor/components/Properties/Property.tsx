@@ -170,6 +170,7 @@ function BooleanControl() {
 
 function SingleSelectionControl() {
     const [newValue, setNewValue] = useState("")
+    const [options, setOptions] = useState([])
     return (
         <div className='text-sm'>
             <div>
