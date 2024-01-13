@@ -1,5 +1,5 @@
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react'
 import React from 'react'
 
 type Props = {}
@@ -13,10 +13,10 @@ const Option = (props: Props) => {
             <div>
                 <div className='flex'>
                     <div>
-                        <ArrowLeft onClick={async () => { }} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                        <ArrowUp onClick={async () => { }} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
                     </div>
                     <div>
-                        <ArrowRight onClick={async () => { }} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                        <ArrowDown onClick={async () => { }} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
                     </div>
                     <div onClick={() => { }} className=' hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
                         x
