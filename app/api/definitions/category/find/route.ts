@@ -18,7 +18,11 @@ export async function POST(req: NextRequest) {
                 nature: true,
                 properties: {
                     include: {
-                        propertyOptions: true
+                        propertyOptions: {
+                            orderBy:{
+                                index: 'asc'
+                            }
+                        }
                     },
                     orderBy: {
                         index: 'asc'

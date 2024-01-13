@@ -14,10 +14,14 @@ const PropertyEditor = async (props: Props) => {
             nature: true,
             properties: {
                 include: {
-                    propertyOptions: true
+                    propertyOptions: {
+                        orderBy: {
+                            index: 'asc',
+                        }
+                    },
                 },
-                orderBy:{
-                    index: 'asc'
+                orderBy: {
+                    index: 'asc',
                 }
             }
         },
