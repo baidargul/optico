@@ -77,14 +77,18 @@ export async function PATCH(req: NextRequest) {
         property = await prisma.properties.update({
             include: {
                 category: true,
-                propertyOptions: true
+                propertyOptions: {
+                    orderBy: {
+                        index: 'asc'
+                    }
+                }
             },
             where: {
                 id: id
             },
             data: {
                 index: property.index + index
-            }
+            } 
         })
 
         response.status = 200;
