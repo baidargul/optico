@@ -202,7 +202,7 @@ function getControls(type: string, propertyId: string, setIsUpdating: any) {
         case "number":
             return <NumberControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "boolean":
-            return <BooleanControl />
+            return <BooleanControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         default:
             return null
     }
@@ -423,8 +423,72 @@ function NumberControl(props: ControlProps) {
     )
 }
 
-function BooleanControl() {
-    const [value, setValue] = useState(false)
+function BooleanControl(props: ControlProps) {
+    const [isFetching, setIsFetching] = useState(true)
+    const [isMounted, setIsMounted] = useState(false)
+    const [value, setValue] = useState<any>();
+
+    useEffect(() => {
+        setIsMounted(true)
+        fetchPrevValue()
+    }, [])
+
+    const fetchPrevValue = async () => {
+        props.setIsUpdating(true)
+        try {
+            const data = {
+                id: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/boolean/get/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    if (response.data) {
+                        const data = String(response.data).toLocaleLowerCase()==="true"? true: false
+                        setValue(data)
+                    } else {
+                        setValue(false)
+                    }
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        props.setIsUpdating(false)
+    }
+
+    const handleValueChange = async () => {
+        try {
+            
+            if (isFetching) {
+                setIsFetching(false)
+                return
+            }
+            
+            const data = {
+                id: props.propertyId,
+                value: !value
+            }
+            
+            props.setIsUpdating(true)
+
+            await axios.post(`/api/definitions/category/do/property/options/boolean/create/`, data).then(async (res: any) => {
+                const response: any = await res.data
+                if (response.status === 200) {
+                    setValue(!value)
+                    toast.success(response.message)
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        props.setIsUpdating(false)
+    }
+
     return (
         <div className='text-sm'>
             <div>
@@ -432,7 +496,7 @@ function BooleanControl() {
                     Default value:
                 </div>
                 <div className=''>
-                    <div onClick={() => setValue(!value)} className={`h-8 w-full border rounded-md pl-2 flex items-center transition-all ${value === true ? "bg-site-colors-primary/40 border-site-colors-primary" : ""}`}>
+                    <div onClick={handleValueChange} className={`h-8 w-full border rounded-md pl-2 flex items-center transition-all ${value === true ? "bg-site-colors-primary/40 border-site-colors-primary" : ""}`}>
                         {value ? "Yes" : "No"}
                     </div>
                 </div>
