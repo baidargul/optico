@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-const sampleValues = ["single", "multiple", "text", "number", "boolean"]
+const sampleValues = ["single selection", "multiple selection", "text", "number", "boolean"]
 
 type Props = {
     placeholder?: string
@@ -56,7 +56,6 @@ export function SelectControl(props: Props) {
 
                             return(
                                 <SelectItem value={value}>{formalizeText(value)}</SelectItem>
-
                             )
                         })
                     }

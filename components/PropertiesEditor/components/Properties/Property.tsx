@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import Option from './components/Option'
 import { toast } from 'sonner'
 import axios from 'axios'
+import { formalizeText } from '@/lib/my'
 
 type Props = {
     property: any
@@ -19,9 +20,10 @@ const Property = (props: Props) => {
     const [property, setProperty] = useState(props.property)
     const [propertyName, setPropertyName] = useState("New Property")
     const [propertyType, setPropertyType] = useState("text")
-    const[isUpdating, setIsUpdating] = useState(false)
+    const [isUpdating, setIsUpdating] = useState(false)
 
     useEffect(() => {
+        console.log(props.property.type)
         setProperty(props.property)
         setPropertyName(props.property.name)
         setPropertyType(props.property.type)
@@ -35,7 +37,7 @@ const Property = (props: Props) => {
 
     const handleDeletePropertyClick = async () => {
         try {
-            
+
             const data = {
                 id: property.id,
             }
@@ -49,7 +51,7 @@ const Property = (props: Props) => {
                     toast.warning(response.message)
                 }
             })
-        } catch (error:any) {
+        } catch (error: any) {
             toast.error(error.message)
         }
         setIsUpdating(false)
@@ -80,7 +82,26 @@ const Property = (props: Props) => {
     }
 
     const handlePropertyTypeChange = async (type: string) => {
-        setPropertyType(type)
+        try {
+            const data = {
+                id: property.id,
+                type: String(type).toLocaleLowerCase()
+            }
+
+            setIsUpdating(true)
+            await axios.patch(`/api/definitions/category/do/property/changeType/`, data).then(async (res: any) => {
+                const response: any = await res.data
+                if (response.status === 200) {
+                    setProperty(response.data)
+                    setPropertyType(type)
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        setIsUpdating(false)
     }
 
     const handlePropertyNameChange = async (newName: string) => {
@@ -100,8 +121,8 @@ const Property = (props: Props) => {
                     toast.warning(response.message)
                 }
             })
-            
-        } catch (error:any) {
+
+        } catch (error: any) {
             toast.error(error.message)
         }
         setIsUpdating(false)
@@ -120,7 +141,7 @@ const Property = (props: Props) => {
                 </div>
                 <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
                     x
-                </div>
+                </div>                
             </div>
             <div>
                 <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
@@ -133,7 +154,7 @@ const Property = (props: Props) => {
             <Separator className='my-2 opacity-40' />
             <div className='flex gap-4 items-center'>
                 <div className=''>
-                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={async (value: any) => await handlePropertyTypeChange(value)} defaultValue={propertyType} />
+                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={async (value: any) => await handlePropertyTypeChange(value)} defaultValue={property.type} />
                 </div>
                 <div className='text-site-colors-secondary/70 text-xs'>
                     {
