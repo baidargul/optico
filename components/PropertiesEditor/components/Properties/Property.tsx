@@ -213,10 +213,33 @@ type TextProps = {
     propertyId: string
 }
 function TextControl(props: TextProps) {
+    const [isFetching, setIsFetching] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState("");
 
+    const fetchPrevValue = async () => {
+        setIsFetching(true)
+        try {
+            const data = {
+                id: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/text/get/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    setValue(formalizeText(response.data))
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        setIsFetching(false)
+    }
+
     useEffect(() => {
+        fetchPrevValue()
         setIsMounted(true)
     }, [])
 
@@ -227,6 +250,8 @@ function TextControl(props: TextProps) {
             if (!isMounted) {
                 return
             }
+
+            if (isFetching) return
 
             try {
 
@@ -241,11 +266,13 @@ function TextControl(props: TextProps) {
                         toast.success(response.message)
                     } else {
                         toast.warning(response.message)
+                        await fetchPrevValue()
                     }
                 })
 
             } catch (error: any) {
                 toast.error(error.message)
+                await fetchPrevValue()
             }
         };
 
@@ -281,12 +308,35 @@ function TextControl(props: TextProps) {
 
 
 function NumberControl(props: TextProps) {
+    const [isFetching, setIsFetching] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState();
 
     useEffect(() => {
         setIsMounted(true)
+        fetchPrevValue()
     }, [])
+
+    const fetchPrevValue = async () => {
+        setIsFetching(true)
+        try {
+            const data = {
+                id: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/number/get/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    setValue(response.data)
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        setIsFetching(false)
+    }
 
     useEffect(() => {
         let timeoutId: any;
@@ -296,6 +346,8 @@ function NumberControl(props: TextProps) {
                 return
             }
 
+            if (isFetching) return
+
             try {
 
                 const data = {
@@ -303,17 +355,19 @@ function NumberControl(props: TextProps) {
                     value: value
                 }
 
-                await axios.post(`/api/definitions/category/do/property/options/text/create/`, data).then(async (res: any) => {
+                await axios.post(`/api/definitions/category/do/property/options/number/create/`, data).then(async (res: any) => {
                     const response = await res.data
                     if (response.status === 200) {
                         toast.success(response.message)
                     } else {
                         toast.warning(response.message)
+                        await fetchPrevValue()
                     }
                 })
 
             } catch (error: any) {
                 toast.error(error.message)
+                await fetchPrevValue()
             }
         };
 
