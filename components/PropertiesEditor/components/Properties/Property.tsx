@@ -130,7 +130,7 @@ const Property = (props: Props) => {
 
 
     return (
-        <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse"}`}>
+        <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse cursor-not-allowed"}`}>
             <div className='absolute right-0 flex'>
                 <div>
                     <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
@@ -194,7 +194,7 @@ function getControls(type: string, propertyId: string, setIsUpdating: any) {
 
     switch (type) {
         case "single selection":
-            return <SingleSelectionControl />
+            return <SingleSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating}/>
         case "multiple selection":
             break;
         case "text":
@@ -505,7 +505,7 @@ function BooleanControl(props: ControlProps) {
     )
 }
 
-function SingleSelectionControl() {
+function SingleSelectionControl(props: ControlProps) {
     const [newValue, setNewValue] = useState("")
     const [options, setOptions] = useState([])
     return (
