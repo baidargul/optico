@@ -221,7 +221,12 @@ function TextControl() {
         let timeoutId: any;
 
         const doUpdate = async () => {
-            console.log("Value changed:", value);
+            if (!isMounted) {
+                return
+            }
+
+            if (!value) return
+            console.log(value);
             // Perform your database query or other actions here
         };
 
@@ -238,10 +243,6 @@ function TextControl() {
             clearTimeout(timeoutId);
         };
     }, [value]);
-
-    const doUpdatedValue = async () => {
-        console.log("hello", value);
-    }
 
     return (
         <div className='text-sm'>
