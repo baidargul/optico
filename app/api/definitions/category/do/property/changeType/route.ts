@@ -37,6 +37,12 @@ export async function PATCH(req: NextRequest) {
             return new Response(JSON.stringify(response));
         }
 
+        await prisma.propertyOptions.deleteMany({
+            where:{
+                propertyId: id
+            }
+        })
+
         const property = await prisma.properties.update({
             include: {
                 category: true,

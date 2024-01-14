@@ -164,7 +164,7 @@ const Property = (props: Props) => {
             <Separator className='my-2 opacity-40' />
             <div>
                 {
-                    getControls(propertyType, property.id)
+                    getControls(propertyType, property.id, setIsUpdating)
                 }
             </div>
         </div>
@@ -190,7 +190,7 @@ function propertyDescription(type: string) {
     }
 }
 
-function getControls(type: string, propertyId: string) {
+function getControls(type: string, propertyId: string, setIsUpdating: any) {
 
     switch (type) {
         case "single selection":
@@ -198,9 +198,9 @@ function getControls(type: string, propertyId: string) {
         case "multiple selection":
             break;
         case "text":
-            return <TextControl propertyId={propertyId} />
+            return <TextControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "number":
-            return <NumberControl propertyId={propertyId} />
+            return <NumberControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "boolean":
             return <BooleanControl />
         default:
@@ -211,6 +211,7 @@ function getControls(type: string, propertyId: string) {
 
 type TextProps = {
     propertyId: string
+    setIsUpdating: any
 }
 function TextControl(props: TextProps) {
     const [isFetching, setIsFetching] = useState(true)
@@ -218,6 +219,7 @@ function TextControl(props: TextProps) {
     const [value, setValue] = useState("");
 
     const fetchPrevValue = async () => {
+        props.setIsUpdating(true)
         try {
             const data = {
                 id: props.propertyId
@@ -238,6 +240,7 @@ function TextControl(props: TextProps) {
         } catch (error: any) {
             toast.error(error.message)
         }
+        props.setIsUpdating(false)
     }
 
     useEffect(() => {
@@ -257,6 +260,8 @@ function TextControl(props: TextProps) {
                 setIsFetching(false)
                 return
             }
+
+            props.setIsUpdating(true)
 
             try {
 
@@ -280,6 +285,7 @@ function TextControl(props: TextProps) {
                 toast.error(error.message)
                 await fetchPrevValue()
             }
+            props.setIsUpdating(false)
         };
 
         const handleChange = () => {
@@ -319,6 +325,7 @@ function NumberControl(props: TextProps) {
     const [value, setValue] = useState<any>();
 
     const fetchPrevValue = async () => {
+        props.setIsUpdating(true)
         try {
             const data = {
                 id: props.propertyId
@@ -339,6 +346,7 @@ function NumberControl(props: TextProps) {
         } catch (error: any) {
             toast.error(error.message)
         }
+        props.setIsUpdating(false)
     }
 
     useEffect(() => {
@@ -359,6 +367,7 @@ function NumberControl(props: TextProps) {
                 return
             }
 
+            props.setIsUpdating(true)
             try {
 
                 const data = {
@@ -381,6 +390,7 @@ function NumberControl(props: TextProps) {
                 toast.error(error.message)
                 await fetchPrevValue()
             }
+            props.setIsUpdating(false)
         };
 
         const handleChange = () => {
