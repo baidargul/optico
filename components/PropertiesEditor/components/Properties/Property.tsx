@@ -164,7 +164,7 @@ const Property = (props: Props) => {
             <Separator className='my-2 opacity-40' />
             <div>
                 {
-                    getControls(propertyType)
+                    getControls(propertyType, property.id)
                 }
             </div>
         </div>
@@ -190,7 +190,7 @@ function propertyDescription(type: string) {
     }
 }
 
-function getControls(type: string) {
+function getControls(type: string, propertyId: string) {
 
     switch (type) {
         case "single selection":
@@ -198,9 +198,9 @@ function getControls(type: string) {
         case "multiple selection":
             break;
         case "text":
-            return <TextControl />
+            return <TextControl propertyId={propertyId} />
         case "number":
-            return <NumberControl />
+            return <NumberControl propertyId={propertyId} />
         case "boolean":
             return <BooleanControl />
         default:
@@ -209,7 +209,10 @@ function getControls(type: string) {
 
 }
 
-function TextControl() {
+type TextProps = {
+    propertyId: string
+}
+function TextControl(props: TextProps) {
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState("");
 
@@ -226,8 +229,26 @@ function TextControl() {
             }
 
             if (!value) return
-            console.log(value);
-            // Perform your database query or other actions here
+
+            try {
+
+                const data = {
+                    id: props.propertyId,
+                    value: value
+                }
+
+                await axios.post(`/api/definitions/category/do/property/options/text/create/`, data).then(async (res: any) => {
+                    const response = await res.data
+                    if (response.status === 200) {
+                        toast.success(response.message)
+                    } else {
+                        toast.warning(response.message)
+                    }
+                })
+
+            } catch (error: any) {
+                toast.error(error.message)
+            }
         };
 
         const handleChange = () => {
@@ -260,8 +281,60 @@ function TextControl() {
     );
 }
 
-function NumberControl() {
-    const [value, setValue] = useState()
+
+function NumberControl(props: TextProps) {
+    const [isMounted, setIsMounted] = useState(false)
+    const [value, setValue] = useState();
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    useEffect(() => {
+        let timeoutId: any;
+
+        const doUpdate = async () => {
+            if (!isMounted) {
+                return
+            }
+
+            if (!value) return
+
+            try {
+
+                const data = {
+                    id: props.propertyId,
+                    value: value
+                }
+
+                await axios.post(`/api/definitions/category/do/property/options/text/create/`, data).then(async (res: any) => {
+                    const response = await res.data
+                    if (response.status === 200) {
+                        toast.success(response.message)
+                    } else {
+                        toast.warning(response.message)
+                    }
+                })
+
+            } catch (error: any) {
+                toast.error(error.message)
+            }
+        };
+
+        const handleChange = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                doUpdate();
+            }, 1000);
+        };
+
+        handleChange();
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [value]);
+
     return (
         <div className='text-sm'>
             <div>
@@ -277,6 +350,7 @@ function NumberControl() {
         </div>
     )
 }
+
 function BooleanControl() {
     const [value, setValue] = useState(false)
     return (
