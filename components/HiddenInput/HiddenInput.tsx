@@ -7,7 +7,7 @@ import { EditIcon, Scale } from 'lucide-react'
 type Props = {
     value: string
     setValue: any
-    onSubmit: Promise<any> | any
+    onSubmit: (value: string) => Promise<void>;
     children: React.ReactNode
     scale?: 100 | 90 | 75
 }
@@ -20,9 +20,13 @@ const HiddenInput = (props: Props) => {
     const [isEditable, setIsEditable] = useState(false)
 
     const SubmitChange = async () => {
-        await props.onSubmit(value).then(() => {
-            props.setValue(formalizeText(value))
-            setIsEditable(false)
+        await props.onSubmit(value).then(async (res: any) => {
+            if (res.status == 200) {
+                props.setValue(formalizeText(value))
+                setIsEditable(false)
+            } else {
+                setValue(formalizeText(input))
+            }
         }).catch((err: any) => {
             setValue(formalizeText(input))
         })
