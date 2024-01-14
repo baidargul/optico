@@ -96,7 +96,6 @@ const Property = (props: Props) => {
                 if (response.status === 200) {
                     setProperty(response.data)
                     await props.refetchCategory()
-                    toast.message(response.message)
                 } else {
                     toast.warning(response.message)
                 }

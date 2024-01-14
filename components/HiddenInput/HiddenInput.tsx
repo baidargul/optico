@@ -26,9 +26,12 @@ const HiddenInput = (props: Props) => {
                 setIsEditable(false)
             } else {
                 setValue(formalizeText(input))
+                setIsEditable(false)
             }
         }).catch((err: any) => {
             setValue(formalizeText(input))
+        }).finally(() => { 
+            setIsEditable(false)
         })
     }
 
