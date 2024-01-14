@@ -228,8 +228,6 @@ function TextControl(props: TextProps) {
                 return
             }
 
-            if (!value) return
-
             try {
 
                 const data = {
@@ -297,8 +295,6 @@ function NumberControl(props: TextProps) {
             if (!isMounted) {
                 return
             }
-
-            if (!value) return
 
             try {
 
