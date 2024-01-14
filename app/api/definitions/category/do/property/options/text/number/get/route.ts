@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
             return new Response(JSON.stringify(response));
         }
 
-        const value = isExists.propertyOptions[0].value
+        const value = isExists.propertyOptions[0]?.value
 
         response.status = 200;
         response.message = 'Success';

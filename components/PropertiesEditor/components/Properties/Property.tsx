@@ -213,12 +213,11 @@ type TextProps = {
     propertyId: string
 }
 function TextControl(props: TextProps) {
-    const [isFetching, setIsFetching] = useState(false)
+    const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState("");
 
     const fetchPrevValue = async () => {
-        setIsFetching(true)
         try {
             const data = {
                 id: props.propertyId
@@ -227,7 +226,11 @@ function TextControl(props: TextProps) {
             await axios.post(`/api/definitions/category/do/property/options/text/get/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
-                    setValue(formalizeText(response.data))
+                    if (response.data) {
+                        setValue(formalizeText(response.data))
+                    } else {
+                        setValue("")
+                    }
                 } else {
                     toast.warning(response.message)
                 }
@@ -235,7 +238,6 @@ function TextControl(props: TextProps) {
         } catch (error: any) {
             toast.error(error.message)
         }
-        setIsFetching(false)
     }
 
     useEffect(() => {
@@ -251,7 +253,10 @@ function TextControl(props: TextProps) {
                 return
             }
 
-            if (isFetching) return
+            if (isFetching) {
+                setIsFetching(false)
+                return
+            }
 
             try {
 
@@ -259,6 +264,7 @@ function TextControl(props: TextProps) {
                     id: props.propertyId,
                     value: value
                 }
+
 
                 await axios.post(`/api/definitions/category/do/property/options/text/create/`, data).then(async (res: any) => {
                     const response = await res.data
@@ -308,17 +314,11 @@ function TextControl(props: TextProps) {
 
 
 function NumberControl(props: TextProps) {
-    const [isFetching, setIsFetching] = useState(false)
+    const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
-    const [value, setValue] = useState();
-
-    useEffect(() => {
-        setIsMounted(true)
-        fetchPrevValue()
-    }, [])
+    const [value, setValue] = useState<any>();
 
     const fetchPrevValue = async () => {
-        setIsFetching(true)
         try {
             const data = {
                 id: props.propertyId
@@ -327,7 +327,11 @@ function NumberControl(props: TextProps) {
             await axios.post(`/api/definitions/category/do/property/options/number/get/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
-                    setValue(response.data)
+                    if (response.data) {
+                        setValue(Number(response.data))
+                    } else {
+                        setValue(null)
+                    }
                 } else {
                     toast.warning(response.message)
                 }
@@ -335,8 +339,12 @@ function NumberControl(props: TextProps) {
         } catch (error: any) {
             toast.error(error.message)
         }
-        setIsFetching(false)
     }
+
+    useEffect(() => {
+        setIsMounted(true)
+        fetchPrevValue()
+    }, [])
 
     useEffect(() => {
         let timeoutId: any;
@@ -346,7 +354,10 @@ function NumberControl(props: TextProps) {
                 return
             }
 
-            if (isFetching) return
+            if (isFetching) {
+                setIsFetching(false)
+                return
+            }
 
             try {
 
@@ -354,6 +365,7 @@ function NumberControl(props: TextProps) {
                     id: props.propertyId,
                     value: value
                 }
+
 
                 await axios.post(`/api/definitions/category/do/property/options/number/create/`, data).then(async (res: any) => {
                     const response = await res.data
