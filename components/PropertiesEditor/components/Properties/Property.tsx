@@ -209,11 +209,11 @@ function getControls(type: string, propertyId: string, setIsUpdating: any) {
 
 }
 
-type TextProps = {
+type ControlProps = {
     propertyId: string
     setIsUpdating: any
 }
-function TextControl(props: TextProps) {
+function TextControl(props: ControlProps) {
     const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState("");
@@ -319,7 +319,7 @@ function TextControl(props: TextProps) {
 }
 
 
-function NumberControl(props: TextProps) {
+function NumberControl(props: ControlProps) {
     const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState<any>();
