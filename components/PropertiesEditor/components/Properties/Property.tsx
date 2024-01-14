@@ -83,6 +83,30 @@ const Property = (props: Props) => {
         setPropertyType(type)
     }
 
+    const handlePropertyNameChange = async (newName: string) => {
+        try {
+            const data = {
+                id: property.id,
+                name: newName
+            }
+
+            setIsUpdating(true)
+            await axios.patch(`/api/definitions/category/do/property/rename/`, data).then(async (res: any) => {
+                const response: any = await res.data
+                if (response.status === 200) {
+                    setProperty(response.data)
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+            
+        } catch (error:any) {
+            toast.error(error.message)
+        }
+        setIsUpdating(false)
+    }
+
 
 
     return (
@@ -99,7 +123,7 @@ const Property = (props: Props) => {
                 </div>
             </div>
             <div>
-                <HiddenInput onSubmit={() => { }} value={propertyName} setValue={setPropertyName} scale={75}>
+                <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
                     <div className='font-semibold text-site-mainText font-sans flex items-center gap-1'>
                         <Circle className='w-2 h-2' />
                         {propertyName}

@@ -20,9 +20,12 @@ const HiddenInput = (props: Props) => {
     const [isEditable, setIsEditable] = useState(false)
 
     const SubmitChange = async () => {
-        await props.onSubmit()
-        props.setValue(formalizeText(value))
-        setIsEditable(false)
+        await props.onSubmit(value).then(() => {
+            props.setValue(formalizeText(value))
+            setIsEditable(false)
+        }).catch((err: any) => {
+            setValue(formalizeText(input))
+        })
     }
 
     useEffect(() => {
@@ -60,7 +63,7 @@ const HiddenInput = (props: Props) => {
     }
 
     if (isEditable) {
-        let margin= ""
+        let margin = ""
         if (props.scale) {
             switch (props.scale) {
                 case 75:
