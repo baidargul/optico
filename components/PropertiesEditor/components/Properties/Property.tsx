@@ -23,7 +23,6 @@ const Property = (props: Props) => {
     const [isUpdating, setIsUpdating] = useState(false)
 
     useEffect(() => {
-        console.log(props.property.type)
         setProperty(props.property)
         setPropertyName(props.property.name)
         setPropertyType(props.property.type)
@@ -141,7 +140,7 @@ const Property = (props: Props) => {
                 </div>
                 <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
                     x
-                </div>                
+                </div>
             </div>
             <div>
                 <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
@@ -211,7 +210,39 @@ function getControls(type: string) {
 }
 
 function TextControl() {
-    const [value, setValue] = useState("")
+    const [isMounted, setIsMounted] = useState(false)
+    const [value, setValue] = useState("");
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    useEffect(() => {
+        let timeoutId: any;
+
+        const doUpdate = async () => {
+            console.log("Value changed:", value);
+            // Perform your database query or other actions here
+        };
+
+        const handleChange = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                doUpdate();
+            }, 1000);
+        };
+
+        handleChange();
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [value]);
+
+    const doUpdatedValue = async () => {
+        console.log("hello", value);
+    }
+
     return (
         <div className='text-sm'>
             <div>
@@ -225,8 +256,9 @@ function TextControl() {
                 </div>
             </div>
         </div>
-    )
+    );
 }
+
 function NumberControl() {
     const [value, setValue] = useState()
     return (
