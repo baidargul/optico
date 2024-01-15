@@ -10,6 +10,7 @@ import Option from './components/Option'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { formalizeText } from '@/lib/my'
+import { propertyOptions } from '@prisma/client'
 
 type Props = {
     property: any
@@ -509,6 +510,7 @@ function SingleSelectionControl(props: ControlProps) {
     const [isMounted, setIsMounted] = useState(false)
     const [newValue, setNewValue] = useState("")
     const [options, setOptions] = useState([])
+    const [defaultOption, setDefaultOption] = useState<any>(null)
     const Ref: any = useRef(null)
 
     useEffect(() => {
@@ -596,9 +598,11 @@ function SingleSelectionControl(props: ControlProps) {
                 </div>
                 <div className='w-full flex flex-col gap-1'>
                     {
-                        options.map((option: any, index: number) => {
+                        options.map((option: propertyOptions, index: number) => {
                             return (
-                                <Option key={index} option={option} fetchPrevValue={fetchPrevValue} />
+                                <div key={index} className={``}>
+                                    <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />
+                                </div>
                             )
                         })
                     }

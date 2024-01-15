@@ -9,6 +9,8 @@ import { toast } from 'sonner'
 type Props = {
     option: propertyOptions
     fetchPrevValue: any
+    setDefault: any
+    default: boolean
 }
 
 const Option = (props: Props) => {
@@ -34,11 +36,36 @@ const Option = (props: Props) => {
         }
     }
 
+    const handleOptionDefaultClick = async () => {
+        try {
+
+            const data = {
+                id: option.id
+            }
+            await axios.patch(`/api/definitions/category/do/property/options/single-selection/select-default/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await props.fetchPrevValue()
+                    if (props.default) {
+                        props.setDefault(null)
+                    } else {
+                        props.setDefault(option.id)
+                    }
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+
 
 
     return (
-        <div className='p-1 pl-2 bg-site-background hover:bg-white rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between'>
-            <div>
+        <div onClick={handleOptionDefaultClick} className={`p-1 pl-2 ${props.default ? "bg-site-colors-primary/20 hover:bg-yellow-400/10 transition-all duration-200 " : "bg-site-background hover:bg-white"}  rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between`}>
+            <div className='w-full'>
                 {
                     formalizeText(option.value ? option.value : '-')
                 }
