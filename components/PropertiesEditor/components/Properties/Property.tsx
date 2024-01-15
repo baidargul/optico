@@ -131,44 +131,47 @@ const Property = (props: Props) => {
 
 
     return (
-        <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse cursor-not-allowed"}`}>
-            <div className='absolute right-0 flex'>
-                <div>
-                    <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
-                </div>
-                <div>
-                    <ArrowRight onClick={async () => await handleIndexChange(1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
-                </div>
-                <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
-                    x
-                </div>
-            </div>
-            <div>
-                <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
-                    <div className='font-semibold text-site-mainText font-sans flex items-center gap-1'>
-                        <Circle className='w-2 h-2' />
-                        {propertyName}
+        <div className='bg-zinc-300 rounded'>
+            <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse cursor-not-allowed"}`}>
+                <div className='absolute right-0 flex'>
+                    <div>
+                        <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
                     </div>
-                </HiddenInput>
-            </div>
-            <Separator className='my-2 opacity-40' />
-            <div className='flex gap-4 items-center'>
-                <div className=''>
-                    <SelectControl placeholder='Type' label='Property type' values={values} onChange={async (value: any) => await handlePropertyTypeChange(value)} defaultValue={property.type} />
+                    <div>
+                        <ArrowRight onClick={async () => await handleIndexChange(1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                    </div>
+                    <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
+                        x
+                    </div>
                 </div>
-                <div className='text-site-colors-secondary/70 text-xs'>
+                <div>
+                    <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
+                        <div className='font-semibold text-site-mainText font-sans flex items-center gap-1'>
+                            <Circle className='w-2 h-2' />
+                            {propertyName}
+                        </div>
+                    </HiddenInput>
+                </div>
+                <Separator className='my-2 opacity-40' />
+                <div className='flex gap-4 items-center'>
+                    <div className=''>
+                        <SelectControl placeholder='Type' label='Property type' values={values} onChange={async (value: any) => await handlePropertyTypeChange(value)} defaultValue={property.type} />
+                    </div>
+                    <div className='text-site-colors-secondary/70 text-xs'>
+                        {
+                            propertyDescription(propertyType)
+                        }
+                    </div>
+                </div>
+                <Separator className='my-2 opacity-40' />
+                <div>
                     {
-                        propertyDescription(propertyType)
+                        getControls(propertyType, property.id, setIsUpdating)
                     }
                 </div>
             </div>
-            <Separator className='my-2 opacity-40' />
-            <div>
-                {
-                    getControls(propertyType, property.id, setIsUpdating)
-                }
-            </div>
         </div>
+
     )
 }
 
@@ -705,8 +708,10 @@ function MultiSelectionControl(props: ControlProps) {
             </div>
             {isMounted && <div className='mt-1'>
                 <div onClick={() => setToggleValues(!toggleValues)} className='flex gap-1 p-1 items-center'>
-                    {!toggleValues && options.length > 0 && <List className='w-5 h-5 bg-site-colors-primary rounded-full text-white p-1' />}
-                    {toggleValues && options.length > 0 && <ListEnd className='w-5 h-5 bg-site-colors-secondary rounded-full text-white p-1' />}
+                    <div className='w-5 h-5'>
+                        {!toggleValues && options.length > 0 && <List className='w-5 h-5 bg-site-colors-primary rounded-full text-white' />}
+                        {toggleValues && options.length > 0 && <ListEnd className='w-5 h-5 bg-site-colors-secondary rounded-full text-white' />}
+                    </div>
                     <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                         {options.length > 0 ? "Values:" : "No values"}
                     </div>
