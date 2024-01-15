@@ -569,6 +569,12 @@ function SingleSelectionControl(props: ControlProps) {
         }
     }
 
+    const handleKeyDown = (e: any) => {
+        if (e.key === "Enter") {
+            handleAddPropertyOption()
+        }
+    }
+
     return (
         <div className='text-sm'>
             <div>
@@ -577,14 +583,14 @@ function SingleSelectionControl(props: ControlProps) {
                 </div>
                 <div className='flex justify-between gap-2'>
                     <div className='w-full'>
-                        <Input ref={Ref} type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
+                        <Input onKeyDown={handleKeyDown} ref={Ref} type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
                     </div>
                     <div>
                         <Button onClick={handleAddPropertyOption} className='h-8 text-site-mainText border' variant={'ghost'}>Insert</Button>
                     </div>
                 </div>
             </div>
-            {isMounted && <div className='mt-1'>
+            {isMounted && options.length > 0 && <div className='mt-1'>
                 <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                     Values:
                 </div>
@@ -592,7 +598,7 @@ function SingleSelectionControl(props: ControlProps) {
                     {
                         options.map((option: any, index: number) => {
                             return (
-                                <Option key={index} option={option} />
+                                <Option key={index} option={option} fetchPrevValue={fetchPrevValue} />
                             )
                         })
                     }
