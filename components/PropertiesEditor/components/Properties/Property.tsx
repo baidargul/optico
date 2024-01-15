@@ -194,7 +194,7 @@ function getControls(type: string, propertyId: string, setIsUpdating: any) {
 
     switch (type) {
         case "single selection":
-            return <SingleSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating}/>
+            return <SingleSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "multiple selection":
             break;
         case "text":
@@ -444,7 +444,7 @@ function BooleanControl(props: ControlProps) {
                 const response = await res.data
                 if (response.status === 200) {
                     if (response.data) {
-                        const data = String(response.data).toLocaleLowerCase()==="true"? true: false
+                        const data = String(response.data).toLocaleLowerCase() === "true" ? true : false
                         setValue(data)
                     } else {
                         setValue(false)
@@ -461,17 +461,17 @@ function BooleanControl(props: ControlProps) {
 
     const handleValueChange = async () => {
         try {
-            
+
             if (isFetching) {
                 setIsFetching(false)
                 return
             }
-            
+
             const data = {
                 id: props.propertyId,
                 value: !value
             }
-            
+
             props.setIsUpdating(true)
 
             await axios.post(`/api/definitions/category/do/property/options/boolean/create/`, data).then(async (res: any) => {
@@ -506,8 +506,57 @@ function BooleanControl(props: ControlProps) {
 }
 
 function SingleSelectionControl(props: ControlProps) {
+    const [isFetching, setIsFetching] = useState(true)
     const [newValue, setNewValue] = useState("")
     const [options, setOptions] = useState([])
+
+    const fetchPrevValue = async () => {
+        props.setIsUpdating(true)
+        try {
+            const data = {
+                id: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/single-selection/get/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    if (response.data) {
+                        setOptions(response.data)
+                    } else {
+                        setOptions([])
+                    }
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        props.setIsUpdating(false)
+    }
+
+    const handleAddPropertyOption = async () => {
+        try {
+
+            const data = {
+                id: props.propertyId,
+                value: newValue
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/single-selection/create`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await fetchPrevValue()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+
     return (
         <div className='text-sm'>
             <div>
@@ -519,7 +568,7 @@ function SingleSelectionControl(props: ControlProps) {
                         <Input type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
                     </div>
                     <div>
-                        <Button className='h-8 text-site-mainText border' variant={'ghost'}>Insert</Button>
+                        <Button onClick={handleAddPropertyOption} className='h-8 text-site-mainText border' variant={'ghost'}>Insert</Button>
                     </div>
                 </div>
             </div>
@@ -528,10 +577,13 @@ function SingleSelectionControl(props: ControlProps) {
                     Values:
                 </div>
                 <div className='w-full flex flex-col gap-1'>
-                    <Option />
-                    <Option />
-                    <Option />
-                    <Option />
+                    {
+                        options.map((option: any, index: number) => {
+                            return (
+                                <Option key={index} option={option} />
+                            )
+                        })
+                    }
                 </div>
             </div>
         </div>

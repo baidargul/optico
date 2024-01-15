@@ -1,14 +1,21 @@
 import HiddenInput from '@/components/HiddenInput/HiddenInput'
+import { formalizeText } from '@/lib/my'
+import { propertyOptions } from '@prisma/client'
 import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from 'lucide-react'
 import React from 'react'
 
-type Props = {}
+type Props = {
+    option: propertyOptions
+}
 
 const Option = (props: Props) => {
+    const option = props.option
     return (
         <div className='p-1 pl-2 bg-site-background hover:bg-white rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between'>
             <div>
-                Aviator
+                {
+                    formalizeText(option.value? option.value : '-')
+                }
             </div>
             <div>
                 <div className='flex'>
