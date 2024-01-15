@@ -22,7 +22,7 @@ const Option = (props: Props) => {
                 id: option.id
             }
 
-            await axios.post(`/api/definitions/category/do/property/options/single-selection/delete/`, data).then(async (res: any) => {
+            await axios.post(`/api/definitions/category/do/property/options/multi-selection/delete/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
                     await props.fetchPrevValue()
@@ -42,7 +42,7 @@ const Option = (props: Props) => {
             const data = {
                 id: option.id
             }
-            await axios.patch(`/api/definitions/category/do/property/options/single-selection/select-default/`, data).then(async (res: any) => {
+            await axios.patch(`/api/definitions/category/do/property/options/multi-selection/select-default/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
                     await props.fetchPrevValue()
@@ -68,7 +68,7 @@ const Option = (props: Props) => {
                 id: option.id,
                 index: index
             }
-            await axios.patch(`/api/definitions/category/do/property/options/single-selection/index/`, data).then(async (res: any) => {
+            await axios.patch(`/api/definitions/category/do/property/options/multi-selection/index/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
                     await props.fetchPrevValue()

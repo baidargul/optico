@@ -196,8 +196,8 @@ function getControls(type: string, propertyId: string, setIsUpdating: any) {
     switch (type) {
         case "single selection":
             return <SingleSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
-        case "multiple selection":
-            break;
+            case "multiple selection":
+            return <MultiSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "text":
             return <TextControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "number":
@@ -225,7 +225,6 @@ function TextControl(props: ControlProps) {
             const data = {
                 id: props.propertyId
             }
-
             await axios.post(`/api/definitions/category/do/property/options/text/get/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
@@ -270,7 +269,6 @@ function TextControl(props: ControlProps) {
                     id: props.propertyId,
                     value: value
                 }
-
 
                 await axios.post(`/api/definitions/category/do/property/options/text/create/`, data).then(async (res: any) => {
                     const response = await res.data
@@ -553,6 +551,112 @@ function SingleSelectionControl(props: ControlProps) {
             }
 
             await axios.post(`/api/definitions/category/do/property/options/single-selection/create`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await fetchPrevValue()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        props.setIsUpdating(false)
+
+        if (Ref.current) {
+            Ref.current.select()
+        }
+    }
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === "Enter") {
+            handleAddPropertyOption()
+        }
+    }
+
+    return (
+        <div className='text-sm'>
+            <div>
+                <div className='font-semibold text-site-mainText/80 text-xs w-full'>
+                    New value:
+                </div>
+                <div className='flex justify-between gap-2'>
+                    <div className='w-full'>
+                        <Input onKeyDown={handleKeyDown} ref={Ref} type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
+                    </div>
+                    <div>
+                        <Button onClick={handleAddPropertyOption} className='h-8 text-site-mainText border' variant={'ghost'}>Insert</Button>
+                    </div>
+                </div>
+            </div>
+            {isMounted && options.length > 0 && <div className='mt-1'>
+                <div className='font-semibold text-site-mainText/80 text-xs w-full'>
+                    Values:
+                </div>
+                <div className='w-full flex flex-col gap-1'>
+                    {
+                        options.map((option: propertyOptions, index: number) => {
+                            return (
+                                <div key={index} className={``}>
+                                    <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>}
+        </div>
+    )
+}
+
+function MultiSelectionControl(props: ControlProps) {
+    const [isMounted, setIsMounted] = useState(false)
+    const [newValue, setNewValue] = useState("")
+    const [options, setOptions] = useState([])
+    const [defaultOption, setDefaultOption] = useState<any>(null)
+    const Ref: any = useRef(null)
+
+    useEffect(() => {
+        setIsMounted(true)
+        fetchPrevValue()
+    }, [])
+
+    const fetchPrevValue = async () => {
+        props.setIsUpdating(true)
+        try {
+            const data = {
+                id: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/single-selection/get/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    if (response.data) {
+                        setOptions(response.data)
+                    } else {
+                        setOptions([])
+                    }
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+        props.setIsUpdating(false)
+    }
+
+    const handleAddPropertyOption = async () => {
+        props.setIsUpdating(true)
+        try {
+
+            const data = {
+                id: props.propertyId,
+                value: newValue
+            }
+
+            await axios.post(`/api/definitions/category/do/property/options/multi-selection/create`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
                     await fetchPrevValue()

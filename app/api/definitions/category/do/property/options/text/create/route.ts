@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     try {
 
-        const { id, value } = await req.json()
+        let { id, value } = await req.json()
 
         if (!id) {
             response.status = 400;
@@ -20,9 +20,7 @@ export async function POST(req: NextRequest) {
         }
 
         if (!value) {
-            response.status = 400;
-            response.message = 'Bad request';
-            return new Response(JSON.stringify(response));
+            value = ""
         }
 
         let isExists: any = await prisma.properties.findUnique({

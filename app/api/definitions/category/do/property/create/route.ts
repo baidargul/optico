@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
         if (!id) {
             response.status = 400
-            response.message = 'Bad Request'
+            response.message = `'Bad Request'`
             response.data = null
             return new Response(JSON.stringify(response))
         }
