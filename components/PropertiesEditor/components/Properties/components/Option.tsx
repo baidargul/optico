@@ -85,7 +85,7 @@ const Option = (props: Props) => {
 
 
     return (
-        <div onDoubleClick={handleOptionDefaultClick} className={`p-1 pl-2 ${props.default ? "bg-site-colors-primary/20 hover:bg-yellow-400/10 transition-all duration-200 " : "bg-site-background hover:bg-white"}  rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between`}>
+        <div onDoubleClick={handleOptionDefaultClick} className={`p-1 pl-2 ${props.default ? "bg-site-colors-primary/20  transition-all duration-200 " : "bg-site-background hover:bg-white"}  rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between`}>
             <div className='w-full'>
                 {
                     formalizeText(option.value ? option.value : '-')
