@@ -61,10 +61,31 @@ const Option = (props: Props) => {
         }
     }
 
+    const handleIndexChange = async (index: number) => {
+        try {
+
+            const data = {
+                id: option.id,
+                index: index
+            }
+            await axios.patch(`/api/definitions/category/do/property/options/single-selection/index/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await props.fetchPrevValue()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+
 
 
     return (
-        <div onClick={handleOptionDefaultClick} className={`p-1 pl-2 ${props.default ? "bg-site-colors-primary/20 hover:bg-yellow-400/10 transition-all duration-200 " : "bg-site-background hover:bg-white"}  rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between`}>
+        <div onDoubleClick={handleOptionDefaultClick} className={`p-1 pl-2 ${props.default ? "bg-site-colors-primary/20 hover:bg-yellow-400/10 transition-all duration-200 " : "bg-site-background hover:bg-white"}  rounded text-site-mainText/70 border font-semibold font-sans flex gap-1 justify-between`}>
             <div className='w-full'>
                 {
                     formalizeText(option.value ? option.value : '-')
@@ -73,10 +94,10 @@ const Option = (props: Props) => {
             <div>
                 <div className='flex'>
                     <div>
-                        <ArrowUp onClick={async () => { }} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                        <ArrowUp onClick={async () => handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
                     </div>
                     <div>
-                        <ArrowDown onClick={async () => { }} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                        <ArrowDown onClick={async () => handleIndexChange(1)} className='hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
                     </div>
                     <div onClick={handleOptionRemove} className=' hover:bg-site-colors-secondary bg-zinc-400 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
                         x

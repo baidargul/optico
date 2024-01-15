@@ -27,11 +27,11 @@ model category {
 model properties {
   id              String            @id @default(uuid())
   categoryId      String
-  index           Int?              
+  index           Int?
   type            String            @default("text")
   defaultId       String?
-  createdAt       DateTime?         @db.Timestamptz(6) @default(now())
-  updatedAt       DateTime?         @db.Timestamptz(6) @default(now())
+  createdAt       DateTime?         @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime?         @default(now()) @db.Timestamptz(6)
   name            String
   category        category          @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   propertyOptions propertyOptions[]
@@ -40,9 +40,9 @@ model properties {
 model propertyOptions {
   id         String     @id @default(uuid())
   propertyId String
-  index      Decimal?   @db.Decimal
+  index      Int?
   value      String?
-  createdAt  DateTime?  @db.Timestamptz(6) @default(now())
-  updatedAt  DateTime?  @db.Timestamptz(6) @default(now())
+  createdAt  DateTime?  @default(now()) @db.Timestamptz(6)
+  updatedAt  DateTime?  @default(now()) @db.Timestamptz(6)
   properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

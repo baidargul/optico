@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
                 propertyId: id
             },
             orderBy:{
-                value: 'asc'
+                index: 'asc'
             }
         })
 
