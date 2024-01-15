@@ -13,6 +13,23 @@ export async function POST(req: NextRequest) {
 
         const { id } = await req.json()
 
+        const option = await prisma.propertyOptions.findUnique({
+            where: {
+                id
+            }
+        })
+
+        if (option) {
+            const property = await prisma.properties.update({
+                where: {
+                    id: option.propertyId
+                },
+                data: {
+                    defaultId: null
+                }
+            })
+        }
+
         const deleted = await prisma.propertyOptions.delete({
             where: { id }
         })
