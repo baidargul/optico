@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
-import React, { use, useEffect, useState } from 'react'
+import React, { use, useEffect, useRef, useState } from 'react'
 import Option from './components/Option'
 import { toast } from 'sonner'
 import axios from 'axios'
@@ -506,10 +506,10 @@ function BooleanControl(props: ControlProps) {
 }
 
 function SingleSelectionControl(props: ControlProps) {
-    const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
     const [newValue, setNewValue] = useState("")
     const [options, setOptions] = useState([])
+    const Ref: any = useRef(null)
 
     useEffect(() => {
         setIsMounted(true)
@@ -542,6 +542,7 @@ function SingleSelectionControl(props: ControlProps) {
     }
 
     const handleAddPropertyOption = async () => {
+        props.setIsUpdating(true)
         try {
 
             const data = {
@@ -561,6 +562,11 @@ function SingleSelectionControl(props: ControlProps) {
         } catch (error: any) {
             toast.error(error.message)
         }
+        props.setIsUpdating(false)
+
+        if (Ref.current) {
+            Ref.current.select()
+        }
     }
 
     return (
@@ -571,14 +577,14 @@ function SingleSelectionControl(props: ControlProps) {
                 </div>
                 <div className='flex justify-between gap-2'>
                     <div className='w-full'>
-                        <Input type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
+                        <Input ref={Ref} type='text' placeholder='' value={newValue} onChange={(e: any) => { setNewValue(e.target.value) }} />
                     </div>
                     <div>
                         <Button onClick={handleAddPropertyOption} className='h-8 text-site-mainText border' variant={'ghost'}>Insert</Button>
                     </div>
                 </div>
             </div>
-            <div className='mt-1'>
+            {isMounted && <div className='mt-1'>
                 <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                     Values:
                 </div>
@@ -591,7 +597,7 @@ function SingleSelectionControl(props: ControlProps) {
                         })
                     }
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
