@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import Option from './components/Option'
 import { toast } from 'sonner'
 import axios from 'axios'
@@ -507,8 +507,14 @@ function BooleanControl(props: ControlProps) {
 
 function SingleSelectionControl(props: ControlProps) {
     const [isFetching, setIsFetching] = useState(true)
+    const [isMounted, setIsMounted] = useState(false)
     const [newValue, setNewValue] = useState("")
     const [options, setOptions] = useState([])
+
+    useEffect(() => {
+        setIsMounted(true)
+        fetchPrevValue()
+    }, [])
 
     const fetchPrevValue = async () => {
         props.setIsUpdating(true)
