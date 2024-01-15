@@ -4,7 +4,7 @@ import { SelectControl } from '@/components/Select/SelectProvider'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
-import { ArrowLeft, ArrowRight, Circle, MoveLeft, MoveRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Circle, List, ListEnd, MoveLeft, MoveRight } from 'lucide-react'
 import React, { use, useEffect, useRef, useState } from 'react'
 import Option from './components/Option'
 import { toast } from 'sonner'
@@ -196,7 +196,7 @@ function getControls(type: string, propertyId: string, setIsUpdating: any) {
     switch (type) {
         case "single selection":
             return <SingleSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
-            case "multiple selection":
+        case "multiple selection":
             return <MultiSelectionControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
         case "text":
             return <TextControl propertyId={propertyId} setIsUpdating={setIsUpdating} />
@@ -507,6 +507,7 @@ function BooleanControl(props: ControlProps) {
 function SingleSelectionControl(props: ControlProps) {
     const [isMounted, setIsMounted] = useState(false)
     const [newValue, setNewValue] = useState("")
+    const [toggleValues, setToggleValues] = useState(false)
     const [options, setOptions] = useState([])
     const [defaultOption, setDefaultOption] = useState<any>(null)
     const Ref: any = useRef(null)
@@ -590,21 +591,26 @@ function SingleSelectionControl(props: ControlProps) {
                     </div>
                 </div>
             </div>
-            {isMounted && options.length > 0 && <div className='mt-1'>
-                <div className='font-semibold text-site-mainText/80 text-xs w-full'>
-                    Values:
+            {isMounted && <div className='mt-1'>
+                <div onClick={() => setToggleValues(!toggleValues)} className='flex gap-1 p-1 items-center'>
+                    {!toggleValues && options.length > 0 && <List className='w-5 h-5 bg-site-colors-primary rounded-full text-white p-1' />}
+                    {toggleValues && options.length > 0 && <ListEnd className='w-5 h-5 bg-site-colors-secondary rounded-full text-white p-1' />}
+                    <div className='font-semibold text-site-mainText/80 text-xs w-full'>
+                        {options.length > 0 ? "Values:" : "No values"}
+                    </div>
                 </div>
-                <div className='w-full flex flex-col gap-1'>
-                    {
-                        options.map((option: propertyOptions, index: number) => {
-                            return (
-                                <div key={index} className={``}>
-                                    <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                {toggleValues &&
+                    <div className='w-full flex flex-col gap-1'>
+                        {
+                            options.length > 0 && options.map((option: propertyOptions, index: number) => {
+                                return (
+                                    <div key={index} className={``}>
+                                        <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>}
             </div>}
         </div>
     )
@@ -613,6 +619,7 @@ function SingleSelectionControl(props: ControlProps) {
 function MultiSelectionControl(props: ControlProps) {
     const [isMounted, setIsMounted] = useState(false)
     const [newValue, setNewValue] = useState("")
+    const [toggleValues, setToggleValues] = useState(false)
     const [options, setOptions] = useState([])
     const [defaultOption, setDefaultOption] = useState<any>(null)
     const Ref: any = useRef(null)
@@ -696,21 +703,26 @@ function MultiSelectionControl(props: ControlProps) {
                     </div>
                 </div>
             </div>
-            {isMounted && options.length > 0 && <div className='mt-1'>
-                <div className='font-semibold text-site-mainText/80 text-xs w-full'>
-                    Values:
+            {isMounted && <div className='mt-1'>
+                <div onClick={() => setToggleValues(!toggleValues)} className='flex gap-1 p-1 items-center'>
+                    {!toggleValues && options.length > 0 && <List className='w-5 h-5 bg-site-colors-primary rounded-full text-white p-1' />}
+                    {toggleValues && options.length > 0 && <ListEnd className='w-5 h-5 bg-site-colors-secondary rounded-full text-white p-1' />}
+                    <div className='font-semibold text-site-mainText/80 text-xs w-full'>
+                        {options.length > 0 ? "Values:" : "No values"}
+                    </div>
                 </div>
-                <div className='w-full flex flex-col gap-1'>
-                    {
-                        options.map((option: propertyOptions, index: number) => {
-                            return (
-                                <div key={index} className={``}>
-                                    <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                {toggleValues &&
+                    <div className='w-full flex flex-col gap-1'>
+                        {
+                            options.length > 0 && options.map((option: propertyOptions, index: number) => {
+                                return (
+                                    <div key={index} className={``}>
+                                        <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>}
             </div>}
         </div>
     )
