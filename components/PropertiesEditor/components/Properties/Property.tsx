@@ -131,7 +131,7 @@ const Property = (props: Props) => {
 
 
     return (
-        <div className='bg-zinc-300 rounded'>
+        <div className='bg-site-colors-primary/10 rounded'>
             <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse cursor-not-allowed"}`}>
                 <div className='absolute right-0 flex'>
                     <div>
@@ -305,7 +305,7 @@ function TextControl(props: ControlProps) {
     }, [value]);
 
     return (
-        <div className='text-sm'>
+        <div className={`text-sm ${value.length > 0 ? "h-20" : "h-20"} `}>
             <div>
                 <div className='font-semibold text-site-mainText/80 text-xs'>
                     Default value:
@@ -324,7 +324,7 @@ function TextControl(props: ControlProps) {
 function NumberControl(props: ControlProps) {
     const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
-    const [value, setValue] = useState<any>();
+    const [value, setValue] = useState<number>();
 
     const fetchPrevValue = async () => {
         props.setIsUpdating(true)
@@ -410,7 +410,7 @@ function NumberControl(props: ControlProps) {
     }, [value]);
 
     return (
-        <div className='text-sm'>
+        <div className={`text-sm ${String(value).length > 0 ? "h-20" : "h-20"} `}>
             <div>
                 <div className='font-semibold text-site-mainText/80 text-xs'>
                     Default value:
@@ -580,7 +580,7 @@ function SingleSelectionControl(props: ControlProps) {
     }
 
     return (
-        <div className='text-sm'>
+        <div className={`text-sm ${options.length > 0 ? "" : "h-20"} `}>
             <div>
                 <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                     New value:
@@ -692,7 +692,7 @@ function MultiSelectionControl(props: ControlProps) {
     }
 
     return (
-        <div className='text-sm'>
+        <div className={`text-sm ${options.length > 0 ? "" : "h-20"} `}>
             <div>
                 <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                     New value:
@@ -708,10 +708,8 @@ function MultiSelectionControl(props: ControlProps) {
             </div>
             {isMounted && <div className='mt-1'>
                 <div onClick={() => setToggleValues(!toggleValues)} className='flex gap-1 p-1 items-center'>
-                    <div className='w-5 h-5'>
-                        {!toggleValues && options.length > 0 && <List className='w-5 h-5 bg-site-colors-primary rounded-full text-white' />}
-                        {toggleValues && options.length > 0 && <ListEnd className='w-5 h-5 bg-site-colors-secondary rounded-full text-white' />}
-                    </div>
+                    {!toggleValues && options.length > 0 && <List className='w-5 h-5 bg-site-colors-primary rounded-full text-white p-1' />}
+                    {toggleValues && options.length > 0 && <ListEnd className='w-5 h-5 bg-site-colors-secondary rounded-full text-white p-1' />}
                     <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                         {options.length > 0 ? "Values:" : "No values"}
                     </div>
