@@ -532,6 +532,7 @@ function SingleSelectionControl(props: ControlProps) {
                 if (response.status === 200) {
                     if (response.data) {
                         setOptions(response.data)
+                        setDefaultOption(response.data[0].properties.defaultId)
                     } else {
                         setOptions([])
                     }
@@ -644,6 +645,7 @@ function MultiSelectionControl(props: ControlProps) {
                 if (response.status === 200) {
                     if (response.data) {
                         setOptions(response.data)
+                        setDefaultOption(response.data[0].properties.defaultId)
                     } else {
                         setOptions([])
                     }
@@ -652,7 +654,7 @@ function MultiSelectionControl(props: ControlProps) {
                 }
             })
         } catch (error: any) {
-            toast.error(error.message)
+            toast.error(`Multi` + error.message)
         }
         props.setIsUpdating(false)
     }
@@ -717,7 +719,7 @@ function MultiSelectionControl(props: ControlProps) {
                 {toggleValues &&
                     <div className='w-full flex flex-col gap-1'>
                         {
-                            options.length > 0 && options.map((option: propertyOptions, index: number) => {
+                            options.length > 0 && options.map((option: any, index: number) => {
                                 return (
                                     <div key={index} className={``}>
                                         <Option key={index} option={option} fetchPrevValue={fetchPrevValue} setDefault={setDefaultOption} default={option.id === defaultOption} />

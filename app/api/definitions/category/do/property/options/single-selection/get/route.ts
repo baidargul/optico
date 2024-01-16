@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
         const { id } = await req.json()
 
-        if(!id){
+        if (!id) {
             response.status = 400;
             response.message = 'Bad Request';
             response.data = null;
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
             }
         })
 
-        if(!isExists){
+        if (!isExists) {
             response.status = 404;
             response.message = 'Property does not exists.';
             response.data = null;
@@ -35,10 +35,13 @@ export async function POST(req: NextRequest) {
         }
 
         const availableOptions = await prisma.propertyOptions.findMany({
+            include: {
+                properties: true
+            },
             where: {
                 propertyId: id
             },
-            orderBy:{
+            orderBy: {
                 index: 'asc'
             }
         })

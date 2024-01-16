@@ -35,10 +35,13 @@ export async function POST(req: NextRequest) {
         }
 
         const availableOptions = await prisma.propertyOptions.findMany({
+            include: {
+                properties: true
+            },
             where: {
                 propertyId: id
             },
-            orderBy:{
+            orderBy: {
                 index: 'asc'
             }
         })
