@@ -11,6 +11,7 @@ import { properties } from '@prisma/client'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { formalizeText } from '@/lib/my'
+import { ArrowBigLeft, ArrowBigLeftDash, ArrowBigRight, ArrowBigRightDash, Trash } from 'lucide-react'
 
 type Props = {
     children: React.ReactNode
@@ -172,12 +173,47 @@ const PropertyRightClick = (props: Props) => {
                         <span className='font-normal p-1 bg-site-background rounded scale-75'>{formalizeText(property.name)}</span>
                     </div>
                 </ContextMenuLabel>
-                <ContextMenuItem onClick={handleStepNext}>Step next</ContextMenuItem>
-                <ContextMenuItem onClick={handleStepBack}>Step back</ContextMenuItem>
-                <ContextMenuItem onClick={handleInsertNext}>Insert after</ContextMenuItem>
-                <ContextMenuItem onClick={handleInsertBefore}>Insert before</ContextMenuItem>
+                <ContextMenuItem onClick={handleStepNext} className='flex gap-1'>
+                    <div>
+                        <ArrowBigRight className='w-4 h-4' />
+                    </div>
+                    <div>
+                        Step next
+                    </div>
+                </ContextMenuItem>
+                <ContextMenuItem onClick={handleStepBack} className='flex gap-1'>
+                    <div>
+                        <ArrowBigLeft className='w-4 h-4' />
+                    </div>
+                    <div>
+                        Step back
+                    </div>
+                </ContextMenuItem>
+                <ContextMenuItem onClick={handleInsertNext} className='flex gap-1'>
+                    <div>
+                        <ArrowBigRightDash className='w-4 h-4' />
+                    </div>
+                    <div>
+                        Insert after
+                    </div>
+                </ContextMenuItem>
+                <ContextMenuItem onClick={handleInsertBefore} className='flex gap-1'>
+                    <div>
+                        <ArrowBigLeftDash className='w-4 h-4' />
+                    </div>
+                    <div>
+                        Insert before
+                    </div>
+                </ContextMenuItem>
                 <ContextMenuSeparator />
-                <ContextMenuItem onClick={handleDeleteProperty}>Delete</ContextMenuItem>
+                <ContextMenuItem onClick={handleDeleteProperty} className='flex gap-1'>
+                    <div>
+                        <Trash className='w-3 h-3 ' />
+                    </div>
+                    <div>
+                        Delete
+                    </div>
+                </ContextMenuItem>
             </ContextMenuContent>
         </ContextMenu>
     )
