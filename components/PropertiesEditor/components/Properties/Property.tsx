@@ -324,7 +324,7 @@ function TextControl(props: ControlProps) {
 function NumberControl(props: ControlProps) {
     const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
-    const [value, setValue] = useState<number>();
+    const [value, setValue] = useState<number | null>();
 
     const fetchPrevValue = async () => {
         props.setIsUpdating(true)
@@ -417,7 +417,7 @@ function NumberControl(props: ControlProps) {
                 </div>
                 <div className=''>
                     <div>
-                        <Input type='number' placeholder='' value={value} onChange={(e: any) => { setValue(e.target.value) }} />
+                        <Input type='number' placeholder='' value={value ? value : "0"} onChange={(e: any) => { setValue(e.target.value) }} />
                     </div>
                 </div>
             </div>
