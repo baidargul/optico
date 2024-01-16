@@ -5,6 +5,7 @@ import {
     ContextMenuItem,
     ContextMenuTrigger,
     ContextMenuLabel,
+    ContextMenuSeparator
 } from "@/components/ui/context-menu"
 import { properties } from '@prisma/client'
 import axios from 'axios'
@@ -64,10 +65,12 @@ const PropertyRightClick = (props: Props) => {
                         <span className='font-normal p-1 bg-site-background rounded scale-75'>{formalizeText(property.name)}</span>
                     </div>
                 </ContextMenuLabel>
-                <ContextMenuItem>Profile</ContextMenuItem>
-                <ContextMenuItem>Billing</ContextMenuItem>
-                <ContextMenuItem>Team</ContextMenuItem>
-                <ContextMenuItem>Subscription</ContextMenuItem>
+                <ContextMenuItem>Step next</ContextMenuItem>
+                <ContextMenuItem>Step back</ContextMenuItem>
+                <ContextMenuItem>Insert after</ContextMenuItem>
+                <ContextMenuItem>Insert before</ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem>Delete</ContextMenuItem>
             </ContextMenuContent>
         </ContextMenu>
     )
