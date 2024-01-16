@@ -4,6 +4,8 @@ import Property from './Properties/Property'
 import { toast } from 'sonner'
 import { Loader, Plus } from 'lucide-react'
 import axios from 'axios'
+import PropertyRightClick from '@/components/RightClickContextMenus/PropertyRightClick'
+import { properties } from '@prisma/client'
 
 type Props = {
     category: any
@@ -62,9 +64,11 @@ const Properties = (props: Props) => {
     return (
         <div className='grid grid-cols-3 gap-2'>
             {
-                category.properties.map((property: any) => {
+                category.properties.map((property: properties) => {
                     return (
-                        <Property key={property.id} property={property} refetchCategory={refetchCategory} />
+                        <PropertyRightClick key={property.id} categoryId={property.categoryId} propertyId={property.id}>
+                            <Property property={property} refetchCategory={refetchCategory} />
+                        </PropertyRightClick>
                     )
                 })
             }
