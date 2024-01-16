@@ -537,7 +537,7 @@ function SingleSelectionControl(props: ControlProps) {
                 if (response.status === 200) {
                     if (response.data) {
                         setOptions(response.data)
-                        setDefaultOption(response.data[0].properties.defaultId)
+                        setDefaultOption(response.data[0]?.properties.defaultId)
                     } else {
                         setOptions([])
                     }
@@ -586,7 +586,7 @@ function SingleSelectionControl(props: ControlProps) {
     }
 
     return (
-        <div className={`text-sm ${options.length > 0 ? "" : "h-20"} `}>
+        isMounted && <div className={`text-sm ${options.length > 0 ? "" : "h-20"} `}>
             <div>
                 <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                     New value:
@@ -650,7 +650,7 @@ function MultiSelectionControl(props: ControlProps) {
                 if (response.status === 200) {
                     if (response.data) {
                         setOptions(response.data)
-                        setDefaultOption(response.data[0].properties.defaultId)
+                        setDefaultOption(response.data[0]?.properties.defaultId)
                     } else {
                         setOptions([])
                     }
@@ -659,7 +659,7 @@ function MultiSelectionControl(props: ControlProps) {
                 }
             })
         } catch (error: any) {
-            toast.error(`Multi` + error.message)
+            toast.error(error.message)
         }
         props.setIsUpdating(false)
     }
@@ -699,7 +699,7 @@ function MultiSelectionControl(props: ControlProps) {
     }
 
     return (
-        <div className={`text-sm ${options.length > 0 ? "" : "h-20"} `}>
+        isMounted && <div className={`text-sm ${options.length > 0 ? "" : "h-20"} `}>
             <div>
                 <div className='font-semibold text-site-mainText/80 text-xs w-full'>
                     New value:
