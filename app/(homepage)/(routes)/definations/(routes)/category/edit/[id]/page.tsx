@@ -33,10 +33,10 @@ const page = async (props: Props) => {
 
     return (
         <div className="p-1">
-            <Title category={category}/>
-            <Separator className="my-4"/>
+            <Title category={category} />
+            <Separator className="my-4" />
             <div className="">
-                <PropertyEditor id={category.id}/>
+                <PropertyEditor id={category.id} />
             </div>
         </div>
     )
