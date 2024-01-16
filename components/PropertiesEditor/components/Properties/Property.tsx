@@ -18,6 +18,7 @@ type Props = {
 }
 
 const Property = (props: Props) => {
+    const [isMounted, setIsMounted] = useState(false)
     const [property, setProperty] = useState(props.property)
     const [propertyName, setPropertyName] = useState("New Property")
     const [propertyType, setPropertyType] = useState("text")
@@ -28,6 +29,10 @@ const Property = (props: Props) => {
         setPropertyName(props.property.name)
         setPropertyType(props.property.type)
     }, [props.property])
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     const values = ["single selection", "multiple selection", "text", "number", "boolean"].sort(
         (a, b) => a.localeCompare(b)
@@ -131,7 +136,7 @@ const Property = (props: Props) => {
 
 
     return (
-        <div className='bg-site-colors-primary/10 rounded'>
+        isMounted && <div className='bg-site-colors-primary/10 rounded'>
             <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse cursor-not-allowed"}`}>
                 <div className='absolute right-0 flex'>
                     <div>
