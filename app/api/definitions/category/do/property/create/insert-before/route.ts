@@ -59,34 +59,65 @@ export async function POST(req: NextRequest) {
                 response.data = null
                 return new Response(JSON.stringify(response))
             }
-            refIndex = Number(refIndex) + 1
+            refIndex = Number(refIndex) - 1
 
-            const afterProperty = await prisma.properties.findFirst({
-                where: {
-                    index: refIndex,
-                }
-            })
-
-            if (afterProperty) {
-                await prisma.properties.update({
+            if (refIndex < 1) {
+                const properties = await prisma.properties.findMany({
                     where: {
-                        id: afterProperty.id
+                        categoryId: categoryId
                     },
-                    data: {
-                        index: Number(afterProperty?.index) + 1
+                    orderBy: {
+                        index: 'asc'
                     }
                 })
-            }
-            newProperty = await prisma.properties.create({
-                data: {
-                    categoryId: categoryId,
-                    index: afterProperty?.index,
-                    name: `New Property ${isExists.properties.length + 1}`
+
+                for (let index = 0; index < properties.length; index++) {
+                    const property = properties[index];
+                    await prisma.properties.update({
+                        where: {
+                            id: property.id
+                        },
+                        data: {
+                            index: index + 2
+                        }
+                    })
                 }
-            })
 
+                newProperty = await prisma.properties.create({
+                    data: {
+                        categoryId: categoryId,
+                        index: 1,
+                        name: `New Property ${isExists.properties.length + 1}`
+                    }
+                })
+
+            } else {
+                const beforeProperty = await prisma.properties.findFirst({
+                    where: {
+                        index: refIndex,
+                    }
+                })
+
+                if (beforeProperty) {
+                    await prisma.properties.update({
+                        where: {
+                            id: beforeProperty.id
+                        },
+                        data: {
+                            index: Number(beforeProperty.index) - 1
+                        }
+                    })
+                    newProperty = await prisma.properties.create({
+                        data: {
+                            categoryId: categoryId,
+                            index: beforeProperty.index,
+                            name: `New Property ${isExists.properties.length + 1}`
+                        }
+                    })
+                }
+
+            }
         }
-
 
         if (!newProperty) {
             response.status = 500

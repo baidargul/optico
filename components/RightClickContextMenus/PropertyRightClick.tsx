@@ -62,6 +62,27 @@ const PropertyRightClick = (props: Props) => {
             toast.error(error.message)
         }
     }
+    const handleInsertBefore = async () => {
+        try {
+
+            const data = {
+                categoryId: props.categoryId,
+                targetId: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/create/insert-before`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
     const handleStepBack = async () => {
         try {
 
@@ -105,6 +126,27 @@ const PropertyRightClick = (props: Props) => {
         }
     }
 
+    const handleDeleteProperty = async () => {
+        try {
+
+            const data = {
+                id: props.propertyId,
+            }
+
+            await axios.post(`/api/definitions/category/do/property/delete`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+
     React.useEffect(() => {
         setIsMounted(true)
         fetchProperty()
@@ -133,9 +175,9 @@ const PropertyRightClick = (props: Props) => {
                 <ContextMenuItem onClick={handleStepNext}>Step next</ContextMenuItem>
                 <ContextMenuItem onClick={handleStepBack}>Step back</ContextMenuItem>
                 <ContextMenuItem onClick={handleInsertNext}>Insert after</ContextMenuItem>
-                <ContextMenuItem onClick={() => { }}>Insert before</ContextMenuItem>
+                <ContextMenuItem onClick={handleInsertBefore}>Insert before</ContextMenuItem>
                 <ContextMenuSeparator />
-                <ContextMenuItem>Delete</ContextMenuItem>
+                <ContextMenuItem onClick={handleDeleteProperty}>Delete</ContextMenuItem>
             </ContextMenuContent>
         </ContextMenu>
     )
