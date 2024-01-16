@@ -156,7 +156,7 @@ const PropertyRightClick = (props: Props) => {
     if (!property) {
         return (
             <div className='text-site-noFoundText'>
-                Unknown property.
+                Loading...
             </div>
         )
     }
