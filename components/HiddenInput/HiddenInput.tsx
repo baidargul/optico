@@ -74,7 +74,7 @@ const HiddenInput = (props: Props) => {
         if (props.scale) {
             switch (props.scale) {
                 case 75:
-                    margin = "-ml-5"
+                    margin = "-ml-2"
                     break;
                 case 90:
                     margin = "-ml-3"

@@ -136,26 +136,28 @@ const Property = (props: Props) => {
 
 
     return (
-        isMounted && <div className='bg-site-colors-primary/10 rounded'>
+        isMounted && <div className='bg-site-colors-primary/10 rounded group'>
             <div className={`relative hover:drop-shadow-md hover:z-40 transition-all duration-500 w-full h-fit p-1 text-sm bg-gradient-to-r from-zinc-50 to-zinc-50 rounded border border-zinc-200/80 ${isUpdating && "animate-pulse cursor-not-allowed"}`}>
-                <div className='absolute right-0 flex'>
-                    <div>
-                        <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                <div className='flex justify-between group-hover:bg-site-colors-secondary/20 p-1'>
+                    <div className={``}>
+                        <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
+                            <div className='font-semibold text-site-mainText font-sans flex items-center gap-1'>
+                                <Circle className='w-2 h-2' />
+                                {propertyName}
+                            </div>
+                        </HiddenInput>
                     </div>
-                    <div>
-                        <ArrowRight onClick={async () => await handleIndexChange(1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
-                    </div>
-                    <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
-                        x
-                    </div>
-                </div>
-                <div>
-                    <HiddenInput onSubmit={handlePropertyNameChange} value={propertyName} setValue={setPropertyName} scale={75}>
-                        <div className='font-semibold text-site-mainText font-sans flex items-center gap-1'>
-                            <Circle className='w-2 h-2' />
-                            {propertyName}
+                    <div className='flex'>
+                        <div>
+                            <ArrowLeft onClick={async () => await handleIndexChange(-1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
                         </div>
-                    </HiddenInput>
+                        <div>
+                            <ArrowRight onClick={async () => await handleIndexChange(1)} className='hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md' />
+                        </div>
+                        <div onClick={handleDeletePropertyClick} className=' hover:bg-site-colors-secondary bg-site-colors-secondary/40 text-center text-white w-6 h-6 scale-75 text-xs p-1 rounded-md'>
+                            x
+                        </div>
+                    </div>
                 </div>
                 <Separator className='my-2 opacity-40' />
                 <div className='flex gap-4 items-center'>
