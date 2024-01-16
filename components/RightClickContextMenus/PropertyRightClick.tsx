@@ -52,7 +52,48 @@ const PropertyRightClick = (props: Props) => {
             await axios.post(`/api/definitions/category/do/property/create/insert-after`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
-                    toast.message(`Added`)
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+    const handleStepBack = async () => {
+        try {
+
+            const data = {
+                id: props.propertyId,
+                index: -1
+            }
+
+            await axios.patch(`/api/definitions/category/do/property/index/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+    const handleStepNext = async () => {
+        try {
+
+            const data = {
+                id: props.propertyId,
+                index: 1
+            }
+
+            await axios.patch(`/api/definitions/category/do/property/index/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
                     await props.refetchCategory()
                 } else {
                     toast.warning(response.message)
@@ -89,10 +130,10 @@ const PropertyRightClick = (props: Props) => {
                         <span className='font-normal p-1 bg-site-background rounded scale-75'>{formalizeText(property.name)}</span>
                     </div>
                 </ContextMenuLabel>
-                <ContextMenuItem>Step next</ContextMenuItem>
-                <ContextMenuItem>Step back</ContextMenuItem>
+                <ContextMenuItem onClick={handleStepNext}>Step next</ContextMenuItem>
+                <ContextMenuItem onClick={handleStepBack}>Step back</ContextMenuItem>
                 <ContextMenuItem onClick={handleInsertNext}>Insert after</ContextMenuItem>
-                <ContextMenuItem>Insert before</ContextMenuItem>
+                <ContextMenuItem onClick={() => { }}>Insert before</ContextMenuItem>
                 <ContextMenuSeparator />
                 <ContextMenuItem>Delete</ContextMenuItem>
             </ContextMenuContent>
