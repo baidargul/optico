@@ -66,7 +66,7 @@ const Properties = (props: Props) => {
             {
                 category.properties.map((property: properties) => {
                     return (
-                        <PropertyRightClick key={property.id} categoryId={property.categoryId} propertyId={property.id}>
+                        <PropertyRightClick key={property.id} categoryId={property.categoryId} propertyId={property.id} refetchCategory={refetchCategory} >
                             <Property property={property} refetchCategory={refetchCategory} />
                         </PropertyRightClick>
                     )

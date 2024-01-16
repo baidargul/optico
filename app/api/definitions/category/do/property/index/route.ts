@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma"
 import { NextRequest } from 'next/server';
+import { sortPropertiesIndex } from "../delete/route";
 
 export async function PATCH(req: NextRequest) {
 
@@ -90,6 +91,8 @@ export async function PATCH(req: NextRequest) {
                 index: property.index + index
             } 
         })
+
+        await sortPropertiesIndex()
 
         response.status = 200;
         response.message = 'Index changed';

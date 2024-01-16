@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
         const { id } = await req.json()
 
-        if(!id){
+        if (!id) {
             response.status = 400
             response.message = "Bad Request: Missing id"
             response.data = null
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
             }
         })
 
-        if(!property){
+        if (!property) {
             response.status = 404
             response.message = "Property does not exist"
             response.data = null
@@ -38,6 +38,8 @@ export async function POST(req: NextRequest) {
                 id: id
             }
         })
+
+        await sortPropertiesIndex()
 
         response.status = 200
         response.message = "Property deleted"
@@ -51,4 +53,25 @@ export async function POST(req: NextRequest) {
         return new Response(JSON.stringify(response));
     }
 
+}
+
+export async function sortPropertiesIndex() {
+    const properties = await prisma.properties.findMany({
+        orderBy: {
+            index: 'asc'
+        }
+    })
+
+    if (properties.length > 0) {
+        properties.forEach(async (property, index) => {
+            await prisma.properties.update({
+                where: {
+                    id: property.id
+                },
+                data: {
+                    index: index + 1
+                }
+            })
+        })
+    }
 }

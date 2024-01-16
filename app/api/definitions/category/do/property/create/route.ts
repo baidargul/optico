@@ -51,6 +51,8 @@ export async function POST(req: NextRequest) {
             return new Response(JSON.stringify(response))
         }
 
+        await sortPropertiesIndex()
+
         const category = await prisma.category.findUnique({
             include: {
                 properties: {
@@ -83,4 +85,25 @@ export async function POST(req: NextRequest) {
         return new Response(JSON.stringify(response));
     }
 
+}
+
+async function sortPropertiesIndex() {
+    const properties = await prisma.properties.findMany({
+        orderBy: {
+            index: 'asc'
+        }
+    })
+
+    if (properties.length > 0) {
+        properties.forEach(async (property, index) => {
+            await prisma.properties.update({
+                where: {
+                    id: property.id
+                },
+                data: {
+                    index: index + 1
+                }
+            })
+        })
+    }
 }

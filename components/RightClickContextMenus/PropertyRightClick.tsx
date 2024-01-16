@@ -16,6 +16,7 @@ type Props = {
     children: React.ReactNode
     categoryId: string
     propertyId: string
+    refetchCategory: any
 }
 
 const PropertyRightClick = (props: Props) => {
@@ -35,6 +36,29 @@ const PropertyRightClick = (props: Props) => {
                     toast.warning(response.message)
                 }
             })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+    }
+
+    const handleInsertNext = async () => {
+        try {
+
+            const data = {
+                categoryId: props.categoryId,
+                targetId: props.propertyId
+            }
+
+            await axios.post(`/api/definitions/category/do/property/create/insert-after`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    toast.message(`Added`)
+                    await props.refetchCategory()
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+
         } catch (error: any) {
             toast.error(error.message)
         }
@@ -67,7 +91,7 @@ const PropertyRightClick = (props: Props) => {
                 </ContextMenuLabel>
                 <ContextMenuItem>Step next</ContextMenuItem>
                 <ContextMenuItem>Step back</ContextMenuItem>
-                <ContextMenuItem>Insert after</ContextMenuItem>
+                <ContextMenuItem onClick={handleInsertNext}>Insert after</ContextMenuItem>
                 <ContextMenuItem>Insert before</ContextMenuItem>
                 <ContextMenuSeparator />
                 <ContextMenuItem>Delete</ContextMenuItem>
