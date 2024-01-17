@@ -1,4 +1,5 @@
 'use client'
+import { formalizeText } from '@/lib/my'
 import { propertyOptions } from '@prisma/client'
 import React from 'react'
 
@@ -17,9 +18,9 @@ const Option = (props: Props) => {
     }
 
     return (
-        <div onClick={() => handleOptionClick(option)} className={`bg-gradient-to-b from-zinc-50 to-zinc-100 border rounded transition-all cursor-pointer hover:bg-yellow-50 ${props.selected === option.value && "bg-gradient-to-b from-amber-50 to-amber-100 border-yellow-500/40"}`}>
+        option.value && <div onClick={() => handleOptionClick(option)} className={`bg-gradient-to-b from-zinc-50 to-zinc-100 border rounded transition-all cursor-pointer hover:bg-yellow-50 ${props.selected === option.value && "bg-gradient-to-b from-amber-50 to-amber-100 border-yellow-500/40"}`}>
             <div className='px-2 py-1 text-sm'>
-                {option.value}
+                {formalizeText(option.value)}
             </div>
         </div>
     )

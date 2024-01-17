@@ -24,7 +24,7 @@ type Props = {
 const PreviewMultipleSelection = (props: Props) => {
     if (props.property.type !== 'multiple selection') return null
     const property: Property = props.property
-    const [value, setValue] = React.useState<string | number>()
+    const [selectedValues, setSelectedValues] = React.useState<any>([])
     const [isMounted, setIsMounted] = React.useState(false)
 
     useEffect(() => {
@@ -34,14 +34,12 @@ const PreviewMultipleSelection = (props: Props) => {
             if (!property.default) return
             const defaultValue = property.default.value
             if (defaultValue) {
-                setValue(formalizeText(defaultValue))
+                const container = selectedValues
+                if (container.includes(defaultValue)) return
+                container.push(formalizeText(defaultValue))
             }
         }
     }, [])
-
-    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(formalizeText(e.target.value))
-    }
 
 
     return (
@@ -55,7 +53,7 @@ const PreviewMultipleSelection = (props: Props) => {
 
                         return (
                             <div key={option.id}>
-                                <Option option={option} selected={value} setSelected={setValue} />
+                                <Option option={option} selected={selectedValues} setSelected={setSelectedValues} />
                             </div>
                         )
                     })
