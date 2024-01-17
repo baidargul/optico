@@ -39,7 +39,7 @@ const page = async (props: Props) => {
         category?.properties.map((property) => {
 
           return (
-            <div key={property.id} className="text-sm my-1 bg-site-colors-primary/10 p-1 rounded">
+            <div key={property.id} className="text-sm my-1 bg-site-colors-primary/10 border border-site-colors-primary/40 p-1 rounded h-fit">
               <PreviewTextBox property={property} />
               <PreviewSingleSelection property={property} />
               <PreviewMultipleSelection property={property} />
