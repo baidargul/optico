@@ -1,3 +1,4 @@
+import PreviewMultipleSelection from "@/components/PreviewControls/PreviewMultipleSelection"
 import PreviewSingleSelection from "@/components/PreviewControls/PreviewSingleSelection"
 import PreviewTextBox from "@/components/PreviewControls/PreviewTextBox"
 import prisma from "@/lib/prisma"
@@ -38,9 +39,10 @@ const page = async (props: Props) => {
         category?.properties.map((property) => {
 
           return (
-            <div key={property.id} className="text-sm w-[20%]">
+            <div key={property.id} className="text-sm w-[60%]">
               <PreviewTextBox property={property} />
               <PreviewSingleSelection property={property} />
+              <PreviewMultipleSelection property={property} />
             </div>
           )
         })

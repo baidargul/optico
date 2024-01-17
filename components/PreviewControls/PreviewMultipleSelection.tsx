@@ -2,7 +2,7 @@
 import { propertyOptions } from '@prisma/client'
 import React, { useEffect } from 'react'
 import { formalizeText } from '@/lib/my'
-import Option from './SingleSelection/Option'
+import Option from './MultipleSelection/Option'
 
 type Property = {
     id: string
@@ -21,15 +21,15 @@ type Props = {
     property: Property | any
 }
 
-const PreviewSingleSelection = (props: Props) => {
-    if (props.property.type !== 'single selection') return null
+const PreviewMultipleSelection = (props: Props) => {
+    if (props.property.type !== 'multiple selection') return null
     const property: Property = props.property
     const [value, setValue] = React.useState<string | number>()
     const [isMounted, setIsMounted] = React.useState(false)
 
     useEffect(() => {
         setIsMounted(true)
-        if (property.type === "single selection") {
+        if (property.type === "multiple selection") {
             if (property.propertyOptions.length === 0) return
             if (!property.default) return
             const defaultValue = property.default.value
@@ -65,4 +65,4 @@ const PreviewSingleSelection = (props: Props) => {
     )
 }
 
-export default PreviewSingleSelection
+export default PreviewMultipleSelection
