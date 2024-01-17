@@ -25,24 +25,26 @@ model category {
 }
 
 model properties {
-  id              String            @id @default(uuid())
-  categoryId      String
-  index           Int?
-  type            String            @default("text")
-  defaultId       String?
-  createdAt       DateTime?         @default(now()) @db.Timestamptz(6)
-  updatedAt       DateTime?         @default(now()) @db.Timestamptz(6)
-  name            String
-  category        category          @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  propertyOptions propertyOptions[]
+  id                                                    String            @id @default(uuid())
+  categoryId                                            String
+  index                                                 Int?
+  type                                                  String            @default("text")
+  defaultId                                             String?
+  createdAt                                             DateTime?         @default(now()) @db.Timestamptz(6)
+  updatedAt                                             DateTime?         @default(now()) @db.Timestamptz(6)
+  name                                                  String
+  category                                              category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  default propertyOptions?  @relation("properties_defaultIdTopropertyOptions", fields: [defaultId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  propertyOptions                                       propertyOptions[]
 }
 
 model propertyOptions {
-  id         String     @id @default(uuid())
-  propertyId String
-  index      Int?
-  value      String?
-  createdAt  DateTime?  @default(now()) @db.Timestamptz(6)
-  updatedAt  DateTime?  @default(now()) @db.Timestamptz(6)
-  properties properties @relation(fields: [propertyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id                                               String       @id @default(uuid())
+  propertyId                                       String
+  index                                            Int?
+  value                                            String?
+  createdAt                                        DateTime?    @default(now()) @db.Timestamptz(6)
+  updatedAt                                        DateTime?    @default(now()) @db.Timestamptz(6)
+  properties_properties_defaultIdTopropertyOptions properties[] @relation("properties_defaultIdTopropertyOptions")
+  properties                                       properties   @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }

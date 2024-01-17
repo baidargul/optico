@@ -1,3 +1,5 @@
+import PreviewSingleSelection from "@/components/PreviewControls/PreviewSingleSelection"
+import PreviewTextBox from "@/components/PreviewControls/PreviewTextBox"
 import prisma from "@/lib/prisma"
 import React from 'react'
 
@@ -13,6 +15,7 @@ const page = async (props: Props) => {
       nature: true,
       properties: {
         include: {
+          default: true,
           propertyOptions: {
             orderBy: {
               index: 'asc'
@@ -31,7 +34,17 @@ const page = async (props: Props) => {
 
   return (
     <div>
-      
+      {
+        category?.properties.map((property) => {
+
+          return (
+            <div key={property.id} className="text-sm w-[20%]">
+              <PreviewTextBox property={property} />
+              <PreviewSingleSelection property={property} />
+            </div>
+          )
+        })
+      }
     </div>
   )
 }
