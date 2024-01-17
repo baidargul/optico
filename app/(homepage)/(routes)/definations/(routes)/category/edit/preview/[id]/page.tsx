@@ -34,12 +34,12 @@ const page = async (props: Props) => {
   })
 
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-1">
       {
         category?.properties.map((property) => {
 
           return (
-            <div key={property.id} className="text-sm w-[60%]">
+            <div key={property.id} className="text-sm my-1 bg-site-colors-primary/10 p-1 rounded">
               <PreviewTextBox property={property} />
               <PreviewSingleSelection property={property} />
               <PreviewMultipleSelection property={property} />

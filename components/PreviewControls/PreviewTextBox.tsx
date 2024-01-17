@@ -3,6 +3,7 @@ import { propertyOptions } from '@prisma/client'
 import React, { useEffect, useRef } from 'react'
 import { Input } from '../ui/input'
 import { formalizeText } from '@/lib/my'
+import { FileCode, FileDigit } from 'lucide-react'
 
 type Property = {
     id: string
@@ -51,8 +52,16 @@ const PreviewTextBox = (props: Props) => {
 
     return (
         isMounted && <div>
-            <div className='font-semibold text-site-mainText'>
-                {props.property.name}
+            <div className='flex gap-1 items-center mb-1 text-site-mainText'>
+                <div>
+                    {
+                        property.type === 'text' ? <FileCode size={13} /> : <FileDigit size={13} />
+                    }
+
+                </div>
+                <div className='font-semibold '>
+                    {props.property.name}
+                </div>
             </div>
             <div>
                 <Input onFocus={handleFocus} ref={Ref} type={String(property.type).toLocaleLowerCase()} value={value} onChange={handleValueChange} />
