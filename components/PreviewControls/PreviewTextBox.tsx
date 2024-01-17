@@ -22,7 +22,7 @@ type Props = {
 }
 
 const PreviewTextBox = (props: Props) => {
-    if (props.property.type !== 'text') return null
+    if (props.property.type !== 'text' && props.property.type !== 'number') return null
     const Ref: any = useRef(null)
     const property: Property = props.property
     const [value, setValue] = React.useState<string | number>()
