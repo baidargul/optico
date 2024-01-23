@@ -1,6 +1,7 @@
 'use client'
 import { formalizeText } from '@/lib/my'
 import { propertyOptions } from '@prisma/client'
+import { FileCode, FileDigit, ToggleLeft } from 'lucide-react'
 import React, { useEffect } from 'react'
 
 type Property = {
@@ -38,9 +39,17 @@ const PreviewBoolean = (props: Props) => {
 
 
     return (
-        <div className=''>
-            <div>
-                {formalizeText(property.name)}
+        isMounted && <div>
+            <div className='flex gap-1 items-center mb-1 text-site-mainText'>
+                <div>
+                    {
+                        property.type === 'boolean' && <ToggleLeft size={13} />
+                    }
+
+                </div>
+                <div className='font-semibold '>
+                    {formalizeText(props.property.name)}
+                </div>
             </div>
             <div className='relative'>
                 <div onClick={() => setValue(!value)} className={`h-8 w-full flex items-center pl-2 bg-white text-green-800 border rounded border-zinc-300/65 ${value && "bg-gradient-to-b from-amber-100 to-amber-200"}`}>
