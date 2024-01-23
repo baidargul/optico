@@ -1,3 +1,4 @@
+import PreviewBoolean from "@/components/PreviewControls/PreviewBoolean"
 import PreviewMultipleSelection from "@/components/PreviewControls/PreviewMultipleSelection"
 import PreviewSingleSelection from "@/components/PreviewControls/PreviewSingleSelection"
 import PreviewTextBox from "@/components/PreviewControls/PreviewTextBox"
@@ -43,6 +44,7 @@ const page = async (props: Props) => {
               <PreviewTextBox property={property} />
               <PreviewSingleSelection property={property} />
               <PreviewMultipleSelection property={property} />
+              <PreviewBoolean property={property} />
             </div>
           )
         })
