@@ -39,8 +39,13 @@ const Product = (props: Props) => {
             <div>
                 <div>
                     {categories?.length > 0 && <ComboBoxProvider align='start' content={categories} returnLabel setValue={setSelectedCategory}>
-                        <div>
-                            {selectedCategory? selectedCategory: "Select a category"}
+                        <div className='flex gap-1 items-center text-sm'>
+                            <div className='p-1 bg-zinc-100 w-fit rounded font-semibold text-site-mainText'>
+                                Category:
+                            </div>
+                            <div className=''>
+                                {selectedCategory ? selectedCategory : "Select a category"}.
+                            </div>
                         </div>
                     </ComboBoxProvider>}
                 </div>
