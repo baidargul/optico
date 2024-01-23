@@ -38,7 +38,7 @@ const Option = (props: Props) => {
     };
 
     return (
-        option.value && <div onClick={handleOptionClick} className={`bg-gradient-to-b from-zinc-50 to-zinc-100 border rounded transition-all cursor-pointer hover:bg-yellow-50 ${props.selected && isSelected && "bg-gradient-to-b from-amber-50 to-amber-100 border-yellow-500/40"}`}>
+        option.value && <div onClick={handleOptionClick} className={`bg-gradient-to-b from-zinc-50 to-zinc-100 border rounded transition-all cursor-pointer hover:bg-yellow-50 ${props.selected && isSelected && "bg-gradient-to-b from-amber-100 to-amber-200 border-yellow-500/40"}`}>
             <div className='px-2 py-1 text-sm truncate'>
                 {formalizeText(option.value)}
             </div>
