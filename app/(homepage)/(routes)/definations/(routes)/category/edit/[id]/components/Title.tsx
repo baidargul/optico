@@ -9,8 +9,6 @@ type Props = {
 
 const Title = (props: Props) => {
     const category = props.category
-
-    console.log(category)
     return (
         <div className='flex justify-between items-center'>
             <div className="flex gap-2 items-center group">
