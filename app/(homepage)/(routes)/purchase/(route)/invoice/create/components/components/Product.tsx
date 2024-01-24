@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { formalizeText } from '@/lib/my'
 import axios from 'axios'
 import { toast } from 'sonner'
+import { SelectControl } from '@/components/Select/SelectProvider'
 
 type Props = {}
 
@@ -35,13 +36,36 @@ const Product = (props: Props) => {
         setIsMounted(true)
     }, [])
 
-    const handleSelectValue = (value: any) => {
+    const handleSelectValue = async (value: any) => {
         setSelectedCategory(value.label)
+        let data;
         for (const item of categories) {
             if (item.value === value.value) {
-                setSelectedNature(item.nature)
+                data = {
+                    id: value.value
+                }
             }
         }
+
+        if (!data) {
+            toast.message(`No valid id`)
+        }
+
+        try {
+            await axios.post(`/api/definitions/category/find/`, data).then(async (res: any) => {
+                const response = await res.data
+                if (response.status === 200) {
+                    if (response.data) {
+                        setSelectedNature(response.data.nature)
+                    }
+                } else {
+                    toast.warning(response.message)
+                }
+            })
+        } catch (error: any) {
+            toast.error(error.message)
+        }
+
     }
 
     return (
@@ -50,7 +74,7 @@ const Product = (props: Props) => {
                 <div>
                     {categories?.length > 0 && <ComboBoxProvider align='start' content={categories} returnValue setValue={handleSelectValue}>
                         <div className='flex gap-1 items-center text-sm'>
-                            <div className='p-1 bg-zinc-100 w-fit rounded font-semibold text-site-mainText'>
+                            <div className='p-1  w-fit rounded font-semibold text-site-mainText'>
                                 Category:
                             </div>
                             <div className=''>
@@ -60,13 +84,17 @@ const Product = (props: Props) => {
                                 <div className=''>
                                     as
                                 </div>
-                                <div className='p-1 bg-zinc-50 w-fit rounded border border-site-mainText/10 text-site-mainText'>
-                                    {formalizeText(selectedNature)}
-                                </div>
+                                {selectedNature && <div className={`p-1 bg-zinc-50 w-fit rounded border border-site-mainText/10 text-site-mainText ${selectedNature.dynamic && "first-letter:font-semibold"}`}>
+                                    {formalizeText(selectedNature.name)}
+                                </div>}
                             </div>}
                         </div>
                     </ComboBoxProvider>}
                 </div>
+                <div>
+
+                </div>
+
             </div>
         </div>
     )
