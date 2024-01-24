@@ -11,6 +11,7 @@ const Product = (props: Props) => {
     const [isMounted, setIsMounted] = useState(false)
     const [categories, setCategories] = useState<any>([])
     const [selectedCategory, setSelectedCategory] = useState<any>(null)
+    const [selectedNature, setSelectedNature] = useState<any>(null)
 
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const Product = (props: Props) => {
                 if (response.status === 200) {
                     if (response.data) {
                         response.data.map((category: any) => {
-                            setCategories((prev: any) => [...prev, { label: formalizeText(category.name), value: category.id }])
+                            setCategories((prev: any) => [...prev, { label: formalizeText(category.name), value: category.id, nature: category.nature.name }])
                         })
                     }
                 } else {
@@ -34,18 +35,35 @@ const Product = (props: Props) => {
         setIsMounted(true)
     }, [])
 
+    const handleSelectValue = (value: any) => {
+        setSelectedCategory(value.label)
+        for (const item of categories) {
+            if (item.value === value.value) {
+                setSelectedNature(item.nature)
+            }
+        }
+    }
+
     return (
         isMounted && <div>
             <div>
                 <div>
-                    {categories?.length > 0 && <ComboBoxProvider align='start' content={categories} returnLabel setValue={setSelectedCategory}>
+                    {categories?.length > 0 && <ComboBoxProvider align='start' content={categories} returnValue setValue={handleSelectValue}>
                         <div className='flex gap-1 items-center text-sm'>
                             <div className='p-1 bg-zinc-100 w-fit rounded font-semibold text-site-mainText'>
                                 Category:
                             </div>
                             <div className=''>
-                                {selectedCategory ? selectedCategory : "Select a category"}.
+                                {selectedCategory ? selectedCategory.label ? selectedCategory.label : selectedCategory : "Select a category"}.
                             </div>
+                            {selectedCategory && <div className='flex gap-1 items-center'>
+                                <div className='p-1 bg-zinc-100 w-fit rounded font-semibold text-site-mainText'>
+                                    Nature:
+                                </div>
+                                <div>
+                                    {formalizeText(selectedNature)}
+                                </div>
+                            </div>}
                         </div>
                     </ComboBoxProvider>}
                 </div>

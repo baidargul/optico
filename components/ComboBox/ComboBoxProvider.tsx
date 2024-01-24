@@ -27,6 +27,7 @@ type ComboBoxProviderProps = {
     emptyString?: string
     setValue?: any
     returnLabel?: boolean
+    returnValue?: boolean
     align?: "start" | "end" | "center"
 }
 export function ComboBoxProvider(props: ComboBoxProviderProps) {
@@ -63,7 +64,7 @@ export function ComboBoxProvider(props: ComboBoxProviderProps) {
                     props.children
                 }
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0" align={props.align? props.align: "center"}>
+            <PopoverContent className="w-[200px] p-0" align={props.align ? props.align : "center"}>
                 <Command>
                     <CommandInput placeholder={props.placeholder ? props.placeholder : "Search..."} />
                     <CommandEmpty>{props.emptyString ? props.emptyString : "Nothing found."}</CommandEmpty>
@@ -74,7 +75,7 @@ export function ComboBoxProvider(props: ComboBoxProviderProps) {
                                 value={framework.name}
                                 onSelect={(currentValue: any) => {
                                     setValue(currentValue === value ? "" : currentValue)
-                                    props.setValue ? props.returnLabel ? props.setValue(framework.label) : props.setValue(currentValue) : ""
+                                    props.setValue ? props.returnLabel ? props.setValue(framework.label) : props.returnValue ? props.setValue({ label: framework.label, value: framework.value }) : props.setValue(currentValue) : ""
                                     setOpen(false)
                                 }}
                             >
