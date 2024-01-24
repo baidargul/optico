@@ -57,10 +57,10 @@ const Product = (props: Props) => {
                                 {selectedCategory ? selectedCategory.label ? selectedCategory.label : selectedCategory : "Select a category"}.
                             </div>
                             {selectedCategory && <div className='flex gap-1 items-center'>
-                                <div className='p-1 bg-zinc-100 w-fit rounded font-semibold text-site-mainText'>
-                                    Nature:
+                                <div className=''>
+                                    as
                                 </div>
-                                <div>
+                                <div className='p-1 bg-zinc-100 w-fit rounded text-site-mainText'>
                                     {formalizeText(selectedNature)}
                                 </div>
                             </div>}
