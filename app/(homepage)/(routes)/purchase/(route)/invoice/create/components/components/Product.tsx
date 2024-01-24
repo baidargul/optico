@@ -60,7 +60,7 @@ const Product = (props: Props) => {
                                 <div className=''>
                                     as
                                 </div>
-                                <div className='p-1 bg-zinc-100 w-fit rounded text-site-mainText'>
+                                <div className='p-1 bg-zinc-50 w-fit rounded border border-site-mainText/10 text-site-mainText'>
                                     {formalizeText(selectedNature)}
                                 </div>
                             </div>}
