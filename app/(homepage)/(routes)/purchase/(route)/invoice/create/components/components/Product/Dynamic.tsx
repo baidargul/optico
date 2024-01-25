@@ -15,6 +15,7 @@ const Dynamic = (props: Props) => {
     const [isMounted, setIsMounted] = useState(false)
     const [isUpdated, setIsUpdated] = useState(false)
     const [properties, setProperties] = useState<any>([])
+    const [values, setValues] = useState<any>([])
 
     useEffect(() => {
         fetchProperties()
@@ -60,13 +61,13 @@ const Dynamic = (props: Props) => {
                             case "text":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
-                                        <PreviewTextBox property={property} setIsUpdated={setIsUpdated} />
+                                        <PreviewTextBox property={property} />
                                     </div>
                                 )
                             case "number":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
-                                        <PreviewTextBox property={property} setIsUpdated={setIsUpdated} />
+                                        <PreviewTextBox property={property} />
                                     </div>
                                 )
                             case "single selection":

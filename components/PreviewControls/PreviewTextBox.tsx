@@ -19,7 +19,6 @@ type Property = {
 
 type Props = {
     property: Property | any
-    setIsUpdated?: any
 }
 
 const PreviewTextBox = (props: Props) => {
@@ -48,9 +47,6 @@ const PreviewTextBox = (props: Props) => {
             value: String(e.target.value),
         }
         props.property.propertyOptions = data
-        if (props.setIsUpdated) {
-            props.setIsUpdated(true)
-        }
     }
 
     const handleFocus = () => {
