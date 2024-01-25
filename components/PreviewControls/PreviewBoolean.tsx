@@ -18,6 +18,8 @@ type Property = {
 
 type Props = {
     property: Property | any
+    values?: []
+    setValues?: any
 }
 
 const PreviewBoolean = (props: Props) => {
@@ -36,6 +38,23 @@ const PreviewBoolean = (props: Props) => {
             }
         }
     }, [])
+
+    function reflectChange(value: any) {
+        if (props.setValues && props.values) {
+            const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
+            const data: any = {
+                propertyId: property.id,
+                index: 1,
+                value: value ? 'true' : 'false',
+            }
+            newValues.push(data)
+            props.setValues(newValues)
+        }
+    }
+
+    useEffect(() => {
+        reflectChange(value)
+    },[value])
 
 
     return (

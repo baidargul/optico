@@ -21,10 +21,6 @@ const Dynamic = (props: Props) => {
         setIsMounted(true)
     }, [props.id])
 
-    useEffect(()=>{
-        console.log(values)
-    },[values])
-
     const fetchProperties = async () => {
         const data = {
             id: props.id
@@ -83,7 +79,7 @@ const Dynamic = (props: Props) => {
                             case "boolean":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id} >
-                                        <PreviewBoolean property={property} />
+                                        <PreviewBoolean property={property} values={values} setValues={setValues} />
                                     </div>
                                 )
                             default:
