@@ -22,10 +22,9 @@ const Dynamic = (props: Props) => {
         setIsMounted(true)
     }, [props.id])
 
-    useEffect(() => {
-        console.log(properties)
-        setIsUpdated(false)
-    }, [isUpdated])
+    useEffect(()=>{
+        console.log(values)
+    },[values])
 
     const fetchProperties = async () => {
         const data = {
@@ -61,13 +60,13 @@ const Dynamic = (props: Props) => {
                             case "text":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
-                                        <PreviewTextBox property={property} />
+                                        <PreviewTextBox property={property} values={values} setValues={setValues} />
                                     </div>
                                 )
                             case "number":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
-                                        <PreviewTextBox property={property} />
+                                        <PreviewTextBox property={property} values={values} setValues={setValues} />
                                     </div>
                                 )
                             case "single selection":

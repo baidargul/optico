@@ -19,6 +19,8 @@ type Property = {
 
 type Props = {
     property: Property | any
+    values: [] | any
+    setValues: any
 }
 
 const PreviewTextBox = (props: Props) => {
@@ -27,6 +29,17 @@ const PreviewTextBox = (props: Props) => {
     const property: Property = props.property
     const [value, setValue] = React.useState<string | number>()
     const [isMounted, setIsMounted] = React.useState(false)
+
+    function reflectChange(value: any) {
+        const newValues = props.values.filter((item: any) => item.propertyId !== property.id)
+        const data = {
+            propertyId: property.id,
+            index: 1,
+            value: String(value),
+        }
+        newValues.push(data)
+        props.setValues(newValues)
+    }
 
     useEffect(() => {
         setIsMounted(true)
@@ -41,12 +54,7 @@ const PreviewTextBox = (props: Props) => {
 
     const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(formalizeText(e.target.value))
-        const data = {
-            propertyId: props.property.id,
-            index: 1,
-            value: String(e.target.value),
-        }
-        props.property.propertyOptions = data
+        reflectChange(e.target.value)
     }
 
     const handleFocus = () => {
