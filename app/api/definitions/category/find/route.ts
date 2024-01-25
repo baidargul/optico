@@ -22,7 +22,8 @@ export async function POST(req: NextRequest) {
                             orderBy:{
                                 index: 'asc'
                             }
-                        }
+                        },
+                        default: true
                     },
                     orderBy: {
                         index: 'asc'
