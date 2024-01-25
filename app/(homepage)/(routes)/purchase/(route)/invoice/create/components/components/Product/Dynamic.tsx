@@ -3,6 +3,7 @@ import PreviewMultipleSelection from '@/components/PreviewControls/PreviewMultip
 import PreviewSingleSelection from '@/components/PreviewControls/PreviewSingleSelection'
 import PreviewTextBox from '@/components/PreviewControls/PreviewTextBox'
 import axios from 'axios'
+import { set } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -12,12 +13,18 @@ type Props = {
 
 const Dynamic = (props: Props) => {
     const [isMounted, setIsMounted] = useState(false)
+    const [isUpdated, setIsUpdated] = useState(false)
     const [properties, setProperties] = useState<any>([])
 
     useEffect(() => {
         fetchProperties()
         setIsMounted(true)
     }, [props.id])
+
+    useEffect(() => {
+        console.log(properties)
+        setIsUpdated(false)
+    }, [isUpdated])
 
     const fetchProperties = async () => {
         const data = {
@@ -53,13 +60,13 @@ const Dynamic = (props: Props) => {
                             case "text":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
-                                        <PreviewTextBox property={property} />
+                                        <PreviewTextBox property={property} setIsUpdated={setIsUpdated} />
                                     </div>
                                 )
                             case "number":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
-                                        <PreviewTextBox property={property} />
+                                        <PreviewTextBox property={property} setIsUpdated={setIsUpdated} />
                                     </div>
                                 )
                             case "single selection":
