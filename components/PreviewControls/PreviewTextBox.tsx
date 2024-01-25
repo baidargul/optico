@@ -54,7 +54,9 @@ const PreviewTextBox = (props: Props) => {
 
     const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(formalizeText(e.target.value))
-        reflectChange(e.target.value)
+        if (props.setValues && props.values) {
+            reflectChange(e.target.value)
+        }
     }
 
     const handleFocus = () => {
