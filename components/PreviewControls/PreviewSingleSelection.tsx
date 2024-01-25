@@ -3,7 +3,7 @@ import { propertyOptions } from '@prisma/client'
 import React, { useEffect } from 'react'
 import { formalizeText } from '@/lib/my'
 import Option from './SingleSelection/Option'
-import { Circle } from 'lucide-react'
+import { CircleDot } from 'lucide-react'
 
 type Property = {
     id: string
@@ -50,7 +50,7 @@ const PreviewSingleSelection = (props: Props) => {
             <div className='flex gap-1 items-center mb-1 text-site-mainText'>
                 <div>
                     {
-                        <Circle size={13} />
+                        <CircleDot size={13} />
                     }
 
                 </div>

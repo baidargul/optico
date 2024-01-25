@@ -3,7 +3,7 @@ import { propertyOptions } from '@prisma/client'
 import React, { useEffect } from 'react'
 import { formalizeText } from '@/lib/my'
 import Option from './MultipleSelection/Option'
-import { CheckCircle2, CircleDot } from 'lucide-react'
+import { CheckCircle2, CircleDot, SquareStack } from 'lucide-react'
 
 type Property = {
     id: string
@@ -48,7 +48,7 @@ const PreviewMultipleSelection = (props: Props) => {
             <div className='flex gap-1 items-center mb-1 text-site-mainText'>
                 <div>
                     {
-                        <CheckCircle2 size={13} />
+                        <SquareStack size={13} />
                     }
 
                 </div>
