@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     try {
 
-        let { id, value } = await req.json()
+        let { id, value, prefix, suffix } = await req.json()
 
         if (!id) {
             response.status = 400;
@@ -21,6 +21,14 @@ export async function POST(req: NextRequest) {
 
         if (!value) {
             value = ""
+        }
+
+        if (!prefix) {
+            prefix = ""
+        }
+
+        if (!suffix) {
+            suffix = ""
         }
 
         let isExists: any = await prisma.properties.findUnique({
@@ -46,6 +54,16 @@ export async function POST(req: NextRequest) {
                 propertyId: id,
                 index: 1,
                 value: String(value).toLocaleLowerCase(),
+            }
+        })
+
+        await prisma.properties.update({
+            where: {
+                id: id
+            },
+            data: {
+                prefix: prefix,
+                suffix: suffix,
             }
         })
 

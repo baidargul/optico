@@ -30,6 +30,8 @@ model properties {
   index                                                 Int?
   type                                                  String            @default("text")
   defaultId                                             String?
+  prefix                                                String?
+  suffix                                                String?
   createdAt                                             DateTime?         @default(now()) @db.Timestamptz(6)
   updatedAt                                             DateTime?         @default(now()) @db.Timestamptz(6)
   name                                                  String

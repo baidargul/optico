@@ -14,6 +14,8 @@ type Property = {
     createdAt: Date
     updatedAt: Date
     name: string
+    prefix: string | null
+    suffix: string | null
     propertyOptions: propertyOptions[]
 }
 
@@ -65,7 +67,8 @@ const PreviewTextBox = (props: Props) => {
         }
     }
 
-
+    let previewValue: string | number | null = value ? property.prefix ? property.prefix + value : value : null
+    previewValue = previewValue ? property.suffix ? previewValue + property.suffix : previewValue : null
     return (
         isMounted && <div>
             <div className='flex gap-1 items-center mb-1 text-site-mainText'>
@@ -75,8 +78,15 @@ const PreviewTextBox = (props: Props) => {
                     }
 
                 </div>
-                <div className='font-semibold '>
-                    {props.property.name}
+                <div className='flex gap-1 items-center'>
+                    <div className='font-semibold '>
+                        {props.property.name}
+                    </div>
+                    {value && <div className='text-xs'>
+                        ({
+                            previewValue
+                        })
+                    </div>}
                 </div>
             </div>
             <div>
