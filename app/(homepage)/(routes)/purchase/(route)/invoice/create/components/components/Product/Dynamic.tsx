@@ -56,22 +56,28 @@ const Dynamic = (props: Props) => {
                                         <PreviewTextBox property={property} />
                                     </div>
                                 )
+                            case "number":
+                                return (
+                                    <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id}>
+                                        <PreviewTextBox property={property} />
+                                    </div>
+                                )
                             case "single selection":
                                 return (
                                     <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id} >
                                         <PreviewSingleSelection property={property} />
                                     </div>
                                 )
-                                case "multiple selection":
+                            case "multiple selection":
                                 return (
                                     <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id} >
                                         <PreviewMultipleSelection property={property} />
                                     </div>
                                 )
-                                case "boolean":
+                            case "boolean":
                                 return (
                                     <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id} >
-                                        <PreviewBoolean property={property}/>
+                                        <PreviewBoolean property={property} />
                                     </div>
                                 )
                             default:
