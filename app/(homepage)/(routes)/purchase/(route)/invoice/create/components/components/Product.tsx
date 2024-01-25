@@ -5,6 +5,7 @@ import { formalizeText } from '@/lib/my'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { SelectControl } from '@/components/Select/SelectProvider'
+import Dynamic from './Product/Dynamic'
 
 type Props = {}
 
@@ -13,6 +14,7 @@ const Product = (props: Props) => {
     const [categories, setCategories] = useState<any>([])
     const [selectedCategory, setSelectedCategory] = useState<any>(null)
     const [selectedNature, setSelectedNature] = useState<any>(null)
+    const [categoryId, setCategoryId] = useState<any>(null)
 
 
     useEffect(() => {
@@ -44,6 +46,7 @@ const Product = (props: Props) => {
                 data = {
                     id: value.value
                 }
+                setCategoryId(value.value)
             }
         }
 
@@ -78,7 +81,7 @@ const Product = (props: Props) => {
                                 Category:
                             </div>
                             <div className=''>
-                                {selectedCategory ? selectedCategory.label ? selectedCategory.label : selectedCategory : "Select a category"}.
+                                {selectedCategory ? selectedCategory.label ? selectedCategory.label : selectedCategory : "Select a category."}
                             </div>
                             {selectedCategory && <div className='flex gap-1 items-center'>
                                 <div className=''>
@@ -91,8 +94,20 @@ const Product = (props: Props) => {
                         </div>
                     </ComboBoxProvider>}
                 </div>
-                <div>
+                <div className='p-1'>
+                    {
+                        selectedNature && selectedNature.dynamic && <div>
+                            <Dynamic id={categoryId}/>
+                        </div>
+                    }
 
+                    {
+                        selectedNature && !selectedNature.dynamic && <div>
+                            <div>
+                                {/* <SelectControl /> */}
+                            </div>
+                        </div>
+                    }
                 </div>
 
             </div>
