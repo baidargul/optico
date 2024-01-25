@@ -20,6 +20,8 @@ type Property = {
 
 type Props = {
     property: Property | any
+    values?: []
+    setValues?: any
 }
 
 const PreviewMultipleSelection = (props: Props) => {
@@ -41,6 +43,27 @@ const PreviewMultipleSelection = (props: Props) => {
             }
         }
     }, [])
+
+    const reflectChange = (value: any) => {
+        if (props.setValues && props.values) {
+            const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
+            let i = 0
+            for (const item of selectedValues) {
+                i++
+                const data: any = {
+                    propertyId: property.id,
+                    index: i,
+                    value: String(item),
+                }
+                newValues.push(data)
+            }
+            props.setValues(newValues)
+        }
+    }
+
+    useEffect(() => {
+        reflectChange(selectedValues)
+    }, [selectedValues])
 
 
     return (

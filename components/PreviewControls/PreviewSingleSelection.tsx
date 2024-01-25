@@ -44,6 +44,11 @@ const PreviewSingleSelection = (props: Props) => {
 
     function reflectChange(value: any) {
         if (props.setValues && props.values) {
+            if(!value){
+                const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
+                props.setValues(newValues)
+                return
+            }
             const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
             const data: any = {
                 propertyId: property.id,
@@ -56,11 +61,9 @@ const PreviewSingleSelection = (props: Props) => {
     }
 
     useEffect(() => {
-        if (value) {
             if (props.setValues && props.values) {
                 reflectChange(value)
             }
-        }
     }, [value])
 
     return (

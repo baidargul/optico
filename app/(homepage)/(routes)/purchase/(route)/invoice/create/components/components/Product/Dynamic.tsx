@@ -77,7 +77,7 @@ const Dynamic = (props: Props) => {
                             case "multiple selection":
                                 return (
                                     <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id} >
-                                        <PreviewMultipleSelection property={property} />
+                                        <PreviewMultipleSelection property={property} values={values} setValues={setValues} />
                                     </div>
                                 )
                             case "boolean":
