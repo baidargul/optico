@@ -19,8 +19,8 @@ type Property = {
 
 type Props = {
     property: Property | any
-    values: [] | any
-    setValues: any
+    values?: [] | any
+    setValues?: any
 }
 
 const PreviewTextBox = (props: Props) => {
