@@ -52,31 +52,31 @@ const Dynamic = (props: Props) => {
                         switch (property.type) {
                             case "text":
                                 return (
-                                    <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id}>
+                                    <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
                                         <PreviewTextBox property={property} />
                                     </div>
                                 )
                             case "number":
                                 return (
-                                    <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id}>
+                                    <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id}>
                                         <PreviewTextBox property={property} />
                                     </div>
                                 )
                             case "single selection":
                                 return (
-                                    <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id} >
+                                    <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id} >
                                         <PreviewSingleSelection property={property} />
                                     </div>
                                 )
                             case "multiple selection":
                                 return (
-                                    <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id} >
+                                    <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id} >
                                         <PreviewMultipleSelection property={property} />
                                     </div>
                                 )
                             case "boolean":
                                 return (
-                                    <div className='p-1 bg-zinc-100 rounded border hover:drop-shadow-md' key={property.id} >
+                                    <div className='p-1 bg-zinc-50 rounded border hover:drop-shadow-md' key={property.id} >
                                         <PreviewBoolean property={property} />
                                     </div>
                                 )
