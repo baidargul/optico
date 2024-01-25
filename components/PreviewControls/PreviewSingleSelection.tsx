@@ -20,6 +20,8 @@ type Property = {
 
 type Props = {
     property: Property | any
+    values?: []
+    setValues?: any
 }
 
 const PreviewSingleSelection = (props: Props) => {
@@ -40,10 +42,26 @@ const PreviewSingleSelection = (props: Props) => {
         }
     }, [])
 
-    const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(formalizeText(e.target.value))
+    function reflectChange(value: any) {
+        if (props.setValues && props.values) {
+            const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
+            const data: any = {
+                propertyId: property.id,
+                index: 1,
+                value: String(value),
+            }
+            newValues.push(data)
+            props.setValues(newValues)
+        }
     }
 
+    useEffect(() => {
+        if (value) {
+            if (props.setValues && props.values) {
+                reflectChange(value)
+            }
+        }
+    }, [value])
 
     return (
         isMounted && <div>
