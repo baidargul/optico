@@ -37,7 +37,19 @@ function PopoverContent() {
                 <Search className='absolute text-site-mainText/30 left-2 pointer-events-none' size={16} />
                 <Input placeholder='Search' className='pl-7' />
             </div>
-            <div className='text-xs flex justify-center items-center'>
+
+            <div className=''>
+                <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
+                    Recent accounts
+                </div>
+                <div className='text-xs flex justify-center items-center border-b border-dashed'>
+                    <AccountRow />
+                </div>
+            </div>
+            <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
+                Accounts
+            </div>
+            <div className='text-xs border-b border-dashed'>
                 <AccountRow />
             </div>
         </div>
