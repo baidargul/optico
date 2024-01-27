@@ -20,9 +20,7 @@ export async function POST(req: NextRequest) {
         }
 
         if (!value) {
-            response.status = 400;
-            response.message = 'Bad request';
-            return new Response(JSON.stringify(response));
+            value = 0
         }
 
         if (!prefix) {

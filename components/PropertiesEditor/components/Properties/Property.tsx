@@ -352,6 +352,9 @@ function NumberControl(props: ControlProps) {
     const [isFetching, setIsFetching] = useState(true)
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState<number | null>();
+    const [prefix, setPrefix] = useState("");
+    const [suffix, setSuffix] = useState("");
+
 
     const fetchPrevValue = async () => {
         props.setIsUpdating(true)
@@ -401,7 +404,9 @@ function NumberControl(props: ControlProps) {
 
                 const data = {
                     id: props.propertyId,
-                    value: value
+                    value: value,
+                    prefix: prefix,
+                    suffix: suffix
                 }
 
 
@@ -434,22 +439,38 @@ function NumberControl(props: ControlProps) {
         return () => {
             clearTimeout(timeoutId);
         };
-    }, [value]);
+    }, [value, prefix, suffix]);
 
     return (
         <div className={`text-sm ${String(value).length > 0 ? "h-20" : "h-20"} `}>
-            <div>
+            <div className='flex items-center justify-between text-site-mainText/80 text-xs gap-1'>
                 <div className='font-semibold text-site-mainText/80 text-xs'>
-                    Default value:
-                </div>
-                <div className=''>
+                    <div>
+                        Value:
+                    </div>
                     <div>
                         <Input type='number' placeholder='' value={value ? value : "0"} onChange={(e: any) => { setValue(e.target.value) }} />
                     </div>
                 </div>
+                <div className='font-semibold text-site-mainText/80 text-xs'>
+                    <div>
+                        Prefix
+                    </div>
+                    <div>
+                        <Input placeholder='' value={prefix} onChange={(e: any) => { setPrefix(e.target.value) }} />
+                    </div>
+                </div>
+                <div className='font-semibold text-site-mainText/80 text-xs'>
+                    <div>
+                        Suffix
+                    </div>
+                    <div>
+                        <Input placeholder='' value={suffix} onChange={(e: any) => { setSuffix(e.target.value) }} />
+                    </div>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
 function BooleanControl(props: ControlProps) {
