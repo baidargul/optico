@@ -17,6 +17,8 @@ const page = (props: Props) => {
     const data = {
       dateOfPurchase: new Date(),
       accountId: 1,
+      freight: 0,
+      paid: 0,
     }
 
     try {

@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
     try {
 
-        let { dateOfPurchase, accountId } = await req.json()
+        let { dateOfPurchase, paid, freight, accountId } = await req.json()
 
         if (!dateOfPurchase) {
             dateOfPurchase = new Date()
@@ -21,6 +21,8 @@ export async function POST(req: NextRequest) {
             data: {
                 dateOfPurchase: dateOfPurchase,
                 accountId: String(accountId),
+                freight: freight,
+                paid: paid,
             }
         })
 
