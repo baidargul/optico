@@ -53,7 +53,7 @@ model propertyOptions {
 
 model purchase {
   id             String    @id @default(uuid())
-  dateOfPurchase DateTime? @default(now()) @db.Timestamptz(6)
+  dateOfPurchase DateTime? @default(now())
   accountId      String
   createdAt      DateTime? @default(now()) @db.Timestamptz(6)
   updatedAt      DateTime? @default(now()) @db.Timestamptz(6)
