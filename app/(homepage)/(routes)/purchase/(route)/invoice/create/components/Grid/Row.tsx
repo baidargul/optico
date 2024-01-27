@@ -4,7 +4,7 @@ type Props = {}
 
 const Row = (props: Props) => {
     return (
-        <div className='bg-white hover:bg-green-50 grid grid-cols-8 justify-items-start gap-1 w-full rounded border font-sans'>
+        <div className='p-1 text-sm bg-white hover:bg-green-50 grid grid-cols-8 justify-items-start gap-1 w-full rounded border font-sans'>
             <div className='mr-auto pl-2'>
                 #1
             </div>
