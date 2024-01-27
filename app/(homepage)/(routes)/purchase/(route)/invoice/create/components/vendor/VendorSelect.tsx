@@ -1,3 +1,4 @@
+import AccountSelection from '@/components/App/AccountSelection'
 import React from 'react'
 
 type Props = {}
@@ -13,7 +14,9 @@ const VendorSelect = (props: Props) => {
                 <div>Address</div>
             </div>
             <div>
-                <div>Sunny Mobiles, Jhang</div>
+                <AccountSelection>
+                    <div>Sunny Mobiles, Jhang</div>
+                </AccountSelection>
                 <div>Saif</div>
                 <div>03438793471</div>
                 <div>baidargul@outlook.com</div>
