@@ -13,7 +13,7 @@ const OrderDetails = (props: Props) => {
             <div>
                 <div>442901</div>
                 <div>27-Jan-2024</div>
-                <div>Uncomplete</div>
+                <div>Open</div>
             </div>
         </div>
     )
