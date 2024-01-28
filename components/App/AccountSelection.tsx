@@ -6,6 +6,7 @@ import { Search } from 'lucide-react'
 import AccountRow from './AccountSelection/AccountRow'
 import axios from 'axios'
 import { toast } from 'sonner'
+import { ScrollArea } from '../ui/scroll-area'
 
 type Props = {
     children: React.ReactNode
@@ -78,10 +79,18 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
         const filteredAccounts = accounts.filter((account: any) => {
             const phone = account.phone.toLowerCase().includes(text.toLowerCase())
             const name = account.name.toLowerCase().includes(text.toLowerCase())
-            if(phone){
+            const contact= account.contact.toLowerCase().includes(text.toLowerCase())
+            const email= account.email.toLowerCase().includes(text.toLowerCase())
+            if (contact) {
+                return contact
+            }
+            if (email) {
+                return email
+            }
+            if (phone) {
                 return phone
             }
-            if(name){
+            if (name) {
                 return name
             }
         })
@@ -122,23 +131,25 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
                             Accounts ({demoAccounts.length} found)
                         </div>
                         <div className='w-full'>
-                            {
-                                demoAccounts.map((account: any, index: number) => {
+                            <ScrollArea className='h-[80px] p-1 pr-4' >
+                                {
+                                    demoAccounts.map((account: any, index: number) => {
 
-                                    const handleAccountClick = () => {
-                                        if (setValue) {
-                                            setInputValue('')
-                                            setValue(account)
+                                        const handleAccountClick = () => {
+                                            if (setValue) {
+                                                setInputValue('')
+                                                setValue(account)
+                                            }
                                         }
-                                    }
 
-                                    return (
-                                        <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
-                                            <AccountRow account={account} />
-                                        </div>
-                                    )
-                                })
-                            }
+                                        return (
+                                            <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
+                                                <AccountRow account={account} />
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </ScrollArea>
                         </div>
                     </div>
                 )
