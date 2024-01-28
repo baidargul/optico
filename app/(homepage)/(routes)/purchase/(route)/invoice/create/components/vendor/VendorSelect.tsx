@@ -1,9 +1,12 @@
+'use client'
 import AccountSelection from '@/components/App/AccountSelection'
+import { formalizeText } from '@/lib/my'
 import React from 'react'
 
 type Props = {}
 
 const VendorSelect = (props: Props) => {
+    const [selectedAccount, setSelectedAccount] = React.useState<any>(null)
     return (
         <div className='grid grid-cols-2 gap-1 w-[20%]'>
             <div>
@@ -14,8 +17,8 @@ const VendorSelect = (props: Props) => {
                 <div>Address</div>
             </div>
             <div>
-                <AccountSelection mode='vendor'>
-                    <div>Sunny Mobiles, Jhang</div>
+                <AccountSelection mode='vendor' setValue={setSelectedAccount}>
+                    <div>{selectedAccount ? formalizeText(selectedAccount.name) : "Select account"}</div>
                 </AccountSelection>
                 <div>Saif</div>
                 <div>03438793471</div>

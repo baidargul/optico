@@ -10,10 +10,11 @@ import { toast } from 'sonner'
 type Props = {
     children: React.ReactNode
     mode: 'vendor' | 'customer'
+    setValue?: any
 }
 
 const AccountSelection = (props: Props) => {
-    const { mode } = props
+    const { mode, setValue } = props
 
     const handleTrigger = async () => {
 
@@ -23,7 +24,7 @@ const AccountSelection = (props: Props) => {
     return (
         <div>
             <div onClick={handleTrigger}>
-                <PopoverProvider content={PopoverContent(mode)}>
+                <PopoverProvider content={PopoverContent(mode, setValue)}>
                     {props.children}
                 </PopoverProvider>
             </div>
@@ -33,7 +34,7 @@ const AccountSelection = (props: Props) => {
 
 export default AccountSelection
 
-function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
+function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) {
     const [isMounted, setIsMounted] = React.useState<boolean>(false)
     const [accounts, setAccounts] = React.useState<any[]>([])
     const [demoAccounts, setDemoAccounts] = React.useState<any[]>([])
@@ -118,7 +119,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
                         demoAccounts.map((account: any, index: number) => {
                             return (
                                 <div key={index} className='text-xs border-b border-dashed'>
-                                    <AccountRow account={account} />
+                                    <AccountRow account={account} setValue={setValue} />
                                 </div>
                             )
                         })
