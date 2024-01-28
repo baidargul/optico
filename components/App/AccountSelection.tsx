@@ -93,60 +93,50 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
         }
     }
 
-    if (demoAccounts.length < 1) return (
-        <div>
-            <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
-                No accounts found
-            </div>
-            <div className='text-xs flex justify-center items-center border-b border-dashed'>
-                <div className='flex justify-center items-center cursor-pointer'>
-                    <div className='grid grid-cols-3 justify-items-center p-1 hover:bg-yellow-50/80 w-full'>
-                        <div className='mr-auto'>There are no accounts found.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-
     return (
-        isMounted && demoAccounts.length > 0 && <div className='select-none'>
+        isMounted && <div className='select-none'>
             <div className='flex gap-1 items-center relative'>
                 <Search className='absolute text-site-mainText/30 left-2 pointer-events-none' size={16} />
                 <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} onKeyDown={handleKeyDown} />
             </div>
 
-            {/* <div className=''>
-                <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
-                    Recent accounts
-                </div>
-                <div className='text-xs flex justify-center items-center border-b border-dashed'>
-                    <AccountRow account={demoAccounts[0]} />
-                </div>
-            </div> */}
-            <div>
-                <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
-                    Accounts
-                </div>
-                <div className='w-full'>
-                    {
-                        demoAccounts.map((account: any, index: number) => {
+            {
+                demoAccounts.length < 1 && (
+                    <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
+                        No accounts found
+                    </div>
+                )
+            }
 
-                            const handleAccountClick = () => {
-                                if (setValue) {
-                                    setInputValue('')
-                                    setValue(account)
-                                }
+            {
+                demoAccounts.length > 0 && (
+                    <div>
+                        <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
+                            Accounts ({demoAccounts.length} found)
+                        </div>
+                        <div className='w-full'>
+                            {
+                                demoAccounts.map((account: any, index: number) => {
+
+                                    const handleAccountClick = () => {
+                                        if (setValue) {
+                                            setInputValue('')
+                                            setValue(account)
+                                        }
+                                    }
+
+                                    return (
+                                        <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
+                                            <AccountRow account={account} />
+                                        </div>
+                                    )
+                                })
                             }
+                        </div>
+                    </div>
+                )
+            }
 
-                            return (
-                                <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
-                                    <AccountRow account={account} />
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
         </div >
     )
 }
