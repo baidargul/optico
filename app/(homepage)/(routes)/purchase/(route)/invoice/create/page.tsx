@@ -56,6 +56,10 @@ const page = (props: Props) => {
           <OrderDetails />
         </div>
         <Separator />
+        <div className='py-1 '>
+          Add items
+        </div>
+        <Separator />
         <Grid />
       </div>
     </div>

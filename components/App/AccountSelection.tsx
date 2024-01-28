@@ -22,10 +22,18 @@ const AccountSelection = (props: Props) => {
         setIsToggled(!isToggled)
     }
 
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            setIsToggled(!isToggled)
+        } else if (e.key === 'Escape') {
+            setIsToggled(false)
+        }
+    }
+
 
     return (
         <div>
-            <div onClick={handleTrigger}>
+            <div onClick={handleTrigger} onKeyDown={handleKeyDown}>
                 <PopoverProvider content={PopoverContent(mode, setValue, setIsToggled)} open={isToggled}>
                     {props.children}
                 </PopoverProvider>
@@ -79,8 +87,8 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
         const filteredAccounts = accounts.filter((account: any) => {
             const phone = account.phone.toLowerCase().includes(text.toLowerCase())
             const name = account.name.toLowerCase().includes(text.toLowerCase())
-            const contact= account.contact.toLowerCase().includes(text.toLowerCase())
-            const email= account.email.toLowerCase().includes(text.toLowerCase())
+            const contact = account.contact.toLowerCase().includes(text.toLowerCase())
+            const email = account.email.toLowerCase().includes(text.toLowerCase())
             const address = account.address.toLowerCase().includes(text.toLowerCase())
             if (contact) {
                 return contact
