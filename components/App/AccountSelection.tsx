@@ -102,14 +102,14 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) 
                 <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} />
             </div>
 
-            <div className=''>
+            {/* <div className=''>
                 <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
                     Recent accounts
                 </div>
                 <div className='text-xs flex justify-center items-center border-b border-dashed'>
                     <AccountRow account={demoAccounts[0]} />
                 </div>
-            </div>
+            </div> */}
             <div>
                 <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
                     Accounts
@@ -117,9 +117,17 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) 
                 <div className='w-full'>
                     {
                         demoAccounts.map((account: any, index: number) => {
+
+                            const handleAccountClick = () => {
+                                if (setValue) {
+                                    setInputValue('')
+                                    setValue(account)
+                                }
+                            }
+
                             return (
-                                <div key={index} className='text-xs border-b border-dashed'>
-                                    <AccountRow account={account} setValue={setValue} />
+                                <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
+                                    <AccountRow account={account}/>
                                 </div>
                             )
                         })

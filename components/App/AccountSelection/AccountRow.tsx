@@ -3,20 +3,13 @@ import React from 'react'
 
 type Props = {
     account?: any
-    setValue?: any
 }
 
 const AccountRow = (props: Props) => {
     const account = props.account
 
-    const handleAccountClick = () => {
-        if (props.setValue) {
-            props.setValue(account)
-        }
-    }
-
     return (
-        <div onClick={handleAccountClick} className='flex justify-center items-center cursor-pointer'>
+        <div className='flex justify-center items-center cursor-pointer'>
             <div className='grid grid-cols-3 justify-items-center p-1 hover:bg-yellow-50/80 w-full'>
                 <div className='mr-auto'>{formalizeText(account.name)}</div>
                 <div>Vendor</div>
