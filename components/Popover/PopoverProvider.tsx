@@ -15,7 +15,7 @@ type Props = {
 const PopoverProvider = (props: Props) => {
   return (
     <Popover open={props.open ? props.open : false}>
-      <PopoverTrigger>
+      <PopoverTrigger className="ring-0 outline-none">
         {props.children}
       </PopoverTrigger>
       < PopoverContent className="w-full" collisionPadding={10}>
