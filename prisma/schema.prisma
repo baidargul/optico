@@ -57,6 +57,17 @@ model purchase {
   accountId      String
   createdAt      DateTime? @default(now()) @db.Timestamptz(6)
   updatedAt      DateTime? @default(now()) @db.Timestamptz(6)
-  freight        Int?  @default(0)
-  paid           Int?  @default(0)
+  freight        Int?      @default(0)
+  paid           Int?      @default(0)
+}
+
+model vendor {
+  id      String  @id @default(uuid())
+  name    String
+  contact String?
+  phone   String?
+  email   String?
+  address String?
+  createdAt DateTime? @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime? @default(now()) @db.Timestamptz(6)
 }

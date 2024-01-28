@@ -14,7 +14,7 @@ const VendorSelect = (props: Props) => {
                 <div>Address</div>
             </div>
             <div>
-                <AccountSelection>
+                <AccountSelection mode='vendor'>
                     <div>Sunny Mobiles, Jhang</div>
                 </AccountSelection>
                 <div>Saif</div>
