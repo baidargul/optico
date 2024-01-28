@@ -9,11 +9,12 @@ import React from 'react'
 type Props = {
   children: React.ReactNode
   content: React.ReactNode
+  open?: boolean
 }
 
 const PopoverProvider = (props: Props) => {
   return (
-    <Popover>
+    <Popover open={props.open ? props.open : false}>
       <PopoverTrigger>
         {props.children}
       </PopoverTrigger>

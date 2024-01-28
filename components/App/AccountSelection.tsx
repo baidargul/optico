@@ -15,16 +15,17 @@ type Props = {
 
 const AccountSelection = (props: Props) => {
     const { mode, setValue } = props
+    const [isToggled, setIsToggled] = React.useState<boolean>(false)
 
     const handleTrigger = async () => {
-
+        setIsToggled(!isToggled)
     }
 
 
     return (
         <div>
             <div onClick={handleTrigger}>
-                <PopoverProvider content={PopoverContent(mode, setValue)}>
+                <PopoverProvider content={PopoverContent(mode, setValue, setIsToggled)} open={isToggled}>
                     {props.children}
                 </PopoverProvider>
             </div>
@@ -34,7 +35,7 @@ const AccountSelection = (props: Props) => {
 
 export default AccountSelection
 
-function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) {
+function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, setIsToggled?: any) {
     const [isMounted, setIsMounted] = React.useState<boolean>(false)
     const [accounts, setAccounts] = React.useState<any[]>([])
     const [demoAccounts, setDemoAccounts] = React.useState<any[]>([])
@@ -77,7 +78,19 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) 
         const filteredAccounts = accounts.filter((account: any) => {
             return account.name.toLowerCase().includes(text.toLowerCase())
         })
+        if (filteredAccounts.length > 0) {
+            setValue(filteredAccounts[0])
+        }
         setDemoAccounts(filteredAccounts)
+    }
+
+    const handleKeyDown = (e: any) => {
+        if (e.key === 'Enter') {
+            if (demoAccounts.length > 0) {
+                setValue(demoAccounts[0])
+                setIsToggled(false)
+            }
+        }
     }
 
     if (demoAccounts.length < 1) return (
@@ -99,7 +112,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) 
         isMounted && demoAccounts.length > 0 && <div className='select-none'>
             <div className='flex gap-1 items-center relative'>
                 <Search className='absolute text-site-mainText/30 left-2 pointer-events-none' size={16} />
-                <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} />
+                <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} onKeyDown={handleKeyDown} />
             </div>
 
             {/* <div className=''>
@@ -127,7 +140,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any) 
 
                             return (
                                 <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
-                                    <AccountRow account={account}/>
+                                    <AccountRow account={account} />
                                 </div>
                             )
                         })
