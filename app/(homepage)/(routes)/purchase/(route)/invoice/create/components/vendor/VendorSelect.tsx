@@ -20,10 +20,10 @@ const VendorSelect = (props: Props) => {
                 <AccountSelection mode='vendor' setValue={setSelectedAccount}>
                     <div>{selectedAccount ? formalizeText(selectedAccount.name) : "Select account"}</div>
                 </AccountSelection>
-                <div>Saif</div>
-                <div>03438793471</div>
-                <div>baidargul@outlook.com</div>
-                <div>Random street, xyz.</div>
+                <div>{selectedAccount? formalizeText(selectedAccount.contact): " - "}</div>
+                <div>{selectedAccount? formalizeText(selectedAccount.phone): " - "}</div>
+                <div>{selectedAccount? formalizeText(selectedAccount.email): " - "}</div>
+                <div>{selectedAccount? formalizeText(selectedAccount.address): " - "}</div>
             </div>
         </div>
     )
