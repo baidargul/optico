@@ -37,6 +37,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
     const [isMounted, setIsMounted] = React.useState<boolean>(false)
     const [accounts, setAccounts] = React.useState<any[]>([])
     const [demoAccounts, setDemoAccounts] = React.useState<any[]>([])
+    const [inputValue, setInputValue] = React.useState<string>('')
 
     const fetchAccounts = async () => {
         let apiUrl = ''
@@ -68,11 +69,36 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
         setIsMounted(true)
     }, [])
 
+    const handleTextFilter = (e: any) => {
+        const text = e.target.value
+        setInputValue(text)
+        if (text.length < 1) setDemoAccounts(accounts)
+        const filteredAccounts = accounts.filter((account: any) => {
+            return account.name.toLowerCase().includes(text.toLowerCase())
+        })
+        setDemoAccounts(filteredAccounts)
+    }
+
+    if (demoAccounts.length < 1) return (
+        <div>
+            <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
+                No accounts found
+            </div>
+            <div className='text-xs flex justify-center items-center border-b border-dashed'>
+                <div className='flex justify-center items-center cursor-pointer'>
+                    <div className='grid grid-cols-3 justify-items-center p-1 hover:bg-yellow-50/80 w-full'>
+                        <div className='mr-auto'>There are no accounts found.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
     return (
-        isMounted && accounts.length > 0 && <div className='select-none'>
+        isMounted && demoAccounts.length > 0 && <div className='select-none'>
             <div className='flex gap-1 items-center relative'>
                 <Search className='absolute text-site-mainText/30 left-2 pointer-events-none' size={16} />
-                <Input placeholder='Search' className='pl-7' />
+                <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} />
             </div>
 
             <div className=''>
