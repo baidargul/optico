@@ -36,6 +36,7 @@ export default AccountSelection
 function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
     const [isMounted, setIsMounted] = React.useState<boolean>(false)
     const [accounts, setAccounts] = React.useState<any[]>([])
+    const [demoAccounts, setDemoAccounts] = React.useState<any[]>([])
 
     const fetchAccounts = async () => {
         let apiUrl = ''
@@ -48,13 +49,16 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
                 const response = await res.data
                 if (response.status === 200) {
                     setAccounts(response.data)
+                    setDemoAccounts(response.data)
                 } else {
                     setAccounts([])
+                    setDemoAccounts([])
                     toast.warning(response.message)
                 }
             })
         } catch (error: any) {
             setAccounts([])
+            setDemoAccounts([])
             toast.error(error.message)
         }
     }
@@ -76,21 +80,25 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor') {
                     Recent accounts
                 </div>
                 <div className='text-xs flex justify-center items-center border-b border-dashed'>
-                    <AccountRow account={accounts[0]} />
+                    <AccountRow account={demoAccounts[0]} />
                 </div>
             </div>
-            <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
-                Accounts
+            <div>
+                <div className='text-xs text-site-mainText/60 font-sans pl-1 -mb-1 text-left py-1'>
+                    Accounts
+                </div>
+                <div className='w-full'>
+                    {
+                        demoAccounts.map((account: any, index: number) => {
+                            return (
+                                <div key={index} className='text-xs border-b border-dashed'>
+                                    <AccountRow account={account} />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
-            {
-                accounts.map((account: any, index: number) => {
-                    return (
-                        <div key={index} className='text-xs border-b border-dashed'>
-                            <AccountRow account={account} />
-                        </div>
-                    )
-                })
-            }
         </div >
     )
 }

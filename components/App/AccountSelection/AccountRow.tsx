@@ -10,8 +10,8 @@ const AccountRow = (props: Props) => {
 
     return (
         <div className='flex justify-center items-center cursor-pointer'>
-            <div className='grid grid-cols-3 justify-items-center p-1 hover:bg-yellow-50/80'>
-                <div>{formalizeText(account.name)}</div>
+            <div className='grid grid-cols-3 justify-items-center p-1 hover:bg-yellow-50/80 w-full'>
+                <div className='mr-auto'>{formalizeText(account.name)}</div>
                 <div>Vendor</div>
                 <div className='ml-auto'>Rs {account.balance ? account.balance : 0}</div>
             </div>
