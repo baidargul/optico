@@ -49,6 +49,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
     const [accounts, setAccounts] = React.useState<any[]>([])
     const [demoAccounts, setDemoAccounts] = React.useState<any[]>([])
     const [inputValue, setInputValue] = React.useState<string>('')
+    const [trackIndex, setTrackIndex] = React.useState<number>(0)
 
     const fetchAccounts = async () => {
         let apiUrl = ''
@@ -114,9 +115,21 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
 
     const handleKeyDown = (e: any) => {
         if (e.key === 'Enter') {
-            if (demoAccounts.length > 0) {
+            if (demoAccounts.length === 1) {
                 setValue(demoAccounts[0])
-                setIsToggled(false)
+            } else {
+                setValue(demoAccounts[trackIndex])
+            }
+            setIsToggled(false)
+        } else if (e.key === 'ArrowDown') {
+            if (trackIndex < demoAccounts.length - 1) {
+                setTrackIndex(trackIndex + 1)
+                setValue(demoAccounts[trackIndex + 1])
+            }
+        } else if (e.key === 'ArrowUp') {
+            if (trackIndex > 0) {
+                setTrackIndex(trackIndex - 1)
+                setValue(demoAccounts[trackIndex - 1])
             }
         }
     }
@@ -151,11 +164,12 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
                                             if (setValue) {
                                                 setInputValue('')
                                                 setValue(account)
+                                                setTrackIndex(index)
                                             }
                                         }
 
                                         return (
-                                            <div onClick={handleAccountClick} key={index} className='text-xs border-b border-dashed'>
+                                            <div onClick={handleAccountClick} key={index} className={`text-xs border-b border-dashed ${trackIndex === index && "bg-green-50/80"}`}>
                                                 <AccountRow account={account} />
                                             </div>
                                         )
