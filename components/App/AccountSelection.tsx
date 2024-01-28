@@ -81,6 +81,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
             const name = account.name.toLowerCase().includes(text.toLowerCase())
             const contact= account.contact.toLowerCase().includes(text.toLowerCase())
             const email= account.email.toLowerCase().includes(text.toLowerCase())
+            const address = account.address.toLowerCase().includes(text.toLowerCase())
             if (contact) {
                 return contact
             }
@@ -92,6 +93,9 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
             }
             if (name) {
                 return name
+            }
+            if (address) {
+                return address
             }
         })
         if (filteredAccounts.length > 0) {
