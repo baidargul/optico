@@ -76,7 +76,14 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
         setInputValue(text)
         if (text.length < 1) setDemoAccounts(accounts)
         const filteredAccounts = accounts.filter((account: any) => {
-            return account.name.toLowerCase().includes(text.toLowerCase())
+            const phone = account.phone.toLowerCase().includes(text.toLowerCase())
+            const name = account.name.toLowerCase().includes(text.toLowerCase())
+            if(phone){
+                return phone
+            }
+            if(name){
+                return name
+            }
         })
         if (filteredAccounts.length > 0) {
             setValue(filteredAccounts[0])
