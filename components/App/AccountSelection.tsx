@@ -165,6 +165,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
                                                 setInputValue('')
                                                 setValue(account)
                                                 setTrackIndex(index)
+                                                setIsToggled(false)
                                             }
                                         }
 
