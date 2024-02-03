@@ -31,6 +31,7 @@ function ContentP(setIsToggled: any) {
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState('')
     const [availableItems, setAvailableItems] = useState([] as any)
+    const [filteredItems, setFilteredItems] = useState([] as any)
 
     const fetchItems = async () => {
         try {
@@ -38,6 +39,7 @@ function ContentP(setIsToggled: any) {
                 const response = await res.data
                 if (response.status === 200) {
                     setAvailableItems(response.data)
+                    setFilteredItems(response.data)
                 } else {
                     toast.warning(response.message)
                 }
@@ -54,6 +56,30 @@ function ContentP(setIsToggled: any) {
 
     const onChange = (e: any) => {
         setValue(e.target.value)
+
+        let filtered
+
+        filtered = availableItems.filter((item: any) => {
+            const name = item.name.toLowerCase()
+            return name.includes(e.target.value.toLowerCase())
+        })
+
+        if (filtered.length === 0) {
+            filtered = availableItems.filter((item: any) => {
+                const name = item.nature.name
+                return name.includes(e.target.value.toLowerCase())
+            })
+        }
+
+        if (filtered.length === 0) {
+            filtered = availableItems.filter((item: any) => {
+                const name = item.category.name
+                return name.includes(e.target.value.toLowerCase())
+            })
+        }
+
+        setFilteredItems(filtered)
+
     }
 
     const onKeyDown = (e: any) => {
@@ -77,7 +103,7 @@ function ContentP(setIsToggled: any) {
             <div className='mt-1 text-sm'>
                 <div>
                     {
-                        availableItems.length > 0 && availableItems.map((item: any, index: number) => {
+                        filteredItems.length > 0 && filteredItems.map((item: any, index: number) => {
 
                             return (
                                 <div className='' key={item.id}>
