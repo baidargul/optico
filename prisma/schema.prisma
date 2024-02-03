@@ -8,20 +8,22 @@ datasource db {
 }
 
 model nature {
-  id       String     @id @default(uuid())
-  name     String     @unique
-  archived Boolean    @default(false)
-  dynamic  Boolean    @default(false)
-  category category[]
+  id              String            @id @default(uuid())
+  name            String            @unique
+  archived        Boolean           @default(false)
+  dynamic         Boolean           @default(false)
+  category        category[]
+  itemDefinitions itemDefinitions[]
 }
 
 model category {
-  id         String       @id @default(uuid())
-  natureId   String
-  name       String
-  archived   Boolean      @default(false)
-  nature     nature       @relation(fields: [natureId], references: [id], onDelete: Cascade)
-  properties properties[]
+  id              String            @id @default(uuid())
+  natureId        String
+  name            String
+  archived        Boolean           @default(false)
+  nature          nature            @relation(fields: [natureId], references: [id], onDelete: Cascade)
+  itemDefinitions itemDefinitions[]
+  properties      properties[]
 }
 
 model properties {
@@ -62,12 +64,23 @@ model purchase {
 }
 
 model vendor {
-  id      String  @id @default(uuid())
-  name    String
-  contact String?
-  phone   String?
-  email   String?
-  address String?
+  id        String    @id @default(uuid())
+  name      String
+  contact   String?
+  phone     String?
+  email     String?
+  address   String?
   createdAt DateTime? @default(now()) @db.Timestamptz(6)
   updatedAt DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model itemDefinitions {
+  id         String   @id @default(uuid())
+  categoryId String
+  natureId   String
+  companyId  String?
+  name       String
+  archived   Boolean? @default(false)
+  category   category @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  nature     nature   @relation(fields: [natureId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
