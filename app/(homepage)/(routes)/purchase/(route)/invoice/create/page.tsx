@@ -8,6 +8,7 @@ import Grid from './components/Grid/Grid'
 import { Button } from '@/components/ui/button'
 import axios from 'axios'
 import { toast } from 'sonner'
+import ControlBox from './components/ControlBox'
 
 type Props = {}
 
@@ -56,9 +57,7 @@ const page = (props: Props) => {
           <OrderDetails />
         </div>
         <Separator />
-        <div className='py-1 '>
-          Add items
-        </div>
+        <ControlBox />
         <Separator />
         <Grid />
       </div>

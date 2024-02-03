@@ -138,7 +138,7 @@ function PopoverContent(mode: 'vendor' | 'customer' = 'vendor', setValue?: any, 
         isMounted && <div className='select-none'>
             <div className='flex gap-1 items-center relative'>
                 <Search className='absolute text-site-mainText/30 left-2 pointer-events-none' size={16} />
-                <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} onKeyDown={handleKeyDown} />
+                <Input placeholder='Search' className='pl-7' value={inputValue} onChange={handleTextFilter} onKeyDown={handleKeyDown} onBlur={()=>setIsToggled(false)} />
             </div>
 
             {
