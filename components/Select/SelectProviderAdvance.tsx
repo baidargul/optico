@@ -6,6 +6,7 @@ import { Search } from 'lucide-react'
 import { Separator } from '../ui/separator'
 import axios from 'axios'
 import { toast } from 'sonner'
+import { formalizeText } from '@/lib/my'
 
 type Props = {
 }
@@ -80,7 +81,24 @@ function ContentP(setIsToggled: any) {
 
                             return (
                                 <div className='' key={item.id}>
-                                    This
+                                    <div className='flex items-center justify-between'>
+                                        <div>
+                                            <div className='text-site-mainText/40'>
+                                                {formalizeText(item.name)}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='text-site-mainText/40'>
+                                                {formalizeText(item.nature.name)}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='text-site-mainText/40'>
+                                                {formalizeText(item.category.name)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <Separator />
                                 </div>
                             )
                         })

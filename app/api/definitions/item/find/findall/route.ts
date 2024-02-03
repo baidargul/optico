@@ -13,21 +13,20 @@ export async function GET(req: NextRequest) {
 
         const items = await prisma.itemDefinitions.findMany({
             include: {
-                nature: {
-                    include: {
-                        category: {
-                            orderBy: {
-                                name: 'asc'
-                            }
-                        }
-                    },
-                },
+                nature: true,
+                category: true,
             },
             orderBy:
                 [
                     { name: 'asc' },
                     {
                         nature: {
+                            name: 'asc'
+                        },
+
+                    },
+                    {
+                        category: {
                             name: 'asc'
                         }
                     }
