@@ -13,25 +13,28 @@ type Props = {
 
 const SelectProviderAdvance = (props: Props) => {
     const [isToggled, setIsToggled] = useState(false)
+    const [item, setItem] = useState({} as any)
 
     return (
         <div onClick={() => setIsToggled(!isToggled)}>
-            <PopoverProvider content={ContentP(setIsToggled)} open={isToggled}>
+            <PopoverProvider content={ContentP(setIsToggled, setItem)} open={isToggled}>
                 <div>
-                    Select Product
+                    {item.name ? item.name : "Select Product"}
                 </div>
             </PopoverProvider>
-        </div>
+        </div >
     )
 }
 
 export default SelectProviderAdvance
 
-function ContentP(setIsToggled: any) {
+function ContentP(setIsToggled: any, setItem: any) {
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState('')
     const [availableItems, setAvailableItems] = useState([] as any)
     const [filteredItems, setFilteredItems] = useState([] as any)
+    const [selectedItem, setSelectedItem] = useState({} as any)
+    const [selectedIndex, setSelectedIndex] = useState(0)
 
     const fetchItems = async () => {
         try {
@@ -51,11 +54,18 @@ function ContentP(setIsToggled: any) {
 
     useEffect(() => {
         setIsMounted(true)
+        setFilteredItems(availableItems)
         fetchItems()
+        setValue('')
     }, [])
 
     const onChange = (e: any) => {
         setValue(e.target.value)
+
+        if (e.target.value === '') {
+            setFilteredItems(availableItems)
+            return
+        }
 
         let filtered
 
@@ -79,14 +89,50 @@ function ContentP(setIsToggled: any) {
         }
 
         setFilteredItems(filtered)
-
+        setSelectedIndex(0)
+        if (filtered.length > 0) {
+            setSelectedItem(filtered[0])
+            setItem(filtered[0])
+        }
     }
 
     const onKeyDown = (e: any) => {
         if (e.key === 'Escape') {
             setValue('')
+            setFilteredItems(availableItems)
             setIsToggled(false)
+        } else if (e.key === `Enter`) {
+            setSelectedItem(filteredItems[selectedIndex])
+            setItem(filteredItems[selectedIndex])
+            setIsToggled(false)
+        } else if (e.key === 'ArrowDown') {
+            if (selectedIndex < filteredItems.length - 1) {
+                setSelectedIndex(selectedIndex + 1)
+                setSelectedItem(filteredItems[selectedIndex + 1])
+                setItem(filteredItems[selectedIndex + 1])
+            }
+        } else if (e.key === 'ArrowUp') {
+            if (selectedIndex > 0) {
+                setSelectedIndex(selectedIndex - 1)
+                setSelectedItem(filteredItems[selectedIndex - 1])
+                setItem(filteredItems[selectedIndex - 1])
+            }
         }
+    }
+
+    const onItemSelect = (item: any, index: number) => {
+        setIsToggled(false)
+        setSelectedItem(item)
+        setValue('')
+        setFilteredItems(availableItems)
+        setItem(item)
+        setSelectedIndex(index)
+    }
+
+    const handleBlur = () => {
+        setIsToggled(false)
+        setFilteredItems(availableItems)
+        setValue('')
     }
 
 
@@ -97,7 +143,7 @@ function ContentP(setIsToggled: any) {
                     <Search className='text-site-mainText/40' width={20} />
                 </div>
                 <div className=''>
-                    <Input placeholder='Search' className='pl-8' onChange={onChange} onKeyDown={onKeyDown} onBlur={() => setIsToggled(false)} />
+                    <Input placeholder='Search' className='pl-8' onChange={onChange} onKeyDown={onKeyDown} onBlur={handleBlur} />
                 </div>
             </div>
             <div className='mt-1 text-sm'>
@@ -106,25 +152,24 @@ function ContentP(setIsToggled: any) {
                         filteredItems.length > 0 && filteredItems.map((item: any, index: number) => {
 
                             return (
-                                <div className='' key={item.id}>
-                                    <div className='flex items-center justify-between'>
+                                <div className={`${selectedIndex === index && "bg-green-50/80"} text-site-mainText hover:bg-yellow-50/80 w-full text-xs border-b border-dashed`} key={item.id} onClick={() => onItemSelect(item, index)}>
+                                    <div className='grid grid-cols-3 gap-2 truncate'>
                                         <div>
-                                            <div className='text-site-mainText/40'>
+                                            <div className=''>
                                                 {formalizeText(item.name)}
                                             </div>
                                         </div>
                                         <div>
-                                            <div className='text-site-mainText/40'>
+                                            <div className=''>
                                                 {formalizeText(item.nature.name)}
                                             </div>
                                         </div>
                                         <div>
-                                            <div className='text-site-mainText/40'>
+                                            <div className=''>
                                                 {formalizeText(item.category.name)}
                                             </div>
                                         </div>
                                     </div>
-                                    <Separator />
                                 </div>
                             )
                         })
