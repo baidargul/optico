@@ -15,6 +15,10 @@ const SelectProviderAdvance = (props: Props) => {
     const [isToggled, setIsToggled] = useState(false)
     const [item, setItem] = useState({} as any)
 
+    useEffect(() => {
+        console.log(item)
+    },[item])
+
     return (
         <div onClick={() => setIsToggled(!isToggled)}>
             <PopoverProvider content={ContentP(setIsToggled, setItem)} open={isToggled}>
@@ -104,6 +108,7 @@ function ContentP(setIsToggled: any, setItem: any) {
         } else if (e.key === `Enter`) {
             setSelectedItem(filteredItems[selectedIndex])
             setItem(filteredItems[selectedIndex])
+            setFilteredItems(availableItems)
             setIsToggled(false)
         } else if (e.key === 'ArrowDown') {
             if (selectedIndex < filteredItems.length - 1) {
