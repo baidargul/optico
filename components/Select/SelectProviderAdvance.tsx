@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { Input } from '../ui/input'
 import PopoverProvider from '../Popover/PopoverProvider'
 import { Search } from 'lucide-react'
-import { Separator } from '../ui/separator'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { formalizeText } from '@/lib/my'
 
 type Props = {
+    children: React.ReactNode
+    setValue: any
 }
 
 const SelectProviderAdvance = (props: Props) => {
@@ -16,15 +17,13 @@ const SelectProviderAdvance = (props: Props) => {
     const [item, setItem] = useState({} as any)
 
     useEffect(() => {
-        console.log(item)
+        props.setValue(item)
     }, [item])
 
     return (
         <div onClick={() => setIsToggled(!isToggled)}>
             <PopoverProvider content={ContentP(setIsToggled, setItem)} open={isToggled}>
-                <div>
-                    {item.name ? item.name : "Select Product"}
-                </div>
+                {props.children}
             </PopoverProvider>
         </div >
     )
