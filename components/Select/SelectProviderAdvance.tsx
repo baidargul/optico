@@ -156,7 +156,7 @@ function ContentP(setIsToggled: any, setItem: any) {
                     <div className='grid grid-cols-3 gap-2 truncate text-site-mainText py-1 font-semibold'>
                         <div>
                             <div className=''>
-                                Product Name
+                                Product
                             </div>
                         </div>
                         <div>
