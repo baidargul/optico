@@ -45,9 +45,13 @@ export async function POST(req: NextRequest) {
             }
         })
 
+
+        const result = items.length > 0 ? items[0] : null;
+        console.log(result)
+
         response.status = 200;
         response.message = 'Items fetched';
-        response.data = items;
+        response.data = result;
         return new Response(JSON.stringify(response));
     } catch (error: any) {
         console.log('[SERVER ERROR]: ' + error.message);

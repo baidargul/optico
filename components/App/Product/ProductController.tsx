@@ -10,9 +10,9 @@ type Props = {
 const ProductController = (props: Props) => {
     const [isMounted, setIsMounted] = useState(false)
     const [id, setId] = React.useState(null as any)
+    const [product, setProduct] = React.useState({} as any)
 
     const fetchProduct = async () => {
-        if (!id) return
         const data = {
             id: props.id
         }
@@ -21,7 +21,8 @@ const ProductController = (props: Props) => {
             await axios.post('/api/definitions/item/find/', data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
-                    toast.success(response.message)
+                    console.log(response.data)
+                    setProduct(response.data)
                 }
                 else if (response.status === 299) {
                     //Skip this
@@ -50,7 +51,7 @@ const ProductController = (props: Props) => {
 
     return (
         isMounted && <div>
-            {props.id}
+            {product &&  product.name}
         </div>
     )
 }
