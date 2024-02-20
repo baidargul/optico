@@ -12,6 +12,7 @@ const ProductController = (props: Props) => {
     const [id, setId] = React.useState(null as any)
 
     const fetchProduct = async () => {
+        if (!id) return
         const data = {
             id: props.id
         }
