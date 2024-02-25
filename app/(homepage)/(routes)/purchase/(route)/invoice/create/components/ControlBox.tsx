@@ -11,10 +11,16 @@ const ControlBox = (props: Props) => {
     const [selectedProduct, setSelectedProduct] = useState({} as any)
     const [selectedCategory, setSelectedCategory] = useState({} as any)
 
+
+    const handleCategoryChange = (category: any) => {
+        setSelectedCategory(category)
+        setSelectedProduct({})
+    }
+
     return (
         <div className='p-1 flex gap-2 items-center'>
             <div>
-                <CategorySelect setValue={setSelectedCategory}>
+                <CategorySelect setValue={handleCategoryChange}>
                     <div>
                         {selectedCategory.name ? formalizeText(selectedCategory.name) : "Select Category"}
                     </div>
