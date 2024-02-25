@@ -22,10 +22,11 @@ export async function GET(req: NextRequest) {
                             }
                         }
                     },
-                    orderBy:{
+                    orderBy: {
                         index: 'asc'
                     }
-                }
+                },
+                itemDefinitions: true
             },
             orderBy: [
                 {

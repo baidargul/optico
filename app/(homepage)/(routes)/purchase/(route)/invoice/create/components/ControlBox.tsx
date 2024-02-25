@@ -21,11 +21,13 @@ const ControlBox = (props: Props) => {
                 </CategorySelect>
             </div>
             <div>
-                <SelectProductProvider setValue={setSelectedProduct} categoryId={selectedCategory.id ? selectedCategory.id : null}>
-                    <div>
-                        {selectedProduct.name ? formalizeText(selectedProduct.name) : "Select Product"}
-                    </div>
-                </SelectProductProvider>
+                {
+                    selectedCategory.id && <SelectProductProvider setValue={setSelectedProduct} categoryId={selectedCategory.id ? selectedCategory.id : null}>
+                        <div>
+                            {selectedProduct.name ? formalizeText(selectedProduct.name) : "Select Product"}
+                        </div>
+                    </SelectProductProvider>
+                }
             </div>
             <div>
                 {selectedProduct && <ProductController id={selectedProduct.id} />}

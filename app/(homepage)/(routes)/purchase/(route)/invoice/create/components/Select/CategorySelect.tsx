@@ -152,7 +152,7 @@ function ContentP(setIsToggled: any, setItem: any) {
             </div>
             <div className='mt-1 text-sm'>
                 <div>
-                    <div className='grid grid-cols-3 gap-2 truncate text-site-mainText py-1 font-semibold'>
+                    <div className='grid grid-cols-4 gap-2 truncate text-site-mainText py-1 font-semibold'>
                         <div>
                             <div className=''>
                                 Category
@@ -168,6 +168,11 @@ function ContentP(setIsToggled: any, setItem: any) {
                                 Dynamic
                             </div>
                         </div>
+                        <div>
+                            <div className=''>
+                                Items
+                            </div>
+                        </div>
                     </div>
                     {
                         filteredItems.length > 0 && filteredItems.map((item: any, index: number) => {
@@ -175,7 +180,7 @@ function ContentP(setIsToggled: any, setItem: any) {
                             return (
                                 <div className={`${selectedIndex === index && "bg-green-50/80"} text-site-mainText hover:bg-yellow-50/80 w-full text-xs border-b border-dashed`} key={item.id} onClick={() => onItemSelect(item, index)}>
 
-                                    <div className='grid grid-cols-3 gap-2 truncate'>
+                                    <div className='grid grid-cols-4 justify-start justify-items-start gap-2 truncate'>
                                         <div>
                                             <div className=''>
                                                 {formalizeText(item.name)}
@@ -189,6 +194,11 @@ function ContentP(setIsToggled: any, setItem: any) {
                                         <div>
                                             <div className=''>
                                                 {formalizeText(item.nature.dynamic? "Yes" : "No")}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='ml-auto'>
+                                                {(item.itemDefinitions.length)}
                                             </div>
                                         </div>
                                     </div>

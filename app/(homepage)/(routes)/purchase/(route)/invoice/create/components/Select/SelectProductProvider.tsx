@@ -10,12 +10,17 @@ import { formalizeText } from '@/lib/my'
 type Props = {
     children: React.ReactNode
     setValue: any
-    categoryId?: string
+    categoryId: string
 }
 
 const SelectProductProvider = (props: Props) => {
     const [isToggled, setIsToggled] = useState(false)
     const [item, setItem] = useState({} as any)
+    const [categoryId, setCategoryId] = useState(props.categoryId)
+
+    useEffect(() => {
+        setCategoryId(props.categoryId)
+    }, [props.categoryId])
 
     useEffect(() => {
         props.setValue(item)
@@ -23,7 +28,7 @@ const SelectProductProvider = (props: Props) => {
 
     return (
         <div onClick={() => setIsToggled(!isToggled)}>
-            <PopoverProvider content={ContentP(setIsToggled, setItem, props.categoryId)} open={isToggled}>
+            <PopoverProvider content={ContentP(setIsToggled, setItem, categoryId)} open={isToggled}>
                 {props.children}
             </PopoverProvider>
         </div >
@@ -42,17 +47,16 @@ function ContentP(setIsToggled: any, setItem: any, categoryId?: string) {
 
     const fetchItems = async () => {
         try {
-            let api = `/api/definitions/item/find/findall/`
-
+            let api = ''
             if (categoryId) {
                 api = `/api/definitions/item/find/byCategory/`
             }
 
             const data = {
-                id: categoryId? categoryId : null
+                id: categoryId ? categoryId : null
             }
 
-            await axios.post(`/api/definitions/item/find/findall/`, data).then(async (res: any) => {
+            await axios.post(api, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
                     setAvailableItems(response.data)
@@ -65,6 +69,10 @@ function ContentP(setIsToggled: any, setItem: any, categoryId?: string) {
             toast.error('Failed to fetch items')
         }
     }
+
+    useEffect(() => {
+        fetchItems()
+    }, [categoryId])
 
     useEffect(() => {
         setIsMounted(true)

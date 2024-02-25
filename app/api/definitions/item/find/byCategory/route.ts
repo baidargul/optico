@@ -36,7 +36,6 @@ export async function POST(req: NextRequest) {
                 {
                     nature: {
                         name: 'asc',
-                        dynamic: "asc"
                     }
                 }
             ],
