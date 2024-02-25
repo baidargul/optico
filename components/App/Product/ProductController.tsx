@@ -46,9 +46,7 @@ const ProductController = (props: Props) => {
         fetchProduct()
     }, [props.id])
 
-
-
-
+    
     return (
         isMounted && <div>
             {product &&  product.name}

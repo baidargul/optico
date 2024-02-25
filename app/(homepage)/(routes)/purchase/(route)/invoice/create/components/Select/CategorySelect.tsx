@@ -1,18 +1,18 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import { Input } from '../ui/input'
-import PopoverProvider from '../Popover/PopoverProvider'
-import { Search } from 'lucide-react'
-import axios from 'axios'
-import { toast } from 'sonner'
+import PopoverProvider from '@/components/Popover/PopoverProvider'
+import { Input } from '@/components/ui/input'
 import { formalizeText } from '@/lib/my'
+import axios from 'axios'
+import { Search } from 'lucide-react'
+
+import React, { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 type Props = {
     children: React.ReactNode
     setValue: any
 }
 
-const SelectProviderAdvance = (props: Props) => {
+const CategorySelect = (props: Props) => {
     const [isToggled, setIsToggled] = useState(false)
     const [item, setItem] = useState({} as any)
 
@@ -29,7 +29,7 @@ const SelectProviderAdvance = (props: Props) => {
     )
 }
 
-export default SelectProviderAdvance
+export default CategorySelect
 
 function ContentP(setIsToggled: any, setItem: any) {
     const [isMounted, setIsMounted] = useState(false)
@@ -41,8 +41,9 @@ function ContentP(setIsToggled: any, setItem: any) {
 
     const fetchItems = async () => {
         try {
-            await axios.get(`/api/definitions/item/find/findall/`).then(async (res: any) => {
+            await axios.get(`/api/definitions/category/find/findall/`).then(async (res: any) => {
                 const response = await res.data
+                console.log(response)
                 if (response.status === 200) {
                     setAvailableItems(response.data)
                     setFilteredItems(response.data)
@@ -86,7 +87,7 @@ function ContentP(setIsToggled: any, setItem: any) {
 
         if (filtered.length === 0) {
             filtered = availableItems.filter((item: any) => {
-                const name = item.category.name
+                const name = item.nature.dynamic ? "Yes" : "No"
                 return name.includes(e.target.value.toLowerCase())
             })
         }
@@ -155,7 +156,7 @@ function ContentP(setIsToggled: any, setItem: any) {
                     <div className='grid grid-cols-3 gap-2 truncate text-site-mainText py-1 font-semibold'>
                         <div>
                             <div className=''>
-                                Product
+                                Category
                             </div>
                         </div>
                         <div>
@@ -165,7 +166,7 @@ function ContentP(setIsToggled: any, setItem: any) {
                         </div>
                         <div>
                             <div className=''>
-                                Category
+                                Dynamic
                             </div>
                         </div>
                     </div>
@@ -188,7 +189,7 @@ function ContentP(setIsToggled: any, setItem: any) {
                                         </div>
                                         <div>
                                             <div className=''>
-                                                {formalizeText(item.category.name)}
+                                                {formalizeText(item.nature.dynamic? "Yes" : "No")}
                                             </div>
                                         </div>
                                     </div>
