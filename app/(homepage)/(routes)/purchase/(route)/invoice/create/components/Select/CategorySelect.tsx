@@ -43,7 +43,6 @@ function ContentP(setIsToggled: any, setItem: any) {
         try {
             await axios.get(`/api/definitions/category/find/findall/`).then(async (res: any) => {
                 const response = await res.data
-                console.log(response)
                 if (response.status === 200) {
                     setAvailableItems(response.data)
                     setFilteredItems(response.data)
