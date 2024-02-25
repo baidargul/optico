@@ -21,17 +21,17 @@ const ControlBox = (props: Props) => {
         <div className='p-1 flex gap-2 items-center'>
             <div>
                 <CategorySelect setValue={handleCategoryChange}>
-                    <div>
-                        {selectedCategory.name ? formalizeText(selectedCategory.name) : "Select Category"}
-                    </div>
+                    <button className='bg-gradient-to-b from-slate-50 to-slate-200 p-1 rounded border border-slate-200'>
+                        {selectedCategory.name ? formalizeText(selectedCategory.name) : "Select category"}
+                    </button>
                 </CategorySelect>
             </div>
             <div>
                 {
                     selectedCategory.id && <SelectProductProvider setValue={setSelectedProduct} categoryId={selectedCategory.id ? selectedCategory.id : null}>
-                        <div>
-                            {selectedProduct.name ? formalizeText(selectedProduct.name) : "Select Product"}
-                        </div>
+                        <button className='bg-gradient-to-b from-slate-50 to-slate-200 p-1 rounded border border-slate-200'>
+                            {selectedProduct.name ? formalizeText(selectedProduct.name) : "Select product"}
+                        </button>
                     </SelectProductProvider>
                 }
             </div>
