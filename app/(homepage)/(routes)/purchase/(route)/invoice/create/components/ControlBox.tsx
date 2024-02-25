@@ -1,9 +1,9 @@
 'use client'
 import ProductController from '@/components/App/Product/ProductController'
-import SelectProviderAdvance from '@/components/Select/SelectProviderAdvance'
 import React, { useEffect, useState } from 'react'
 import CategorySelect from './Select/CategorySelect'
 import { formalizeText } from '@/lib/my'
+import SelectProductProvider from '@/app/(homepage)/(routes)/purchase/(route)/invoice/create/components/Select/SelectProductProvider'
 
 type Props = {}
 
@@ -21,11 +21,11 @@ const ControlBox = (props: Props) => {
                 </CategorySelect>
             </div>
             <div>
-                <SelectProviderAdvance setValue={setSelectedProduct}>
+                <SelectProductProvider setValue={setSelectedProduct}>
                     <div>
                         {selectedProduct.name ? formalizeText(selectedProduct.name) : "Select Product"}
                     </div>
-                </SelectProviderAdvance>
+                </SelectProductProvider>
             </div>
             <div>
                 {selectedProduct && <ProductController id={selectedProduct.id} />}

@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Input } from '../ui/input'
-import PopoverProvider from '../Popover/PopoverProvider'
+import { Input } from '../../../../../../../../../components/ui/input'
+import PopoverProvider from '../../../../../../../../../components/Popover/PopoverProvider'
 import { Search } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
@@ -12,7 +12,7 @@ type Props = {
     setValue: any
 }
 
-const SelectProviderAdvance = (props: Props) => {
+const SelectProductProvider = (props: Props) => {
     const [isToggled, setIsToggled] = useState(false)
     const [item, setItem] = useState({} as any)
 
@@ -29,7 +29,7 @@ const SelectProviderAdvance = (props: Props) => {
     )
 }
 
-export default SelectProviderAdvance
+export default SelectProductProvider
 
 function ContentP(setIsToggled: any, setItem: any) {
     const [isMounted, setIsMounted] = useState(false)
