@@ -23,7 +23,7 @@ const SelectProductProvider = (props: Props) => {
 
     return (
         <div onClick={() => setIsToggled(!isToggled)}>
-            <PopoverProvider content={ContentP(setIsToggled, setItem)} open={isToggled}>
+            <PopoverProvider content={ContentP(setIsToggled, setItem, props.categoryId)} open={isToggled}>
                 {props.children}
             </PopoverProvider>
         </div >
@@ -32,7 +32,7 @@ const SelectProductProvider = (props: Props) => {
 
 export default SelectProductProvider
 
-function ContentP(setIsToggled: any, setItem: any) {
+function ContentP(setIsToggled: any, setItem: any, categoryId?: string) {
     const [isMounted, setIsMounted] = useState(false)
     const [value, setValue] = useState('')
     const [availableItems, setAvailableItems] = useState([] as any)
@@ -42,7 +42,17 @@ function ContentP(setIsToggled: any, setItem: any) {
 
     const fetchItems = async () => {
         try {
-            await axios.get(`/api/definitions/item/find/findall/`).then(async (res: any) => {
+            let api = `/api/definitions/item/find/findall/`
+
+            if (categoryId) {
+                api = `/api/definitions/item/find/byCategory/`
+            }
+
+            const data = {
+                id: categoryId? categoryId : null
+            }
+
+            await axios.post(`/api/definitions/item/find/findall/`, data).then(async (res: any) => {
                 const response = await res.data
                 if (response.status === 200) {
                     setAvailableItems(response.data)
