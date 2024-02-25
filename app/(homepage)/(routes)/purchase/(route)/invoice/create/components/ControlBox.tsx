@@ -41,7 +41,7 @@ const ControlBox = (props: Props) => {
                 }
             </div>
             <div>
-                {selectedCategory && selectedProduct && <ProductController id={selectedProduct.id} />}
+                {selectedCategory.id && selectedProduct.id && <ProductController id={selectedProduct.id} />}
             </div>
         </div>
     )
