@@ -10,6 +10,11 @@ type Props = {}
 const ControlBox = (props: Props) => {
     const [selectedProduct, setSelectedProduct] = useState({} as any)
     const [selectedCategory, setSelectedCategory] = useState({} as any)
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
 
     const handleCategoryChange = (category: any) => {
@@ -18,7 +23,7 @@ const ControlBox = (props: Props) => {
     }
 
     return (
-        <div className='p-1 flex gap-2 items-center'>
+        isMounted && <div className='p-1 flex gap-2 items-center'>
             <div>
                 <CategorySelect setValue={handleCategoryChange}>
                     <button className='bg-gradient-to-b from-slate-50 to-slate-200 p-1 rounded border border-slate-200'>
@@ -36,7 +41,7 @@ const ControlBox = (props: Props) => {
                 }
             </div>
             <div>
-                {selectedProduct && <ProductController id={selectedProduct.id} />}
+                {selectedCategory && selectedProduct && <ProductController id={selectedProduct.id} />}
             </div>
         </div>
     )
