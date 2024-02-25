@@ -21,7 +21,7 @@ const ControlBox = (props: Props) => {
                 </CategorySelect>
             </div>
             <div>
-                <SelectProductProvider setValue={setSelectedProduct}>
+                <SelectProductProvider setValue={setSelectedProduct} categoryId={selectedCategory.id ? selectedCategory.id : null}>
                     <div>
                         {selectedProduct.name ? formalizeText(selectedProduct.name) : "Select Product"}
                     </div>

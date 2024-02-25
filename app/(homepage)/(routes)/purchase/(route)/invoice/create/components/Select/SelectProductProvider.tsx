@@ -10,6 +10,7 @@ import { formalizeText } from '@/lib/my'
 type Props = {
     children: React.ReactNode
     setValue: any
+    categoryId?: string
 }
 
 const SelectProductProvider = (props: Props) => {
