@@ -40,11 +40,11 @@ const Option = (props: Props) => {
 
     return (
         option.value && <div onClick={handleOptionClick} className={`border rounded transition-all cursor-pointer hover:bg-yellow-50 ${props.selected && isSelected ? "bg-gradient-to-b from-amber-100 to-amber-200 border-yellow-500/40" : "bg-gradient-to-b from-zinc-50 to-zinc-100"}`}>
-            <div className='px-2 py-1 text-sm truncate'>
-                <ToolTipProvider content={formalizeText(option.value)}>
+            <ToolTipProvider content={formalizeText(option.value)}>
+                <div className='px-2 py-1 text-sm truncate w-36 text-start'>
                     {formalizeText(option.value)}
-                </ToolTipProvider>
-            </div>
+                </div>
+            </ToolTipProvider>
         </div>
     )
 }
