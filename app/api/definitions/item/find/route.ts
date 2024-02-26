@@ -23,7 +23,23 @@ export async function POST(req: NextRequest) {
         const items = await prisma.itemDefinitions.findMany({
             include: {
                 nature: true,
-                category: true,
+                category: {
+                    include: {
+                        properties: {
+                            include: {
+                                default: true,
+                                propertyOptions: {
+                                    orderBy: {
+                                        index: 'asc'
+                                    }
+                                }
+                            },
+                            orderBy: {
+                                index: 'asc'
+                            }
+                        }
+                    }
+                },
             },
             orderBy:
                 [

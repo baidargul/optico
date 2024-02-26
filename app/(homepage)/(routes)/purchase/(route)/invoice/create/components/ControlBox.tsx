@@ -23,7 +23,7 @@ const ControlBox = (props: Props) => {
     }
 
     return (
-        isMounted && <div className='bg-gradient-to-b from-amber-50 to-orange-50 p-1'>
+        isMounted && <div className='p-1'>
             <div className='p-1 flex gap-2 items-center'>
                 <div>
                     <CategorySelect setValue={handleCategoryChange}>
@@ -42,9 +42,13 @@ const ControlBox = (props: Props) => {
                     }
                 </div>
             </div>
-            <div className='p-1'>
-                {selectedCategory.id && selectedProduct.id && <ProductController id={selectedProduct.id} />}
-            </div>
+            {
+                selectedCategory.id && selectedProduct.id &&
+                <div className=''>
+                    {<ProductController id={selectedProduct.id} />}
+                </div>
+            }
+
         </div >
     )
 }
