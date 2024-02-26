@@ -67,11 +67,11 @@ const PreviewMultipleSelection = (props: Props) => {
 
 
     return (
-        isMounted && <div>
-            <div className='flex gap-1 items-center mb-1 text-site-mainText'>
+        isMounted && <div className='group'>
+            <div className='flex gap-1 items-center mb-1 text-site-mainText '>
                 <div>
                     {
-                        <SquareStack size={13} />
+                        <SquareStack size={13} className='group-hover:rotate-45 transition-all duration-500'/>
                     }
 
                 </div>

@@ -70,11 +70,11 @@ const PreviewTextBox = (props: Props) => {
     let previewValue: string | number | null = value ? property.prefix ? property.prefix + value : value : null
     previewValue = previewValue ? property.suffix ? previewValue + property.suffix : previewValue : null
     return (
-        isMounted && <div>
+        isMounted && <div className='group'>
             <div className='flex gap-1 items-center mb-1 text-site-mainText'>
                 <div>
                     {
-                        property.type === 'text' ? <TextCursor size={13} /> : <FileDigit size={13} />
+                        property.type === 'text' ? <TextCursor size={13} className='group-hover:rotate-180 transition-all duration-500'/> : <FileDigit size={13} className='group-hover:scale-125 transition-all duration-500' />
                     }
 
                 </div>
