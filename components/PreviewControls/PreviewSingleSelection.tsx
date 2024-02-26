@@ -44,7 +44,7 @@ const PreviewSingleSelection = (props: Props) => {
 
     function reflectChange(value: any) {
         if (props.setValues && props.values) {
-            if(!value){
+            if (!value) {
                 const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
                 props.setValues(newValues)
                 return
@@ -61,17 +61,17 @@ const PreviewSingleSelection = (props: Props) => {
     }
 
     useEffect(() => {
-            if (props.setValues && props.values) {
-                reflectChange(value)
-            }
+        if (props.setValues && props.values) {
+            reflectChange(value)
+        }
     }, [value])
 
     return (
-        isMounted && <div>
+        isMounted && <div className='group'>
             <div className='flex gap-1 items-center mb-1 text-site-mainText'>
                 <div>
                     {
-                        <CircleDot size={13} />
+                        <CircleDot size={13} className='group-hover:scale-125 group-hover:fill-yellow-100/30 transition-all duration-500' />
                     }
 
                 </div>
