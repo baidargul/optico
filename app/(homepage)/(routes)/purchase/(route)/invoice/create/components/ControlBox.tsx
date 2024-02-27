@@ -5,7 +5,9 @@ import CategorySelect from './Select/CategorySelect'
 import { formalizeText } from '@/lib/my'
 import SelectProductProvider from '@/app/(homepage)/(routes)/purchase/(route)/invoice/create/components/Select/SelectProductProvider'
 
-type Props = {}
+type Props = {
+    productHandler?: any
+}
 
 const ControlBox = (props: Props) => {
     const [selectedProduct, setSelectedProduct] = useState({} as any)
@@ -45,7 +47,7 @@ const ControlBox = (props: Props) => {
             {
                 selectedCategory.id && selectedProduct.id &&
                 <div className=''>
-                    {<ProductController id={selectedProduct.id} />}
+                    {<ProductController id={selectedProduct.id} productHandler={props.productHandler} />}
                 </div>
             }
 

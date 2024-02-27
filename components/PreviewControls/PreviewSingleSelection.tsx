@@ -53,7 +53,7 @@ const PreviewSingleSelection = (props: Props) => {
             const data: any = {
                 propertyId: property.id,
                 index: 1,
-                value: String(value),
+                value: String(value).toLocaleLowerCase(),
             }
             newValues.push(data)
             props.setValues(newValues)

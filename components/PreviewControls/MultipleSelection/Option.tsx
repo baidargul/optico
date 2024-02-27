@@ -15,7 +15,7 @@ const Option = (props: Props) => {
     const [isSelected, setIsSelected] = React.useState(false)
 
     React.useEffect(() => {
-        if (props.selected.includes(option.value)) {
+        if (props.selected.includes(String(option.value).toLocaleLowerCase())) {
             setIsSelected(true)
         } else {
             setIsSelected(false)
@@ -24,14 +24,12 @@ const Option = (props: Props) => {
 
     const handleOptionClick = () => {
         props.setSelected((prevSelected: any) => {
-            if (prevSelected.includes(option.value)) {
-                const index = prevSelected.indexOf(option.value);
-                const updatedSelected = [...prevSelected];
-                updatedSelected.splice(index, 1);
+            if (prevSelected.includes(String(option.value).toLocaleLowerCase())) {
+                const updatedSelected = prevSelected.filter((item: any) => item !== String(option.value).toLocaleLowerCase());
                 setIsSelected(false);
                 return updatedSelected;
             } else {
-                const updatedSelected = [...prevSelected, option.value];
+                const updatedSelected = [...prevSelected, String(option.value).toLocaleLowerCase()];
                 setIsSelected(true);
                 return updatedSelected;
             }

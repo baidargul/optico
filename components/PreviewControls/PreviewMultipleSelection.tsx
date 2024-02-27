@@ -20,14 +20,14 @@ type Property = {
 
 type Props = {
     property: Property | any
-    values?: []
+    values?: [] | any
     setValues?: any
 }
 
 const PreviewMultipleSelection = (props: Props) => {
     if (props.property.type !== 'multiple selection') return null
     const property: Property = props.property
-    const [selectedValues, setSelectedValues] = React.useState<any>([])
+    const [selectedValues, setSelectedValues] = React.useState<string | any>([])
     const [isMounted, setIsMounted] = React.useState(false)
 
     useEffect(() => {
@@ -35,29 +35,39 @@ const PreviewMultipleSelection = (props: Props) => {
         if (property.type === "multiple selection") {
             if (property.propertyOptions.length === 0) return
             if (!property.default) return
-            const defaultValue = property.default.value
+            const defaultValue = String(property.default.value).toLocaleLowerCase()
             if (defaultValue) {
                 const container = selectedValues
                 if (container.includes(defaultValue)) return
-                container.push(formalizeText(defaultValue))
+                container.push(defaultValue)
+                setSelectedValues(container)
             }
+            reflectChange()
         }
     }, [])
 
-    const reflectChange = (value: any) => {
+    const reflectChange = (value?: any) => {
         if (props.setValues && props.values) {
-            const newValues: any = props.values.filter((item: any) => item.propertyId !== property.id)
-            let i = 0
-            for (const item of selectedValues) {
-                i++
-                const data: any = {
-                    propertyId: property.id,
-                    index: i,
-                    value: String(item),
+            for (let item of selectedValues) {
+                let isExists = false
+                for (let target of props.values) {
+                    if (String(item) === String(target.value).toLocaleLowerCase()) {
+                        isExists = true
+                        break;
+                    }
                 }
-                newValues.push(data)
+                if (!isExists) {
+                    const data = {
+                        propertyId: property.id,
+                        index: props.values.length + 1,
+                        value: String(item).toLocaleLowerCase()
+                    }
+                    props.setValues((prev: any) => {
+                        return [...prev, data]
+                    })
+                }
             }
-            props.setValues(newValues)
+
         }
     }
 
@@ -71,7 +81,7 @@ const PreviewMultipleSelection = (props: Props) => {
             <div className='flex gap-1 items-center mb-1 text-site-mainText '>
                 <div>
                     {
-                        <SquareStack size={13} className='group-hover:rotate-45 transition-all duration-500'/>
+                        <SquareStack size={13} className='group-hover:rotate-45 transition-all duration-500' />
                     }
 
                 </div>

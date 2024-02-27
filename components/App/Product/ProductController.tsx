@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 
 type Props = {
     id: string
+    productHandler?: any
 }
 
 const ProductController = (props: Props) => {
@@ -41,7 +42,7 @@ const ProductController = (props: Props) => {
     }
 
     useEffect(() => {
-        console.log(product)
+        // console.log(product)
     }, [product])
 
     useEffect(() => {
@@ -64,10 +65,10 @@ const ProductController = (props: Props) => {
 
                                 return (
                                     <div key={property.id} className='border p-2 border-slate-400/50 rounded-md border-b-2 hover:bg-slate-200/90 bg-slate-100 hover:drop-shadow-md transition-all'>
-                                        <PreviewTextBox property={property} />
-                                        <PreviewBoolean property={property} />
-                                        <PreviewMultipleSelection property={property} />
-                                        <PreviewSingleSelection property={property} />
+                                        <PreviewTextBox property={property} values={props.productHandler.products} setValues={props.productHandler.setProducts} />
+                                        <PreviewBoolean property={property} values={props.productHandler.products} setValues={props.productHandler.setProducts}/>
+                                        <PreviewMultipleSelection property={property} values={props.productHandler.products} setValues={props.productHandler.setProducts}/>
+                                        <PreviewSingleSelection property={property} values={props.productHandler.products} setValues={props.productHandler.setProducts}/>
                                     </div>
                                 )
                             })}

@@ -1,6 +1,6 @@
 'use client'
 import { Separator } from '@/components/ui/separator'
-import React from 'react'
+import React, { useEffect } from 'react'
 import VendorSelect from './components/vendor/VendorSelect'
 import TermsSelect from './components/TermsSelect'
 import OrderDetails from './components/OrderDetails'
@@ -13,6 +13,12 @@ import ControlBox from './components/ControlBox'
 type Props = {}
 
 const page = (props: Props) => {
+  const [products, setProducts] = React.useState([] as any)
+  const productHandler = { products, setProducts }
+
+  useEffect(()=>{
+    console.log(`Products`, products)
+  },[products])
 
   const handleSavePurchaseOrder = async () => {
     const data = {
@@ -57,7 +63,7 @@ const page = (props: Props) => {
           <OrderDetails />
         </div>
         <Separator />
-        <ControlBox />
+        <ControlBox productHandler={productHandler}/>
         <Separator />
         <Grid />
       </div>

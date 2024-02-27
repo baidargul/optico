@@ -37,7 +37,7 @@ const PreviewTextBox = (props: Props) => {
         const data = {
             propertyId: property.id,
             index: 1,
-            value: String(value),
+            value: String(value).toLocaleLowerCase(),
         }
         newValues.push(data)
         props.setValues(newValues)
@@ -74,7 +74,7 @@ const PreviewTextBox = (props: Props) => {
             <div className='flex gap-1 items-center mb-1 text-site-mainText'>
                 <div>
                     {
-                        property.type === 'text' ? <TextCursor size={13} className='group-hover:rotate-180 transition-all duration-500'/> : <FileDigit size={13} className='group-hover:scale-125 transition-all duration-500' />
+                        property.type === 'text' ? <TextCursor size={13} className='group-hover:rotate-180 transition-all duration-500' /> : <FileDigit size={13} className='group-hover:scale-125 transition-all duration-500' />
                     }
 
                 </div>
