@@ -46,34 +46,42 @@ const PreviewMultipleSelection = (props: Props) => {
         }
     }, [])
 
-    const reflectChange = (value?: any) => {
+    const reflectChange = (input?: any[]) => {
         if (props.setValues && props.values) {
-            for (let item of selectedValues) {
-                let isExists = false
-                for (let target of props.values) {
-                    if (String(item) === String(target.value).toLocaleLowerCase()) {
-                        isExists = true
-                        break;
-                    }
-                }
-                if (!isExists) {
-                    const data = {
-                        propertyId: property.id,
-                        index: props.values.length + 1,
-                        value: String(item).toLocaleLowerCase()
-                    }
-                    props.setValues((prev: any) => {
-                        return [...prev, data]
-                    })
-                }
-            }
+            // Create a map to store the updated values, keyed by propertyId
+            const updatedValuesMap = new Map();
 
+            // Add existing values to the map
+            props.values.forEach((item: any) => {
+                if (!updatedValuesMap.has(item.propertyId)) {
+                    updatedValuesMap.set(item.propertyId, []);
+                }
+                updatedValuesMap.get(item.propertyId).push(item);
+            });
+
+            // Update the map with values from selectedValues for the current property
+            const currentPropertyValues = selectedValues.map((value: any, index: any) => {
+                return { propertyId: property.id, index: index + 1, value: value };
+            });
+
+            updatedValuesMap.set(property.id, currentPropertyValues);
+
+            // Convert the map back to an array of values
+            const updatedValues: any = [];
+            updatedValuesMap.forEach((values) => {
+                values.forEach((newValue: any) => {
+                    updatedValues.push(newValue);
+                });
+            });
+
+            // Update setValues with the updated array
+            props.setValues(updatedValues);
         }
-    }
-
+    };
     useEffect(() => {
-        reflectChange(selectedValues)
-    }, [selectedValues])
+        reflectChange(selectedValues);
+    }, [selectedValues]);
+
 
 
     return (
