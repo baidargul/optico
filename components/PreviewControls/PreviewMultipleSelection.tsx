@@ -36,13 +36,23 @@ const PreviewMultipleSelection = (props: Props) => {
             if (property.propertyOptions.length === 0) return
             if (!property.default) return
             const defaultValue = String(property.default.value).toLocaleLowerCase()
-            if (defaultValue) {
-                const container = selectedValues
-                if (container.includes(defaultValue)) return
-                container.push(defaultValue)
-                setSelectedValues(container)
-            }
-            reflectChange()
+            // if (defaultValue) {
+            //     const container = selectedValues
+            //     if (container.includes(defaultValue)) return
+            //     container.push(defaultValue)
+            //     setSelectedValues(container)
+            //     const data = {
+            //         propertyId: property.id,
+            //         index: 1,
+            //         value: defaultValue
+            //     }
+
+            //     if (props.setValues && props.values) {
+            //         const updatedValues = [...props.values, data]
+            //         props.setValues(updatedValues)
+            //     }
+
+            // }
         }
     }, [])
 
@@ -103,7 +113,7 @@ const PreviewMultipleSelection = (props: Props) => {
 
                         return (
                             <div key={option.id}>
-                                <Option option={option} selected={selectedValues} setSelected={setSelectedValues} />
+                                <Option option={option} selected={selectedValues} setSelected={setSelectedValues} property={property} />
                             </div>
                         )
                     })

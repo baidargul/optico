@@ -2,9 +2,10 @@
 import ToolTipProvider from '@/components/ToolTipProvider/ToolTipProvider'
 import { formalizeText } from '@/lib/my'
 import { propertyOptions } from '@prisma/client'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type Props = {
+    property: any
     option: propertyOptions
     selected: any
     setSelected: any
@@ -14,13 +15,24 @@ const Option = (props: Props) => {
     const option = props.option
     const [isSelected, setIsSelected] = React.useState(false)
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (props.selected.includes(String(option.value).toLocaleLowerCase())) {
             setIsSelected(true)
         } else {
             setIsSelected(false)
         }
     }, [props.selected])
+
+    useEffect(() => {
+        if (props.property.default) {
+            const defaultValue = String(props.property.default.value).toLocaleLowerCase()
+            if (defaultValue === String(option.value).toLocaleLowerCase()) {
+                setIsSelected(true)
+                const updatedValues = [...props.selected, String(option.value)]
+                props.setSelected(updatedValues)
+            }
+        }
+    }, [])
 
     const handleOptionClick = () => {
         props.setSelected((prevSelected: any) => {
